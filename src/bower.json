@@ -1,0 +1,22 @@
+{
+  "name": "borne_okaidi",
+  "version": "0.0.1",
+  "description": "plugins borne okaidi",
+  "main": "index.html",
+  "keywords": [
+    "borne",
+    "enfant",
+    "okaidi",
+    "-",
+    "plugins"
+  ],
+  "authors": [
+    "simon delamarre"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "dependencies": {
+    "d3": "https://github.com/mbostock/d3.git#~3.5.6",
+    "jquery-ui-draggable": "https://gist.github.com/4985610.git#~1.10.3"
+  }
+}
