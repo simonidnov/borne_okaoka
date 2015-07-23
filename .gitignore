@@ -1,0 +1,9 @@
+.DS_Store
+
+/build/
+/dist/
+/cache/
+node_modules/
+CHANGELOG
+LICENSE
+/src/bower_components
