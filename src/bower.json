@@ -17,6 +17,9 @@
   "homepage": "index.html",
   "dependencies": {
     "d3": "https://github.com/mbostock/d3.git#~3.5.6",
-    "jquery-ui-draggable": "https://gist.github.com/4985610.git#~1.10.3"
+    "jquery-ui-draggable": "https://gist.github.com/4985610.git#~1.10.3",
+    "phaser": "https://github.com/photonstorm/phaser.git#~2.4.0",
+    "jquery": "https://github.com/jquery/jquery.git#~2.1.4",
+    "gsap": "https://github.com/greensock/GreenSock-JS.git#~1.17.0"
   }
 }
