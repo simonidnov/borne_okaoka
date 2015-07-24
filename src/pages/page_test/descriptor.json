@@ -1,0 +1,11 @@
+{
+    "label":"page test",
+    "version":"0.0.0",
+    "dependencies":[
+        "bower_components/jquery/dist/jquery.min.js"
+    ],
+    "content":"index.html",
+    "styles":"page_test.css",
+    "script":"page_test.js",
+    "motion":"motion addr vid ?"
+}

@@ -1,6 +1,6 @@
 {
-  "node-main": "./js/app.js",
-  "main": "app://okaoka/",
+  "node-main": "./bin/www",
+  "main": "http://localhost:3000",
   "name": "BorneOkaidi",
   "version": "0.1.0",
   "app-id": "com.okaidi.borne",

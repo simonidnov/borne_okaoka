@@ -20,6 +20,11 @@
     "jquery-ui-draggable": "https://gist.github.com/4985610.git#~1.10.3",
     "phaser": "https://github.com/photonstorm/phaser.git#~2.4.0",
     "jquery": "https://github.com/jquery/jquery.git#~2.1.4",
-    "gsap": "https://github.com/greensock/GreenSock-JS.git#~1.17.0"
+    "gsap": "https://github.com/greensock/GreenSock-JS.git#~1.17.0",
+    "EaselJSRenderers": "https://github.com/CreateJS/EaselJSRenderers.git",
+    "SoundJS": "https://github.com/CreateJS/SoundJS.git#~0.6.1",
+    "TweenJS": "https://github.com/CreateJS/TweenJS.git#~0.6.1",
+    "EaselJS": "https://github.com/CreateJS/EaselJS.git#~0.8.1",
+    "PreloadJS": "https://github.com/CreateJS/PreloadJS.git#~0.6.1"
   }
 }
