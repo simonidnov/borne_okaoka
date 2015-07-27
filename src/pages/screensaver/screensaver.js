@@ -3,11 +3,12 @@ function screensaver(){
 }
 screensaver.prototype.init = function(){
     var self = this;
-    $('.app_content').css('background-color', colors.blue);
-    $('#logo_center').load('../../images/assets/okaoka.svg', function(e){
+    TweenMax.to($('.app_content'), .5, {'backgroundColor': colors.blue});
+    $('#logo_center').load('./images/assets/okaoka.svg', function(e){
         $('#logo_center svg').attr("class", 'center_svg');
         //$('#logo_center svg').css({"width":"80%", "height":"80%", "position":"absolute", "margin":"0 auto"});
     });
+    $('#backbutton').css('display', 'none');
     $('body').on('tap, click', function(){
         navigation.router.navigate('page/menu', {trigger:true, replace:true});
         //self.destroy();

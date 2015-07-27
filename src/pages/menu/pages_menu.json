@@ -1,32 +1,80 @@
 {
-    "01":{
-        "name":"drawing",
-        "color":"yellow",
-        "description":"this is a drawing tool"
+    "0":{
+        "01":{
+            "name":"drawing",
+            "color":"dgreen",
+            "description":"this is a drawing tool",
+            "luminence":"0.05"
+        },
+        "02":{
+            "name":"running",
+            "color":"yellow",
+            "description":"this is a runner game",
+            "luminence":"0.05"
+        },
+        "03":{
+            "name":"discs",
+            "color":"orange",
+            "description":"this is a discs game",
+            "luminence":"0.05"
+        },
+        "04":{
+            "name":"memory",
+            "color":"lighblue",
+            "description":"this is a memory game",
+            "luminence":"0.05"
+        }
     },
-    "02":{
-        "name":"runner",
-        "color":"lighblue",
-        "description":"this is a runner game"
+    "1":{
+        "05":{
+            "name":"drawing",
+            "color":"pink",
+            "description":"this is a drawing tool",
+            "luminence":"0.05"
+        },
+        "03":{
+            "name":"discs",
+            "color":"orange",
+            "description":"this is a dics memory game",
+            "luminence":"0.05"
+        },
+        "04":{
+            "name":"memory",
+            "color":"lighblue",
+            "description":"this is a memory game",
+            "luminence":"0.05"
+        }
     },
-    "03":{
-        "name":"dics",
-        "color":"green",
-        "description":"this is a dics memory game"
-    },
-    "04":{
-        "name":"memory",
-        "color":"orange",
-        "description":"this is a memory game"
-    },
-    "05":{
-        "name":"memory",
-        "color":"purple",
-        "description":"this is a memory game"
-    },
-    "06":{
-        "name":"memory",
-        "color":"pink",
-        "description":"this is a memory game"
+    "2":{
+        "05":{
+            "name":"drawing",
+            "color":"lighblue",
+            "description":"this is a drawing tool",
+            "luminence":"0.03"
+        },
+        "03":{
+            "name":"discs",
+            "color":"blue",
+            "description":"this is a dics memory game",
+            "luminence":"0.06"
+        },
+        "04":{
+            "name":"memory",
+            "color":"orange",
+            "description":"this is a memory game",
+            "luminence":"0.09"
+        },
+        "01":{
+            "name":"memory",
+            "color":"purple",
+            "description":"this is a memory game",
+            "luminence":"0.12"
+        },
+        "02":{
+            "name":"memory",
+            "color":"dgreen",
+            "description":"this is a memory game",
+            "luminence":"0.14"
+        }
     }
 }

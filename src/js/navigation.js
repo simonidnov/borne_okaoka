@@ -31,10 +31,14 @@ var navigation = {
         this.router = new Router();
         Backbone.history.start();
         this.router.navigate('page/screensaver', {trigger:true, replace:true});
+        $('#backbutton').off('tap, click').on('tap, click', function(){
+            navigation.router.navigate('page/menu', {trigger:true, replace:true});
+        });
     },
     remove_dependencies : function(){
         var self = navigation;
         delete self._page_script;
+        self._page_script = null;
         $.each(self.page_properties.dependencies, function(index, dependencie){
             delete dependencie.replace('.js', '');
             $('script[src="pages/'+self._current_page_name+'/'+dependencie+'"]').remove();
@@ -42,6 +46,9 @@ var navigation = {
         $.each(self.page_properties.styles, function(index, style){
             $('link[href="pages/'+self._current_page_name+'/'+style+'"]').remove();
         });
+        $('.app_content').html('');
+        $('head script').remove();
+        $('head style').remove();
         self.page_properties = null;
     },
     load_page : function(page){
@@ -94,6 +101,7 @@ var navigation = {
         });
     },
     init_current_page : function(callBack){
+        $('#backbutton').css('display', 'block');
         this._page_script = new window[this.page_properties.script_name];
         callBack();
     },

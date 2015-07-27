@@ -1,0 +1,9 @@
+{
+    "label":"screensaver",
+    "version":"0.0.0",
+    "dependencies":["scripts/runner.js", "../../scripts/libs/phaser.min.js"],
+    "styles":["styles/runner.css"],
+    "content":"runner.html",
+    "script_name":"runner",
+    "motion":"motion addr vid ?"
+}

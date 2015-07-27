@@ -1,0 +1,9 @@
+{
+    "label":"drawing",
+    "version":"0.0.0",
+    "dependencies":["drawing.js"],
+    "styles":["drawing.css"],
+    "content":"drawing.html",
+    "script_name":"drawing",
+    "motion":"this is a memory game engine"
+}

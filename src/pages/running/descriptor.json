@@ -1,0 +1,9 @@
+{
+    "label":"running",
+    "version":"0.0.0",
+    "dependencies":["running.js"],
+    "styles":["running.css"],
+    "content":"running.html",
+    "script_name":"running",
+    "motion":"this is a memory game engine"
+}
