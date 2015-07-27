@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Borne Okaidi</title>
+        <link rel="stylesheet" type="text/css" href="css/app.css">
+    </head>
+    <body>
+        <div class="app_content">
+        </div>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/jquery-ui-draggable/jquery-ui-draggable.js"></script>
+        <script src="bower_components/underscore/underscore-min.js"></script>
+        <script src="bower_components/backbone/backbone-min.js"></script>
+        <script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
+        <script src="bower_components/gsap/src/minified/easing/EasePack.min.js"></script>
+        <script src="bower_components/PreloadJS/lib/preloadjs-0.6.1.combined.js"></script>
+        <script src="js/utilities.js"></script>
+        <!--<script src="js/app.js"></script>-->
+        <script src="js/navigation.js"></script>
+        <script>
+            $(document).ready(function(){
+                //gui.Window.get().showDevTools();
+                navigation.init();
+            });
+        </script>
+    </body>
+</html>

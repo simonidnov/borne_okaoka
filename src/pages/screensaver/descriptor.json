@@ -1,0 +1,9 @@
+{
+    "label":"screensaver",
+    "version":"0.0.0",
+    "dependencies":["screensaver.js"],
+    "styles":["screensaver.css"],
+    "content":"screensaver.html",
+    "script_name":"screensaver",
+    "motion":"motion addr vid ?"
+}

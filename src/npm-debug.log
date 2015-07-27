@@ -1,0 +1,774 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'angular',
+1 verbose cli   'angular-new-router' ]
+2 info using npm@2.13.1
+3 info using node@v0.12.4
+4 verbose node symlink /usr/local/bin/node
+5 verbose install initial load of /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/package.json
+6 warn package.json BorneOkaidi@0.1.0 No description
+7 warn package.json BorneOkaidi@0.1.0 No repository field.
+8 warn package.json BorneOkaidi@0.1.0 No README data
+9 warn package.json BorneOkaidi@0.1.0 No license field.
+10 verbose installManyTop reading scoped package data from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/async/package.json
+11 verbose installManyTop reading scoped package data from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/auto-launch/package.json
+12 verbose installManyTop reading scoped package data from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/express/package.json
+13 verbose installManyTop reading scoped package data from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/jfs/package.json
+14 verbose installManyTop reading scoped package data from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/request/package.json
+15 verbose installManyTop reading scoped package data from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/semver/package.json
+16 verbose readDependencies loading dependencies from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/package.json
+17 silly cache add args [ 'angular', null ]
+18 verbose cache add spec angular
+19 silly cache add args [ 'angular-new-router', null ]
+20 verbose cache add spec angular-new-router
+21 silly cache add parsed spec { raw: 'angular',
+21 silly cache add   scope: null,
+21 silly cache add   name: 'angular',
+21 silly cache add   rawSpec: '',
+21 silly cache add   spec: '*',
+21 silly cache add   type: 'range' }
+22 silly addNamed angular@*
+23 verbose addNamed "*" is a valid semver range for angular
+24 silly addNameRange { name: 'angular', range: '*', hasData: false }
+25 silly mapToRegistry name angular
+26 silly mapToRegistry using default registry
+27 silly mapToRegistry registry https://registry.npmjs.org/
+28 silly mapToRegistry uri https://registry.npmjs.org/angular
+29 verbose addNameRange registry:https://registry.npmjs.org/angular not in flight; fetching
+30 silly cache add parsed spec { raw: 'angular-new-router',
+30 silly cache add   scope: null,
+30 silly cache add   name: 'angular-new-router',
+30 silly cache add   rawSpec: '',
+30 silly cache add   spec: '*',
+30 silly cache add   type: 'range' }
+31 silly addNamed angular-new-router@*
+32 verbose addNamed "*" is a valid semver range for angular-new-router
+33 silly addNameRange { name: 'angular-new-router', range: '*', hasData: false }
+34 silly mapToRegistry name angular-new-router
+35 silly mapToRegistry using default registry
+36 silly mapToRegistry registry https://registry.npmjs.org/
+37 silly mapToRegistry uri https://registry.npmjs.org/angular-new-router
+38 verbose addNameRange registry:https://registry.npmjs.org/angular-new-router not in flight; fetching
+39 verbose request uri https://registry.npmjs.org/angular-new-router
+40 verbose request no auth needed
+41 info attempt registry request try #1 at 13:51:31
+42 verbose request id 45f0ad40e867c844
+43 http request GET https://registry.npmjs.org/angular-new-router
+44 verbose request uri https://registry.npmjs.org/angular
+45 verbose request no auth needed
+46 info attempt registry request try #1 at 13:51:31
+47 http request GET https://registry.npmjs.org/angular
+48 http 200 https://registry.npmjs.org/angular-new-router
+49 silly get cb [ 200,
+49 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+49 silly get     etag: '"6ZPZ0J93GUK3SAK8J91V5NZ9Z"',
+49 silly get     'content-type': 'application/json',
+49 silly get     'cache-control': 'max-age=60',
+49 silly get     'content-length': '20871',
+49 silly get     'accept-ranges': 'bytes',
+49 silly get     date: 'Fri, 24 Jul 2015 11:51:29 GMT',
+49 silly get     via: '1.1 varnish',
+49 silly get     age: '0',
+49 silly get     connection: 'keep-alive',
+49 silly get     'x-served-by': 'cache-lhr6328-LHR',
+49 silly get     'x-cache': 'MISS',
+49 silly get     'x-cache-hits': '0',
+49 silly get     'x-timer': 'S1437738689.205427,VS0,VE171',
+49 silly get     vary: 'Accept' } ]
+50 verbose get saving angular-new-router to /Users/sdelamarre/.npm/registry.npmjs.org/angular-new-router/.cache.json
+51 silly addNameRange number 2 { name: 'angular-new-router', range: '*', hasData: true }
+52 silly addNameRange versions [ 'angular-new-router',
+52 silly addNameRange   [ '0.0.1',
+52 silly addNameRange     '0.0.2',
+52 silly addNameRange     '0.1.0',
+52 silly addNameRange     '0.2.0',
+52 silly addNameRange     '0.3.0',
+52 silly addNameRange     '0.4.0',
+52 silly addNameRange     '0.5.0',
+52 silly addNameRange     '0.5.1',
+52 silly addNameRange     '0.5.2',
+52 silly addNameRange     '0.5.3' ] ]
+53 silly addNamed angular-new-router@0.5.3
+54 verbose addNamed "0.5.3" is a plain semver version for angular-new-router
+55 silly mapToRegistry name angular-new-router
+56 silly mapToRegistry using default registry
+57 silly mapToRegistry registry https://registry.npmjs.org/
+58 silly mapToRegistry uri https://registry.npmjs.org/angular-new-router
+59 verbose addRemoteTarball https://registry.npmjs.org/angular-new-router/-/angular-new-router-0.5.3.tgz not in flight; adding
+60 verbose addRemoteTarball [ 'https://registry.npmjs.org/angular-new-router/-/angular-new-router-0.5.3.tgz',
+60 verbose addRemoteTarball   '79e5eec2674b0b85cd7f36915716ba33a7734ab8' ]
+61 info retry fetch attempt 1 at 13:51:31
+62 info attempt registry request try #1 at 13:51:31
+63 http fetch GET https://registry.npmjs.org/angular-new-router/-/angular-new-router-0.5.3.tgz
+64 http fetch 200 https://registry.npmjs.org/angular-new-router/-/angular-new-router-0.5.3.tgz
+65 silly fetchAndShaCheck shasum 79e5eec2674b0b85cd7f36915716ba33a7734ab8
+66 verbose addTmpTarball /var/folders/c8/qk_630cn6314c8hn8m0l2r4r0000gn/T/npm-94036-46fd2302/registry.npmjs.org/angular-new-router/-/angular-new-router-0.5.3.tgz not in flight; adding
+67 verbose addTmpTarball already have metadata; skipping unpack for angular-new-router@0.5.3
+68 silly cache afterAdd angular-new-router@0.5.3
+69 verbose afterAdd /Users/sdelamarre/.npm/angular-new-router/0.5.3/package/package.json not in flight; writing
+70 verbose afterAdd /Users/sdelamarre/.npm/angular-new-router/0.5.3/package/package.json written
+71 http 200 https://registry.npmjs.org/angular
+72 silly get cb [ 200,
+72 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+72 silly get     etag: '"ELMT5XXJJ96JSP6W32KNDP1IP"',
+72 silly get     'content-type': 'application/json',
+72 silly get     'cache-control': 'max-age=60',
+72 silly get     'content-length': '98081',
+72 silly get     'accept-ranges': 'bytes',
+72 silly get     date: 'Fri, 24 Jul 2015 11:51:29 GMT',
+72 silly get     via: '1.1 varnish',
+72 silly get     age: '0',
+72 silly get     connection: 'keep-alive',
+72 silly get     'x-served-by': 'cache-lhr6331-LHR',
+72 silly get     'x-cache': 'HIT',
+72 silly get     'x-cache-hits': '1',
+72 silly get     'x-timer': 'S1437738688.929018,VS0,VE641',
+72 silly get     vary: 'Accept' } ]
+73 verbose get saving angular to /Users/sdelamarre/.npm/registry.npmjs.org/angular/.cache.json
+74 silly addNameRange number 2 { name: 'angular', range: '*', hasData: true }
+75 silly addNameRange versions [ 'angular',
+75 silly addNameRange   [ '0.0.1',
+75 silly addNameRange     '0.0.1-1',
+75 silly addNameRange     '0.0.1-2',
+75 silly addNameRange     '0.0.2',
+75 silly addNameRange     '0.0.3',
+75 silly addNameRange     '0.0.4',
+75 silly addNameRange     '1.0.0',
+75 silly addNameRange     '1.0.1',
+75 silly addNameRange     '1.0.2',
+75 silly addNameRange     '1.0.3',
+75 silly addNameRange     '1.0.4',
+75 silly addNameRange     '1.0.5',
+75 silly addNameRange     '1.0.6',
+75 silly addNameRange     '1.0.7',
+75 silly addNameRange     '1.0.8',
+75 silly addNameRange     '1.1.0',
+75 silly addNameRange     '1.1.1',
+75 silly addNameRange     '1.1.2',
+75 silly addNameRange     '1.1.3',
+75 silly addNameRange     '1.1.4',
+75 silly addNameRange     '1.1.5',
+75 silly addNameRange     '1.2.0',
+75 silly addNameRange     '1.2.1',
+75 silly addNameRange     '1.2.2',
+75 silly addNameRange     '1.2.3',
+75 silly addNameRange     '1.2.4',
+75 silly addNameRange     '1.2.5',
+75 silly addNameRange     '1.2.6',
+75 silly addNameRange     '1.2.7',
+75 silly addNameRange     '1.2.8',
+75 silly addNameRange     '1.2.9',
+75 silly addNameRange     '1.2.10',
+75 silly addNameRange     '1.2.11',
+75 silly addNameRange     '1.2.12',
+75 silly addNameRange     '1.2.13',
+75 silly addNameRange     '1.2.14',
+75 silly addNameRange     '1.2.15',
+75 silly addNameRange     '1.2.16',
+75 silly addNameRange     '1.2.17',
+75 silly addNameRange     '1.2.18',
+75 silly addNameRange     '1.2.19',
+75 silly addNameRange     '1.2.20',
+75 silly addNameRange     '1.2.21',
+75 silly addNameRange     '1.2.22',
+75 silly addNameRange     '1.2.23',
+75 silly addNameRange     '1.3.0-rc.5',
+75 silly addNameRange     '1.3.0',
+75 silly addNameRange     '1.3.1',
+75 silly addNameRange     '1.3.2',
+75 silly addNameRange     '1.3.3',
+75 silly addNameRange     '1.3.4-build.3588',
+75 silly addNameRange     '1.2.27',
+75 silly addNameRange     '1.3.4',
+75 silly addNameRange     '1.3.5',
+75 silly addNameRange     '1.3.6',
+75 silly addNameRange     '1.3.7',
+75 silly addNameRange     '1.2.28',
+75 silly addNameRange     '1.3.8',
+75 silly addNameRange     '1.4.0-beta.0',
+75 silly addNameRange     '1.3.9',
+75 silly addNameRange     '1.3.10',
+75 silly addNameRange     '1.4.0-beta.1',
+75 silly addNameRange     '1.4.0-beta.2',
+75 silly addNameRange     '1.3.11',
+75 silly addNameRange     '1.4.0-beta.3',
+75 silly addNameRange     '1.3.12',
+75 silly addNameRange     '1.3.13',
+75 silly addNameRange     '1.4.0-beta.4',
+75 silly addNameRange     '1.3.14',
+75 silly addNameRange     '1.4.0-beta.5',
+75 silly addNameRange     '1.4.0-beta.6',
+75 silly addNameRange     '1.3.15',
+75 silly addNameRange     '1.4.0-rc.0',
+75 silly addNameRange     '1.4.0-rc.1',
+75 silly addNameRange     '1.4.0-rc.2',
+75 silly addNameRange     '1.4.0',
+75 silly addNameRange     '1.3.16',
+75 silly addNameRange     '1.4.1',
+75 silly addNameRange     '1.4.2',
+75 silly addNameRange     '1.3.17',
+75 silly addNameRange     '1.4.3' ] ]
+76 silly addNamed angular@1.4.3
+77 verbose addNamed "1.4.3" is a plain semver version for angular
+78 silly mapToRegistry name angular
+79 silly mapToRegistry using default registry
+80 silly mapToRegistry registry https://registry.npmjs.org/
+81 silly mapToRegistry uri https://registry.npmjs.org/angular
+82 verbose addRemoteTarball https://registry.npmjs.org/angular/-/angular-1.4.3.tgz not in flight; adding
+83 verbose addRemoteTarball [ 'https://registry.npmjs.org/angular/-/angular-1.4.3.tgz',
+83 verbose addRemoteTarball   '3af723461789bd0b9fad9d96da25769f207dc1e2' ]
+84 info retry fetch attempt 1 at 13:51:32
+85 info attempt registry request try #1 at 13:51:32
+86 http fetch GET https://registry.npmjs.org/angular/-/angular-1.4.3.tgz
+87 http fetch 200 https://registry.npmjs.org/angular/-/angular-1.4.3.tgz
+88 silly fetchAndShaCheck shasum 3af723461789bd0b9fad9d96da25769f207dc1e2
+89 verbose addTmpTarball /var/folders/c8/qk_630cn6314c8hn8m0l2r4r0000gn/T/npm-94036-46fd2302/registry.npmjs.org/angular/-/angular-1.4.3.tgz not in flight; adding
+90 verbose addTmpTarball already have metadata; skipping unpack for angular@1.4.3
+91 silly cache afterAdd angular@1.4.3
+92 verbose afterAdd /Users/sdelamarre/.npm/angular/1.4.3/package/package.json not in flight; writing
+93 verbose afterAdd /Users/sdelamarre/.npm/angular/1.4.3/package/package.json written
+94 silly install resolved [ { name: 'angular-new-router',
+94 silly install resolved     version: '0.5.3',
+94 silly install resolved     description: 'A new router for both Angular 1 and Angular 2',
+94 silly install resolved     homepage: 'https://github.com/angular/router',
+94 silly install resolved     main: 'dist/router.es5.js',
+94 silly install resolved     repository: { type: 'git', url: 'git://github.com/angular/router.git' },
+94 silly install resolved     bugs: { url: 'https://github.com/angular/router/issues' },
+94 silly install resolved     dependencies:
+94 silly install resolved      { requirejs: '^2.1.15',
+94 silly install resolved        'route-recognizer': 'git://github.com/btford/route-recognizer',
+94 silly install resolved        traceur: '^0.0.72' },
+94 silly install resolved     devDependencies:
+94 silly install resolved      { angular: '^1.3.7',
+94 silly install resolved        'angular-animate': '^1.3.7',
+94 silly install resolved        'angular-aria': '^1.3.7',
+94 silly install resolved        'angular-mocks': '^1.3.7',
+94 silly install resolved        'angular-modal': '^0.5.0',
+94 silly install resolved        'angular-resource': '^1.3.7',
+94 silly install resolved        assert: 'git+https://github.com/angular/assert#dist',
+94 silly install resolved        'canonical-path': '0.0.2',
+94 silly install resolved        dgeni: '^0.4.1',
+94 silly install resolved        'dgeni-packages': '^0.10.8',
+94 silly install resolved        'escape-regexp': '0.0.1',
+94 silly install resolved        eshighlight: '^0.2.2',
+94 silly install resolved        falafel: '^0.3.1',
+94 silly install resolved        gulp: '^3.8.9',
+94 silly install resolved        'gulp-concat': '^2.4.2',
+94 silly install resolved        'gulp-connect': '^2.0.6',
+94 silly install resolved        'gulp-merge': '^0.1.0',
+94 silly install resolved        'gulp-ng-annotate': '^0.5.2',
+94 silly install resolved        'gulp-rename': '^1.2.0',
+94 silly install resolved        'gulp-traceur': '^0.13.0',
+94 silly install resolved        'gulp-uglify': '^1.1.0',
+94 silly install resolved        'highlight.js': '^8.4.0',
+94 silly install resolved        karma: '^0.12.24',
+94 silly install resolved        'karma-chrome-launcher': '^0.1.5',
+94 silly install resolved        'karma-firefox-launcher': '^0.1.3',
+94 silly install resolved        'karma-jasmine': '^0.2.2',
+94 silly install resolved        'karma-requirejs': '^0.2.2',
+94 silly install resolved        'karma-sauce-launcher': '^0.2.9',
+94 silly install resolved        'karma-traceur-preprocessor': '^0.4.0',
+94 silly install resolved        lodash: '^2.4.1',
+94 silly install resolved        marked: '^0.3.2',
+94 silly install resolved        protractor: '^0.21.0',
+94 silly install resolved        q: '^1.1.2',
+94 silly install resolved        through2: '^0.4.1' },
+94 silly install resolved     scripts: { test: 'karma start --single-run' },
+94 silly install resolved     author: { name: 'Angular Core Team' },
+94 silly install resolved     license: 'Apache-2.0',
+94 silly install resolved     gitHead: 'c7b6b498c551754cc07d4b56a74fd951cbe2a483',
+94 silly install resolved     _id: 'angular-new-router@0.5.3',
+94 silly install resolved     _shasum: '79e5eec2674b0b85cd7f36915716ba33a7734ab8',
+94 silly install resolved     _from: 'angular-new-router@*',
+94 silly install resolved     _npmVersion: '2.7.0',
+94 silly install resolved     _nodeVersion: '0.10.35',
+94 silly install resolved     _npmUser: { name: 'btford', email: 'briantford@gmail.com' },
+94 silly install resolved     maintainers: [ [Object] ],
+94 silly install resolved     dist:
+94 silly install resolved      { shasum: '79e5eec2674b0b85cd7f36915716ba33a7734ab8',
+94 silly install resolved        tarball: 'http://registry.npmjs.org/angular-new-router/-/angular-new-router-0.5.3.tgz' },
+94 silly install resolved     directories: {},
+94 silly install resolved     _resolved: 'https://registry.npmjs.org/angular-new-router/-/angular-new-router-0.5.3.tgz' },
+94 silly install resolved   { name: 'angular',
+94 silly install resolved     version: '1.4.3',
+94 silly install resolved     description: 'HTML enhanced for web apps',
+94 silly install resolved     main: 'index.js',
+94 silly install resolved     scripts: { test: 'echo "Error: no test specified" && exit 1' },
+94 silly install resolved     repository:
+94 silly install resolved      { type: 'git',
+94 silly install resolved        url: 'https://github.com/angular/angular.js.git' },
+94 silly install resolved     keywords: [ 'angular', 'framework', 'browser', 'client-side' ],
+94 silly install resolved     author:
+94 silly install resolved      { name: 'Angular Core Team',
+94 silly install resolved        email: 'angular-core+npm@google.com' },
+94 silly install resolved     license: 'MIT',
+94 silly install resolved     bugs: { url: 'https://github.com/angular/angular.js/issues' },
+94 silly install resolved     homepage: 'http://angularjs.org',
+94 silly install resolved     gitHead: 'dbd689e8103a6366e53e1f6786727f7c65ccfd75',
+94 silly install resolved     _id: 'angular@1.4.3',
+94 silly install resolved     _shasum: '3af723461789bd0b9fad9d96da25769f207dc1e2',
+94 silly install resolved     _from: 'angular@*',
+94 silly install resolved     _npmVersion: '2.0.2',
+94 silly install resolved     _nodeVersion: '0.10.26',
+94 silly install resolved     _npmUser: { name: 'angularcore', email: 'angular-core+npm@google.com' },
+94 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
+94 silly install resolved     dist:
+94 silly install resolved      { shasum: '3af723461789bd0b9fad9d96da25769f207dc1e2',
+94 silly install resolved        tarball: 'http://registry.npmjs.org/angular/-/angular-1.4.3.tgz' },
+94 silly install resolved     directories: {},
+94 silly install resolved     _resolved: 'https://registry.npmjs.org/angular/-/angular-1.4.3.tgz' } ]
+95 info install angular-new-router@0.5.3 into /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src
+96 info install angular@1.4.3 into /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src
+97 info installOne angular-new-router@0.5.3
+98 verbose installOne of angular-new-router to /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src not in flight; installing
+99 info installOne angular@1.4.3
+100 verbose installOne of angular to /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src not in flight; installing
+101 verbose lock using /Users/sdelamarre/.npm/_locks/angular-new-router-3615cbc67022dab2.lock for /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router
+102 verbose lock using /Users/sdelamarre/.npm/_locks/angular-2967df8ebdb95a22.lock for /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular
+103 silly install write writing angular-new-router 0.5.3 to /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router
+104 silly install write writing angular 1.4.3 to /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular
+105 verbose unbuild node_modules/angular-new-router
+106 verbose unbuild node_modules/angular
+107 silly gentlyRm /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router is being purged from base /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src
+108 verbose gentlyRm don't care about contents; nuking /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router
+109 verbose tar unpack /Users/sdelamarre/.npm/angular-new-router/0.5.3/package.tgz
+110 verbose tar unpacking to /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router
+111 silly gentlyRm /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router is being purged
+112 verbose gentlyRm don't care about contents; nuking /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router
+113 silly gentlyRm /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular is being purged from base /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src
+114 verbose gentlyRm don't care about contents; nuking /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular
+115 silly gunzTarPerm modes [ '755', '644' ]
+116 verbose tar unpack /Users/sdelamarre/.npm/angular/1.4.3/package.tgz
+117 verbose tar unpacking to /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular
+118 silly gentlyRm /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular is being purged
+119 verbose gentlyRm don't care about contents; nuking /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular
+120 silly gunzTarPerm modes [ '755', '644' ]
+121 silly gunzTarPerm extractEntry package.json
+122 silly gunzTarPerm extractEntry package.json
+123 silly gunzTarPerm extractEntry .npmignore
+124 silly gunzTarPerm extractEntry README.md
+125 silly gunzTarPerm extractEntry README.md
+126 silly gunzTarPerm extractEntry angular.js
+127 silly gunzTarPerm extractEntry LICENSE
+128 silly gunzTarPerm extractEntry protractor.travis.conf.js
+129 silly gunzTarPerm extractEntry gulpfile.js
+130 silly gunzTarPerm extractEntry karma.conf.js
+131 silly gunzTarPerm extractEntry karma.es5.conf.js
+132 silly gunzTarPerm extractEntry protractor.conf.js
+133 silly gunzTarPerm extractEntry index.js
+134 silly gunzTarPerm extractEntry dist/grammar.js
+135 silly gunzTarPerm extractEntry dist/pipeline.js
+136 silly gunzTarPerm extractEntry dist/router.es5.js
+137 silly gunzTarPerm extractEntry dist/router.es5.min.js
+138 silly gunzTarPerm extractEntry dist/router.js
+139 silly gunzTarPerm extractEntry dist/docs/highlight.css
+140 silly gunzTarPerm extractEntry dist/docs/$componentLoaderProvider.html
+141 silly gunzTarPerm extractEntry dist/docs/Pipeline.html
+142 silly gunzTarPerm extractEntry dist/docs/RootRouter.html
+143 silly gunzTarPerm extractEntry dist/docs/configuration.html
+144 silly gunzTarPerm extractEntry dist/docs/getting-started.html
+145 silly gunzTarPerm extractEntry dist/docs/Grammar.html
+146 silly gunzTarPerm extractEntry dist/docs/index.html
+147 silly gunzTarPerm extractEntry dist/docs/lifecycle.html
+148 silly gunzTarPerm extractEntry dist/docs/ngLink.html
+149 silly gunzTarPerm extractEntry dist/docs/ngViewport.html
+150 silly gunzTarPerm extractEntry dist/docs/style.css
+151 silly gunzTarPerm extractEntry config.json
+152 silly gunzTarPerm extractEntry .editorconfig
+153 silly gunzTarPerm extractEntry angular.min.js
+154 silly gunzTarPerm extractEntry docs/dgeni.conf.js
+155 silly gunzTarPerm extractEntry index.js
+156 silly gunzTarPerm extractEntry docs/content/configuration.md
+157 silly gunzTarPerm extractEntry docs/content/getting-started.md
+158 silly gunzTarPerm extractEntry docs/content/lifecycle.md
+159 silly gunzTarPerm extractEntry angular-csp.css
+160 silly gunzTarPerm extractEntry docs/file-readers/markdown.js
+161 silly gunzTarPerm extractEntry angular.min.js.gzip
+162 silly gunzTarPerm extractEntry docs/highlight.css
+163 silly gunzTarPerm extractEntry docs/processors/addMethodsToService.js
+164 silly gunzTarPerm extractEntry docs/processors/generateIndexPage.js
+165 silly gunzTarPerm extractEntry docs/processors/markdown.js
+166 silly gunzTarPerm extractEntry docs/rendering/docTypeLabel.js
+167 silly gunzTarPerm extractEntry docs/rendering/relativeLinkInlineTag.js
+168 silly gunzTarPerm extractEntry angular.min.js.map
+169 silly gunzTarPerm extractEntry docs/style.css
+170 silly gunzTarPerm extractEntry docs/templates/index.template.html
+171 silly gunzTarPerm extractEntry docs/templates/js.template.html
+172 silly gunzTarPerm extractEntry docs/templates/layout/base.template.html
+173 silly gunzTarPerm extractEntry docs/templates/markdown.template.html
+174 silly gunzTarPerm extractEntry docs/traceur-package/index.js
+175 silly gunzTarPerm extractEntry docs/traceur-package/processors/generateDocsFromComments.js
+176 silly gunzTarPerm extractEntry docs/traceur-package/processors/processClassDocs.js
+177 silly gunzTarPerm extractEntry docs/traceur-package/processors/processModuleDocs.js
+178 silly gunzTarPerm extractEntry docs/traceur-package/readers/atScript.js
+179 silly gunzTarPerm extractEntry docs/traceur-package/readers/atScript.spec.js
+180 silly gunzTarPerm extractEntry docs/traceur-package/services/AttachCommentTreeVisitor.js
+181 silly gunzTarPerm extractEntry bower.json
+182 silly gunzTarPerm extractEntry docs/traceur-package/services/ExportTreeVisitor.js
+183 silly gunzTarPerm extractEntry docs/traceur-package/services/atParser.js
+184 silly gunzTarPerm extractEntry docs/traceur-package/services/atParser.spec.js
+185 silly gunzTarPerm extractEntry docs/traceur-package/services/getJSDocComment.js
+186 silly gunzTarPerm extractEntry docs/traceur-package/services/getJSDocComment.spec.js
+187 silly gunzTarPerm extractEntry docs/traceur-package/services/traceur.js
+188 silly gunzTarPerm extractEntry docs/traceur-package/templates/data-module.template.js
+189 silly gunzTarPerm extractEntry docs/traceur-package/templates/class.template.html
+190 silly gunzTarPerm extractEntry docs/traceur-package/templates/common.template.html
+191 silly gunzTarPerm extractEntry docs/traceur-package/templates/layout/base.template.html
+192 silly gunzTarPerm extractEntry docs/traceur-package/templates/module.template.html
+193 silly gunzTarPerm extractEntry ARCHITECTURE.md
+194 silly gunzTarPerm extractEntry CHANGELOG.md
+195 silly gunzTarPerm extractEntry CONTRIBUTING.md
+196 silly gunzTarPerm extractEntry DOCUMENTATION.md
+197 silly gunzTarPerm extractEntry src/router-directive.es5.js
+198 silly gunzTarPerm extractEntry src/grammar.ats
+199 silly gunzTarPerm extractEntry src/pipeline.ats
+200 silly gunzTarPerm extractEntry src/router.ats
+201 silly gunzTarPerm extractEntry .bowerrc
+202 silly gunzTarPerm extractEntry .travis.yml
+203 silly gunzTarPerm extractEntry config/karma.sauce.conf.js
+204 silly gunzTarPerm extractEntry config/karma.travis.conf.js
+205 silly gunzTarPerm extractEntry test/component-loader.es5.spec.js
+206 silly gunzTarPerm extractEntry test/controller-introspector.es5.spec.js
+207 silly gunzTarPerm extractEntry test/main.js
+208 silly gunzTarPerm extractEntry test/pipeline.es5.spec.js
+209 silly gunzTarPerm extractEntry test/router-viewport.es5.spec.js
+210 silly gunzTarPerm extractEntry test/util.es5.js
+211 silly gunzTarPerm extractEntry test/router.spec.ats
+212 verbose write writing to /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router/package.json
+213 info preinstall angular-new-router@0.5.3
+214 verbose readDependencies loading dependencies from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router/package.json
+215 silly prepareForInstallMany adding requirejs@^2.1.15 from angular-new-router dependencies
+216 silly prepareForInstallMany adding route-recognizer@git://github.com/btford/route-recognizer.git from angular-new-router dependencies
+217 silly prepareForInstallMany adding traceur@^0.0.72 from angular-new-router dependencies
+218 verbose readDependencies loading dependencies from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router/package.json
+219 silly cache add args [ 'requirejs@^2.1.15', null ]
+220 verbose cache add spec requirejs@^2.1.15
+221 silly cache add args [ 'route-recognizer@git://github.com/btford/route-recognizer.git',
+221 silly cache add   null ]
+222 verbose cache add spec route-recognizer@git://github.com/btford/route-recognizer.git
+223 silly cache add parsed spec { raw: 'requirejs@^2.1.15',
+223 silly cache add   scope: null,
+223 silly cache add   name: 'requirejs',
+223 silly cache add   rawSpec: '^2.1.15',
+223 silly cache add   spec: '>=2.1.15 <3.0.0',
+223 silly cache add   type: 'range' }
+224 silly addNamed requirejs@>=2.1.15 <3.0.0
+225 verbose addNamed ">=2.1.15 <3.0.0" is a valid semver range for requirejs
+226 silly addNameRange { name: 'requirejs', range: '>=2.1.15 <3.0.0', hasData: false }
+227 silly mapToRegistry name requirejs
+228 silly mapToRegistry using default registry
+229 silly mapToRegistry registry https://registry.npmjs.org/
+230 silly mapToRegistry uri https://registry.npmjs.org/requirejs
+231 verbose addNameRange registry:https://registry.npmjs.org/requirejs not in flight; fetching
+232 silly cache add args [ 'traceur@^0.0.72', null ]
+233 verbose cache add spec traceur@^0.0.72
+234 silly cache add parsed spec { raw: 'traceur@^0.0.72',
+234 silly cache add   scope: null,
+234 silly cache add   name: 'traceur',
+234 silly cache add   rawSpec: '^0.0.72',
+234 silly cache add   spec: '>=0.0.72 <0.0.73',
+234 silly cache add   type: 'range' }
+235 silly addNamed traceur@>=0.0.72 <0.0.73
+236 verbose addNamed ">=0.0.72 <0.0.73" is a valid semver range for traceur
+237 silly addNameRange { name: 'traceur', range: '>=0.0.72 <0.0.73', hasData: false }
+238 silly mapToRegistry name traceur
+239 silly mapToRegistry using default registry
+240 silly mapToRegistry registry https://registry.npmjs.org/
+241 silly mapToRegistry uri https://registry.npmjs.org/traceur
+242 verbose addNameRange registry:https://registry.npmjs.org/traceur not in flight; fetching
+243 silly cache add parsed spec { raw: 'route-recognizer@git://github.com/btford/route-recognizer.git',
+243 silly cache add   scope: null,
+243 silly cache add   name: 'route-recognizer',
+243 silly cache add   rawSpec: 'git://github.com/btford/route-recognizer.git',
+243 silly cache add   spec: 'git://github.com/btford/route-recognizer.git',
+243 silly cache add   type: 'hosted',
+243 silly cache add   hosted:
+243 silly cache add    { type: 'github',
+243 silly cache add      ssh: 'git@github.com:btford/route-recognizer.git',
+243 silly cache add      sshUrl: 'git+ssh://git@github.com/btford/route-recognizer.git',
+243 silly cache add      httpsUrl: 'git+https://github.com/btford/route-recognizer.git',
+243 silly cache add      gitUrl: 'git://github.com/btford/route-recognizer.git',
+243 silly cache add      shortcut: 'github:btford/route-recognizer',
+243 silly cache add      directUrl: 'https://raw.githubusercontent.com/btford/route-recognizer/master/package.json' } }
+244 verbose addRemoteGit caching git://github.com/btford/route-recognizer.git
+245 verbose addRemoteGit git://github.com/btford/route-recognizer.git is a repository hosted by github
+246 silly tryClone cloning git://github.com/btford/route-recognizer.git via git://github.com/btford/route-recognizer.git
+247 verbose tryClone git-github-com-btford-route-recognizer-git-99ace589 not in flight; caching
+248 verbose request uri https://registry.npmjs.org/requirejs
+249 verbose request no auth needed
+250 info attempt registry request try #1 at 13:51:33
+251 http request GET https://registry.npmjs.org/requirejs
+252 verbose request uri https://registry.npmjs.org/traceur
+253 verbose request no auth needed
+254 info attempt registry request try #1 at 13:51:33
+255 http request GET https://registry.npmjs.org/traceur
+256 verbose makeDirectory /Users/sdelamarre/.npm/_git-remotes creation not in flight; initializing
+257 silly makeDirectory /Users/sdelamarre/.npm/_git-remotes uid: 501 gid: 20
+258 info git [ 'clone',
+258 info git   '--template=/Users/sdelamarre/.npm/_git-remotes/_templates',
+258 info git   '--mirror',
+258 info git   'git://github.com/btford/route-recognizer.git',
+258 info git   '/Users/sdelamarre/.npm/_git-remotes/git-github-com-btford-route-recognizer-git-99ace589' ]
+259 verbose write writing to /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular/package.json
+260 info preinstall angular@1.4.3
+261 verbose readDependencies loading dependencies from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular/package.json
+262 verbose readDependencies loading dependencies from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular/package.json
+263 silly install resolved []
+264 verbose about to build /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular
+265 info build /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular
+266 info linkStuff angular@1.4.3
+267 silly linkStuff angular@1.4.3 has /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules as its parent node_modules
+268 verbose linkBins angular@1.4.3
+269 verbose linkMans angular@1.4.3
+270 verbose rebuildBundles angular@1.4.3
+271 info install angular@1.4.3
+272 info postinstall angular@1.4.3
+273 verbose unlock done using /Users/sdelamarre/.npm/_locks/angular-2967df8ebdb95a22.lock for /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular
+274 http 200 https://registry.npmjs.org/requirejs
+275 silly get cb [ 200,
+275 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+275 silly get     etag: '"6Y0AR3IXYFAXD01KDU9PXKAFN"',
+275 silly get     'content-type': 'application/json',
+275 silly get     'cache-control': 'max-age=60',
+275 silly get     'content-length': '40391',
+275 silly get     'accept-ranges': 'bytes',
+275 silly get     date: 'Fri, 24 Jul 2015 11:51:31 GMT',
+275 silly get     via: '1.1 varnish',
+275 silly get     age: '39',
+275 silly get     connection: 'keep-alive',
+275 silly get     'x-served-by': 'cache-lhr6321-LHR',
+275 silly get     'x-cache': 'HIT',
+275 silly get     'x-cache-hits': '1',
+275 silly get     'x-timer': 'S1437738691.195403,VS0,VE1',
+275 silly get     vary: 'Accept' } ]
+276 verbose get saving requirejs to /Users/sdelamarre/.npm/registry.npmjs.org/requirejs/.cache.json
+277 silly addNameRange number 2 { name: 'requirejs', range: '>=2.1.15 <3.0.0', hasData: true }
+278 silly addNameRange versions [ 'requirejs',
+278 silly addNameRange   [ '0.26.0',
+278 silly addNameRange     '0.27.0',
+278 silly addNameRange     '0.27.1',
+278 silly addNameRange     '1.0.0',
+278 silly addNameRange     '1.0.1',
+278 silly addNameRange     '1.0.2',
+278 silly addNameRange     '1.0.3',
+278 silly addNameRange     '1.0.4',
+278 silly addNameRange     '1.0.5',
+278 silly addNameRange     '1.0.6',
+278 silly addNameRange     '1.0.7',
+278 silly addNameRange     '1.0.8',
+278 silly addNameRange     '2.0.0',
+278 silly addNameRange     '2.0.1',
+278 silly addNameRange     '2.0.2',
+278 silly addNameRange     '2.0.3',
+278 silly addNameRange     '2.0.4',
+278 silly addNameRange     '2.0.5',
+278 silly addNameRange     '2.0.6',
+278 silly addNameRange     '2.1.0',
+278 silly addNameRange     '2.1.1',
+278 silly addNameRange     '2.1.2',
+278 silly addNameRange     '2.1.3',
+278 silly addNameRange     '2.1.4',
+278 silly addNameRange     '2.1.5',
+278 silly addNameRange     '2.1.6',
+278 silly addNameRange     '2.1.7',
+278 silly addNameRange     '2.1.8',
+278 silly addNameRange     '2.1.9',
+278 silly addNameRange     '2.1.10',
+278 silly addNameRange     '2.1.11',
+278 silly addNameRange     '2.1.12',
+278 silly addNameRange     '2.1.13',
+278 silly addNameRange     '2.1.14',
+278 silly addNameRange     '2.1.15',
+278 silly addNameRange     '2.1.16',
+278 silly addNameRange     '2.1.17',
+278 silly addNameRange     '2.1.18',
+278 silly addNameRange     '2.1.19' ] ]
+279 silly addNamed requirejs@2.1.19
+280 verbose addNamed "2.1.19" is a plain semver version for requirejs
+281 silly mapToRegistry name requirejs
+282 silly mapToRegistry using default registry
+283 silly mapToRegistry registry https://registry.npmjs.org/
+284 silly mapToRegistry uri https://registry.npmjs.org/requirejs
+285 verbose addRemoteTarball https://registry.npmjs.org/requirejs/-/requirejs-2.1.19.tgz not in flight; adding
+286 verbose addRemoteTarball [ 'https://registry.npmjs.org/requirejs/-/requirejs-2.1.19.tgz',
+286 verbose addRemoteTarball   'bad50434d2d0612dc7770eea1a2e0cf87542a0f5' ]
+287 info retry fetch attempt 1 at 13:51:33
+288 info attempt registry request try #1 at 13:51:33
+289 http fetch GET https://registry.npmjs.org/requirejs/-/requirejs-2.1.19.tgz
+290 http fetch 200 https://registry.npmjs.org/requirejs/-/requirejs-2.1.19.tgz
+291 http 200 https://registry.npmjs.org/traceur
+292 silly get cb [ 200,
+292 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+292 silly get     etag: '"9ENI9OZ57M4RL230BF18XQ25V"',
+292 silly get     'content-type': 'application/json',
+292 silly get     'cache-control': 'max-age=60',
+292 silly get     'content-length': '179907',
+292 silly get     'accept-ranges': 'bytes',
+292 silly get     date: 'Fri, 24 Jul 2015 11:51:31 GMT',
+292 silly get     via: '1.1 varnish',
+292 silly get     age: '0',
+292 silly get     connection: 'keep-alive',
+292 silly get     'x-served-by': 'cache-lhr6321-LHR',
+292 silly get     'x-cache': 'HIT',
+292 silly get     'x-cache-hits': '1',
+292 silly get     'x-timer': 'S1437738691.183315,VS0,VE89',
+292 silly get     vary: 'Accept' } ]
+293 verbose get saving traceur to /Users/sdelamarre/.npm/registry.npmjs.org/traceur/.cache.json
+294 silly addNameRange number 2 { name: 'traceur', range: '>=0.0.72 <0.0.73', hasData: true }
+295 silly addNameRange versions [ 'traceur',
+295 silly addNameRange   [ '0.0.1',
+295 silly addNameRange     '0.0.2',
+295 silly addNameRange     '0.0.3',
+295 silly addNameRange     '0.0.4',
+295 silly addNameRange     '0.0.5',
+295 silly addNameRange     '0.0.6',
+295 silly addNameRange     '0.0.7',
+295 silly addNameRange     '0.0.8',
+295 silly addNameRange     '0.0.9',
+295 silly addNameRange     '0.0.10',
+295 silly addNameRange     '0.0.11',
+295 silly addNameRange     '0.0.12',
+295 silly addNameRange     '0.0.13',
+295 silly addNameRange     '0.0.14',
+295 silly addNameRange     '0.0.15',
+295 silly addNameRange     '0.0.16',
+295 silly addNameRange     '0.0.17',
+295 silly addNameRange     '0.0.18',
+295 silly addNameRange     '0.0.19',
+295 silly addNameRange     '0.0.20',
+295 silly addNameRange     '0.0.21',
+295 silly addNameRange     '0.0.22',
+295 silly addNameRange     '0.0.23',
+295 silly addNameRange     '0.0.24',
+295 silly addNameRange     '0.0.25',
+295 silly addNameRange     '0.0.27',
+295 silly addNameRange     '0.0.28',
+295 silly addNameRange     '0.0.29',
+295 silly addNameRange     '0.0.30',
+295 silly addNameRange     '0.0.31',
+295 silly addNameRange     '0.0.32',
+295 silly addNameRange     '0.0.33',
+295 silly addNameRange     '0.0.34',
+295 silly addNameRange     '0.0.35',
+295 silly addNameRange     '0.0.36',
+295 silly addNameRange     '0.0.37',
+295 silly addNameRange     '0.0.38',
+295 silly addNameRange     '0.0.39',
+295 silly addNameRange     '0.0.40',
+295 silly addNameRange     '0.0.41',
+295 silly addNameRange     '0.0.42',
+295 silly addNameRange     '0.0.43',
+295 silly addNameRange     '0.0.44',
+295 silly addNameRange     '0.0.45',
+295 silly addNameRange     '0.0.46',
+295 silly addNameRange     '0.0.47',
+295 silly addNameRange     '0.0.48',
+295 silly addNameRange     '0.0.49',
+295 silly addNameRange     '0.0.50',
+295 silly addNameRange     '0.0.51',
+295 silly addNameRange     '0.0.52',
+295 silly addNameRange     '0.0.53',
+295 silly addNameRange     '0.0.54',
+295 silly addNameRange     '0.0.55',
+295 silly addNameRange     '0.0.56',
+295 silly addNameRange     '0.0.57',
+295 silly addNameRange     '0.0.58',
+295 silly addNameRange     '0.0.59',
+295 silly addNameRange     '0.0.60',
+295 silly addNameRange     '0.0.61',
+295 silly addNameRange     '0.0.62',
+295 silly addNameRange     '0.0.63',
+295 silly addNameRange     '0.0.64',
+295 silly addNameRange     '0.0.65',
+295 silly addNameRange     '0.0.66',
+295 silly addNameRange     '0.0.67',
+295 silly addNameRange     '0.0.68',
+295 silly addNameRange     '0.0.69',
+295 silly addNameRange     '0.0.70',
+295 silly addNameRange     '0.0.71',
+295 silly addNameRange     '0.0.72',
+295 silly addNameRange     '0.0.73',
+295 silly addNameRange     '0.0.74',
+295 silly addNameRange     '0.0.75',
+295 silly addNameRange     '0.0.76',
+295 silly addNameRange     '0.0.77',
+295 silly addNameRange     '0.0.78',
+295 silly addNameRange     '0.0.79',
+295 silly addNameRange     '0.0.80',
+295 silly addNameRange     '0.0.81',
+295 silly addNameRange     '0.0.82',
+295 silly addNameRange     '0.0.83',
+295 silly addNameRange     '0.0.84',
+295 silly addNameRange     '0.0.85',
+295 silly addNameRange     '0.0.86',
+295 silly addNameRange     '0.0.87',
+295 silly addNameRange     '0.0.88',
+295 silly addNameRange     '0.0.89',
+295 silly addNameRange     '0.0.90',
+295 silly addNameRange     '0.0.91' ] ]
+296 silly addNamed traceur@0.0.72
+297 verbose addNamed "0.0.72" is a plain semver version for traceur
+298 silly mapToRegistry name traceur
+299 silly mapToRegistry using default registry
+300 silly mapToRegistry registry https://registry.npmjs.org/
+301 silly mapToRegistry uri https://registry.npmjs.org/traceur
+302 verbose addRemoteTarball https://registry.npmjs.org/traceur/-/traceur-0.0.72.tgz not in flight; adding
+303 verbose addRemoteTarball [ 'https://registry.npmjs.org/traceur/-/traceur-0.0.72.tgz',
+303 verbose addRemoteTarball   '3ecb5af5c259bf0e0bef900beaa565a4e28573b9' ]
+304 info retry fetch attempt 1 at 13:51:34
+305 info attempt registry request try #1 at 13:51:34
+306 http fetch GET https://registry.npmjs.org/traceur/-/traceur-0.0.72.tgz
+307 silly fetchAndShaCheck shasum bad50434d2d0612dc7770eea1a2e0cf87542a0f5
+308 verbose addTmpTarball /var/folders/c8/qk_630cn6314c8hn8m0l2r4r0000gn/T/npm-94036-46fd2302/registry.npmjs.org/requirejs/-/requirejs-2.1.19.tgz not in flight; adding
+309 verbose addTmpTarball already have metadata; skipping unpack for requirejs@2.1.19
+310 silly cache afterAdd requirejs@2.1.19
+311 verbose afterAdd /Users/sdelamarre/.npm/requirejs/2.1.19/package/package.json not in flight; writing
+312 verbose afterAdd /Users/sdelamarre/.npm/requirejs/2.1.19/package/package.json written
+313 http fetch 200 https://registry.npmjs.org/traceur/-/traceur-0.0.72.tgz
+314 silly fetchAndShaCheck shasum 3ecb5af5c259bf0e0bef900beaa565a4e28573b9
+315 verbose addTmpTarball /var/folders/c8/qk_630cn6314c8hn8m0l2r4r0000gn/T/npm-94036-46fd2302/registry.npmjs.org/traceur/-/traceur-0.0.72.tgz not in flight; adding
+316 verbose addTmpTarball already have metadata; skipping unpack for traceur@0.0.72
+317 silly cache afterAdd traceur@0.0.72
+318 verbose afterAdd /Users/sdelamarre/.npm/traceur/0.0.72/package/package.json not in flight; writing
+319 verbose afterAdd /Users/sdelamarre/.npm/traceur/0.0.72/package/package.json written
+320 error git clone --template=/Users/sdelamarre/.npm/_git-remotes/_templates --mirror git://github.com/btford/route-recognizer.git /Users/sdelamarre/.npm/_git-remotes/git-github-com-btford-route-recognizer-git-99ace589: Cloning into bare repository '/Users/sdelamarre/.npm/_git-remotes/git-github-com-btford-route-recognizer-git-99ace589'...
+320 error git clone --template=/Users/sdelamarre/.npm/_git-remotes/_templates --mirror git://github.com/btford/route-recognizer.git /Users/sdelamarre/.npm/_git-remotes/git-github-com-btford-route-recognizer-git-99ace589: fatal: unable to connect to github.com:
+320 error git clone --template=/Users/sdelamarre/.npm/_git-remotes/_templates --mirror git://github.com/btford/route-recognizer.git /Users/sdelamarre/.npm/_git-remotes/git-github-com-btford-route-recognizer-git-99ace589: github.com[0: 192.30.252.130]: errno=Operation timed out
+321 verbose about to build /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router
+322 verbose unlock done using /Users/sdelamarre/.npm/_locks/angular-new-router-3615cbc67022dab2.lock for /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router
+323 verbose stack Error: Command failed: git clone --template=/Users/sdelamarre/.npm/_git-remotes/_templates --mirror git://github.com/btford/route-recognizer.git /Users/sdelamarre/.npm/_git-remotes/git-github-com-btford-route-recognizer-git-99ace589
+323 verbose stack Cloning into bare repository '/Users/sdelamarre/.npm/_git-remotes/git-github-com-btford-route-recognizer-git-99ace589'...
+323 verbose stack fatal: unable to connect to github.com:
+323 verbose stack github.com[0: 192.30.252.130]: errno=Operation timed out
+323 verbose stack
+323 verbose stack
+323 verbose stack     at ChildProcess.exithandler (child_process.js:751:12)
+323 verbose stack     at ChildProcess.emit (events.js:110:17)
+323 verbose stack     at maybeClose (child_process.js:1015:16)
+323 verbose stack     at Socket.<anonymous> (child_process.js:1183:11)
+323 verbose stack     at Socket.emit (events.js:107:17)
+323 verbose stack     at Pipe.close (net.js:485:12)
+324 verbose cwd /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src
+325 error Darwin 14.3.0
+326 error argv "node" "/usr/local/bin/npm" "install" "angular" "angular-new-router"
+327 error node v0.12.4
+328 error npm  v2.13.1
+329 error code 128
+330 error Command failed: git clone --template=/Users/sdelamarre/.npm/_git-remotes/_templates --mirror git://github.com/btford/route-recognizer.git /Users/sdelamarre/.npm/_git-remotes/git-github-com-btford-route-recognizer-git-99ace589
+330 error Cloning into bare repository '/Users/sdelamarre/.npm/_git-remotes/git-github-com-btford-route-recognizer-git-99ace589'...
+330 error fatal: unable to connect to github.com:
+330 error github.com[0: 192.30.252.130]: errno=Operation timed out
+331 error If you need help, you may report this error at:
+331 error     <https://github.com/npm/npm/issues>
+332 verbose exit [ 1, true ]
+333 verbose unbuild node_modules/angular-new-router
+334 info preuninstall angular-new-router@0.5.3
+335 info uninstall angular-new-router@0.5.3
+336 verbose unbuild rmStuff angular-new-router@0.5.3 from /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules
+337 info postuninstall angular-new-router@0.5.3
+338 silly gentlyRm /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router is being purged from base /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src
+339 verbose gentlyRm don't care about contents; nuking /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router
+340 silly vacuum-fs purging /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules/angular-new-router
+341 silly vacuum-fs quitting because other entries in /Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/node_modules

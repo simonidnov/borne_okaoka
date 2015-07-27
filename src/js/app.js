@@ -1,18 +1,18 @@
 var gui = require('nw.gui');
 var win = gui.Window.get();
 
-var platform = require('../components/platform');
-var updater = require('../components/updater');
-var menus = require('../components/menus');
-var settings = require('../components/settings');
-var windowBehaviour = require('../components/window-behaviour');
-var dispatcher = require('../components/dispatcher');
+var platform = require('./components/platform');
+var updater = require('./components/updater');
+var menus = require('./components/menus');
+var settings = require('./components/settings');
+var windowBehaviour = require('./components/window-behaviour');
+var dispatcher = require('./components/dispatcher');
 
-var debug = true;
-gui.Window.get().showDevTools();
+//var debug = true;
+//gui.Window.get().showDevTools();
 
 // Ensure there's an app shortcut for toast notifications to work on Windows
-/*if (platform.isWindows) {
+if (platform.isWindows) {
     gui.App.createShortcut(process.env.APPDATA + "\\Microsoft\\Windows\\Start Menu\\Programs\\Okaidi.lnk");
 }
 
@@ -57,4 +57,4 @@ var reloadIntervalId = setInterval(function() {
     } else {
         win.reload();
     }
-}, 10 * 1000);*/
+}, 10 * 1000);

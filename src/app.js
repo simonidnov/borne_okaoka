@@ -1,13 +1,12 @@
 /* ---------------- NODE JS EXPRESS LISTENERS APP AT LOCALHOST 3000 ----------------- */
-    var gui = require('nw.gui');
-    gui.Window.get().showDevTools();
     
     var express = require('express');
     var app = express();
 
     app.get('/', function (req, res) {
-        res.send('Hello World!');
-        require('js/app.js');
+        //res.send('Hello World!');
+        //require('js/app.js');
+        res.render('index.html');
     });
     app.get('/debug', function (req, res) {
         
@@ -20,10 +19,10 @@
     });
 
     var server = app.listen(3000, function () {
-      var host = server.address().address;
-      var port = server.address().port;
+        var host = server.address().address;
+        var port = server.address().port;
 
-      console.log('Example app listening at http://%s:%s', host, port);
+        console.log('Example app listening at http://%s:%s', host, port);
     });
 
 //window.location.href = "http://localhost:3000";

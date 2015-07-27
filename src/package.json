@@ -1,6 +1,5 @@
 {
-  "node-main": "./js/app.js",
-  "main": "app://okaoka/",
+  "main": "app://okaoka/index.html",
   "name": "BorneOkaidi",
   "version": "0.1.0",
   "app-id": "com.okaidi.borne",
@@ -10,7 +9,7 @@
     "height": 600,
     "title": "Borne Okaidi",
     "icon": "icons/icon.png",
-    "toolbar": true,
+    "toolbar": false,
     "show": true,
     "fullscreen": false
   },

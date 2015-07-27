@@ -25,6 +25,9 @@
     "SoundJS": "https://github.com/CreateJS/SoundJS.git#~0.6.1",
     "TweenJS": "https://github.com/CreateJS/TweenJS.git#~0.6.1",
     "EaselJS": "https://github.com/CreateJS/EaselJS.git#~0.8.1",
-    "PreloadJS": "https://github.com/CreateJS/PreloadJS.git#~0.6.1"
+    "PreloadJS": "https://github.com/CreateJS/PreloadJS.git#~0.6.1",
+    "angular": "https://github.com/angular/bower-angular.git#~1.4.3",
+    "underscore": "https://github.com/jashkenas/underscore.git#~1.8.3",
+    "backbone": "https://github.com/jashkenas/backbone.git#~1.2.1"
   }
 }

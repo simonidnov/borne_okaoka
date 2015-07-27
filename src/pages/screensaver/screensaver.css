@@ -1,0 +1,24 @@
+.screen_center{
+    width:0px;
+    height:0px;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    position: absolute;
+    background-color:rgba(0,0,0,.2);
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}
+.center_svg{
+    width:80%;
+    height:80%;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    position: absolute;
+}
