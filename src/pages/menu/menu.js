@@ -44,6 +44,7 @@ menu.prototype.display_bricks = function(){
             self.replace_page(startPos, endPos);
         }
     });
+    $('.menu_content').css('left', -(window.innerWidth * navigation._last_page_menu)+'px');
 }
 menu.prototype.replace_page = function(startPos, endPos){
     var self = this;
@@ -52,26 +53,31 @@ menu.prototype.replace_page = function(startPos, endPos){
         TweenMax.to($('.menu_content'), time, {left:0, ease:Back.easeOut, onComplete:function(){
             self._is_on_drag = false;
         }});
+        navigation._last_page_menu = 0;
         return false; 
     }else{
+        if($('.menu_screen').last().offset().left < 0){
+            TweenMax.to($('.menu_content'), time, {left:-($('.menu_screen').last().position().left), ease:Back.easeOut, onComplete:function(){
+                self._is_on_drag = false;
+            }});
+            return false;
+        }
         var num_screen = $('.menu_screen').length;
         var wv = window.innerWidth;
         $.each($('.menu_screen'), function(m, c){
             if(startPos > endPos){
-                if($(this).position().left > 0 && $(this).offset().left < (window.innerWidth/2)+(window.innerWidth/4)){
+                if($(this).offset().left > 0 && $(this).offset().left < (window.innerWidth/2)+(window.innerWidth/4)){
                     TweenMax.to($('.menu_content'), time, {left:-($(this).position().left)+'px', ease:Back.easeOut, onComplete:function(){
                         self._is_on_drag = false;
+                        navigation._last_page_menu = Math.abs($('.menu_content').position().left) / window.innerWidth;
                     }});
-                }else{
-                    var prevScreen = $('.menu_screen').eq(m-1);
-                    TweenMax.to($('.menu_content'), time, {left:-(prevScreen.position().left)+'px', ease:Back.easeOut, onComplete:function(){
-                        self._is_on_drag = false;
-                    }});
+                    return false;
                 }
             }else{
                 if($(this).offset().left > -(window.innerWidth/2)-(window.innerWidth/4)){
                     TweenMax.to($('.menu_content'), time, {left:-($(this).position().left)+'px', ease:Back.easeOut, onComplete:function(){
                         self._is_on_drag = false;
+                        navigation._last_page_menu = Math.abs($('.menu_content').position().left) / window.innerWidth;
                     }});
                     return false;
                 }
@@ -87,13 +93,17 @@ menu.prototype.display_apps = function(page){
         infos.id = page+'_'+app;
         var tmp = _.template($('#brick_template').html());
         $('#screen_'+page).append(tmp(infos));
-        var s = $('#'+page+'_'+app).width();
+        /*var s = $('#'+page+'_'+app).width()/1.5;
         if($('#'+page+'_'+app).width() > $('#'+page+'_'+app).height()){
-            s = $('#'+page+'_'+app).height();   
-        }
+            s = $('#'+page+'_'+app).height()/1.5;   
+        }*/
         TweenMax.set($('#'+page+'_'+app), {scaleX:0, scaleY:0});
         TweenMax.to($('#'+page+'_'+app), .8, {scaleX:1, scaleY:1, delay:u/10, ease:Quart.easeOut});
-        $('#'+page+'_'+app+' .screen_center').css({width:s+'px', height:s+'px'});
+        //$('#'+page+'_'+app+' .screen_center').css({width:$('#'+page+'_'+app).width()+'px', height:$('#'+page+'_'+app).height()+'px'});
+        $('#'+page+'_'+app+' .screen_center').css({width:'100%', height:'100%'});
+        $('#'+page+'_'+app+' .screen_center').load("./pages/"+infos.name+"/images/game_preview.svg", function(){
+            $('#'+page+'_'+app+' .screen_center svg').css({'width':'100%', 'height':'100%'});
+        });
     });
     var time = .7;
     $('.brick').off('tap, click').on('tap, click', function(){
@@ -153,7 +163,7 @@ menu.prototype.get_picture_uri = function(name){
 menu.prototype.destroy = function(callBack){
     $('.menu_content').draggable('disable');
     $('.brick').off('tap, click');
-    TweenMax.to($('.screen_center'), .5, {scaleX:0, scaleY:0, ease:Back.easeIn, onComplete:function(){
+    TweenMax.to($('.screen_center'), .5, {top:"150%", ease:Power4.easeIn, onComplete:function(){
         callBack();
     }});
 }
@@ -183,5 +193,13 @@ var positions = {
         {width:"50%", height:"100%", left:"25%", top:0},
         {width:"25%", height:"50%", left:"75%", top:0},
         {width:"25%", height:"50%", left:"75%", top:"50%"}
+    ],
+    6:[
+        {width:"40%", height:"60%", left:0, top:0},
+        {width:"40%", height:"40%", left:0, top:"60%"},
+        {width:"30%", height:"50%", left:"40%", top:0},
+        {width:"30%", height:"50%", left:"70%", top:0},
+        {width:"30%", height:"50%", left:"40%", top:"50%"},
+        {width:"30%", height:"50%", left:"70%", top:"50%"}
     ]
 };

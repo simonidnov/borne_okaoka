@@ -3,6 +3,7 @@ var navigation = {
     page_properties : null,
     _current_page_name : null,
     _page_script : null,
+    _last_page_menu : 0,
     init : function(){
         this.create_routes();
     },

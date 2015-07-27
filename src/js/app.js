@@ -51,10 +51,10 @@ windowBehaviour.set(win);
 windowBehaviour.setNewWinPolicy(win);
 
 // Reload the app periodically until it loads
-var reloadIntervalId = setInterval(function() {
+/*var reloadIntervalId = setInterval(function() {
     if (win.window.navigator.onLine) {
         clearInterval(reloadIntervalId);
     } else {
         win.reload();
     }
-}, 10 * 1000);
+}, 10 * 1000);*/
