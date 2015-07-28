@@ -106,6 +106,15 @@ var navigation = {
         this._page_script = new window[this.page_properties.script_name];
         callBack();
     },
+    intro_motion_stopped : function(){
+        TweenMax.to($('.center'), .5, {top:"200%", onComplete:function(){
+            createjs.Ticker.removeEventListener("tick", window['navigation']._page_script.stage);
+            delete window['navigation']._page_script.stage;
+            delete window['navigation']._page_script.exportRoot;
+            window['navigation']._page_script.create_interface();
+            $('.intro_motion').remove();
+        }, ease:Back.easeIn});
+    },
     refresh : function(){
         
     },

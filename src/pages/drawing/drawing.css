@@ -1,10 +1,10 @@
 .center{
     position: absolute;
-    margin:0 auto;
-    right:0;
-    left:0;
-    bottom:0;
-    top:0;
-    width:900px;
-    height:600px;
+    margin: auto;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    width: 900px;
+    height: 400px;
 }
