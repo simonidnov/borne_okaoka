@@ -1,7 +1,7 @@
 {
     "label":"drawing",
     "version":"0.0.0",
-    "dependencies":["drawing.js"],
+    "dependencies":["drawing.js", "motion/drawing_motion.js"],
     "styles":["drawing.css"],
     "content":"drawing.html",
     "script_name":"drawing",
