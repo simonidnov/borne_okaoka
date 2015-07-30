@@ -4,6 +4,5 @@
     "dependencies":["menu.js"],
     "styles":["menu.css"],
     "content":"menu.html",
-    "script_name":"menu",
-    "motion":"motion addr vid ?"
+    "script_name":"menu"
 }

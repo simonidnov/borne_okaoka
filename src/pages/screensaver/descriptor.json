@@ -4,6 +4,5 @@
     "dependencies":["screensaver.js"],
     "styles":["screensaver.css"],
     "content":"screensaver.html",
-    "script_name":"screensaver",
-    "motion":"motion addr vid ?"
+    "script_name":"screensaver"
 }

@@ -1,0 +1,9 @@
+{
+    "label":"build",
+    "version":"0.0.0",
+    "dependencies":["build.js", "motion/build_motion.js"],
+    "styles":["build.css"],
+    "content":"build.html",
+    "script_name":"build",
+    "motion":"build_motion"
+}

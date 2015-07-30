@@ -1,0 +1,9 @@
+{
+    "label":"palet",
+    "version":"0.0.0",
+    "dependencies":["palet.js", "motion/palet_motion.js"],
+    "styles":["palet.css"],
+    "content":"palet.html",
+    "script_name":"palet",
+    "motion":"palet_motion"
+}

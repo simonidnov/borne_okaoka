@@ -5,5 +5,5 @@
     "styles":["drawing.css"],
     "content":"drawing.html",
     "script_name":"drawing",
-    "motion":"this is a memory game engine"
+    "motion":"drawing_motion"
 }

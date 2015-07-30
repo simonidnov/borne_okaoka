@@ -16,18 +16,18 @@ var utilities = {
 }
 
 var colors = {
-    "purple":"#612B9B",
-    "green":"#44AC34",
     "orange":"#FF821D",
     "yellow":"#FFCF00",
-    "pink":"#E41694",
-    "blue":"#042367",
     "lighblue":"#33CAD2",
-    "red":"#DA0036",
-    "grey":"#7D868B",
+    "blue":"#042367",
+    "fblue":"#0095A7",
     "sblue":"#465FC4",
+    "green":"#44AC34",
     "dgreen":"#008274",
-    "grey":"#7D868B",
+    "purple":"#612B9B",
+    "pink":"#E41694",
+    "red":"#DA0036",
     "maroon":"#784217",
-    "fblue":"#0095A7"
+    "grey":"#7D868B",
+    "black":"#000000"
 }

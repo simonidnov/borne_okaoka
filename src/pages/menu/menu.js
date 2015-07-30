@@ -1,14 +1,16 @@
 function menu(){
-    console.log('new menu');
     this.page_infos = null;
     this._is_on_drag = false;
     this.init();
 }
 menu.prototype.init = function(){
     var self = this;
-    $('#backbutton').css('display', 'none');
-   // $('.app_content').css('background-color', colors.blue);
+    TweenMax.to($('#backbutton'), .5, {scaleX:0, scaleY:0, onComplete : function(){
+        $('#backbutton').css('display', 'none');
+    }});
+    // $('.app_content').css('background-color', colors.blue);
     TweenMax.to($('.app_content'), .5, {"backgroundColor":utilities.colorLuminance(colors.grey, .5)});
+    TweenMax.to($('#backbutton'), .5, {'backgroundColor': utilities.colorLuminance(colors.grey, .5)});
     this.load_infos();
 }
 menu.prototype.load_infos = function(){
@@ -35,12 +37,13 @@ menu.prototype.display_bricks = function(){
         axis:'x', 
         start:function(e){
             TweenMax.killAll();
-            startPos = e.pageX;
-            console.log('start drag'); 
-            self._is_on_drag = true; 
+            startPos = e.pageX; 
         }, 
         stop:function(e){
             var endPos = e.pageX;
+            if(Math.abs(startPos - endPos)){
+                self._is_on_drag = true; 
+            }
             self.replace_page(startPos, endPos);
         }
     });
@@ -66,7 +69,13 @@ menu.prototype.replace_page = function(startPos, endPos){
         var wv = window.innerWidth;
         $.each($('.menu_screen'), function(m, c){
             if(startPos > endPos){
-                if($(this).offset().left > 0 && $(this).offset().left < (window.innerWidth/2)+(window.innerWidth/4)){
+                if($(this).offset().left < 0 && $(this).offset().left > -(window.innerWidth) && Math.abs(startPos - endPos) > (window.innerWidth/2)-(window.innerWidth/4)){
+                    TweenMax.to($('.menu_content'), time, {left:-($('.menu_screen').eq(m+1).position().left)+'px', ease:Back.easeOut, onComplete:function(){
+                        self._is_on_drag = false;
+                        navigation._last_page_menu = Math.abs($('.menu_content').position().left) / window.innerWidth;
+                    }});
+                    return false;
+                }else if($(this).offset().left > -(window.innerWidth)){
                     TweenMax.to($('.menu_content'), time, {left:-($(this).position().left)+'px', ease:Back.easeOut, onComplete:function(){
                         self._is_on_drag = false;
                         navigation._last_page_menu = Math.abs($('.menu_content').position().left) / window.innerWidth;
@@ -103,6 +112,7 @@ menu.prototype.display_apps = function(page){
         $('#'+page+'_'+app+' .screen_center').css({width:'100%', height:'100%'});
         $('#'+page+'_'+app+' .screen_center').load("./pages/"+infos.name+"/images/game_preview.svg", function(){
             $('#'+page+'_'+app+' .screen_center svg').css({'width':'100%', 'height':'100%'});
+            $('#'+page+'_'+app+' .screen_center svg #shadow').attr('fill', $('#'+page+'_'+app).attr('data-color'));
         });
     });
     var time = .7;
@@ -132,7 +142,6 @@ menu.prototype.display_apps = function(page){
                 }
                 if($(this).position().top == target.position().top){
                     newPos.top = 0;
-                    console.log('top egual');
                     newPos.height="100%";
                 }
                 TweenMax.to($(this), time, {
@@ -155,6 +164,7 @@ menu.prototype.display_apps = function(page){
             }
         });
         TweenMax.to($('.app_content'), .5, {'backgroundColor': $(this).attr('data-color')});
+        TweenMax.to($('#backbutton'), .5, {'backgroundColor': $(this).attr('data-color')});
     });
 }
 menu.prototype.get_picture_uri = function(name){

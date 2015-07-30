@@ -1,9 +1,9 @@
 {
     "label":"discs",
     "version":"0.0.0",
-    "dependencies":["discs.js"],
+    "dependencies":["discs.js", "motion/discs_motion.js"],
     "styles":["discs.css"],
     "content":"discs.html",
     "script_name":"discs",
-    "motion":"this is a memory game engine"
+    "motion":"discs_motion"
 }

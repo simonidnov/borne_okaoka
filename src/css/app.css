@@ -42,7 +42,15 @@ html, body, iframe {
     text-align: center;
     cursor:pointer;
 }
-
+.dot_pos{
+    width:200px;
+    height:200px;
+    background-color:rgba(0,0,0,.5);
+    position: absolute;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}
 .intro_motion{
     position: absolute;
     margin: auto;

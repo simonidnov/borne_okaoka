@@ -1,10 +1,53 @@
-.center{
+#drawing_page{
+    background: #FFF;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
     position: absolute;
-    margin: auto;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    top: 0;
-    width: 900px;
-    height: 400px;
+    width:90%;
+    height:100%;
+    overflow: hidden;
+}
+#drawing_tools{
+    width:100px;
+    position: absolute;
+    top:100px;
+    right:0;
+}
+.brush{
+    width:100px;
+    height:75px;
+    position:absolute;
+    left:100px;
+    background-color: #F9F9F9;
+    z-index: 9;
+}
+.brush.selected svg{
+    width: 130%;
+    left: -30%;
+}
+.brush svg{
+    left:0%;
+    width:100%;
+    height:100%;
+    position: absolute;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    transition: all .2s linear;
+}
+#drawing_colors{
+    position:absolute;
+    left:-150px;
+    width:250px;
+    bottom:0px;
+}
+
+.color_picker{
+    width:50px;
+    height:50px;
+    float:left;
 }
