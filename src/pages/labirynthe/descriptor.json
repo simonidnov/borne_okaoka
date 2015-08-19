@@ -1,0 +1,13 @@
+{
+    "label":"labirynthe",
+    "version":"0.0.0",
+    "dependencies":[
+        "labirynthe.js", 
+        "js/phaser.min.js",
+        "motion/game_motion.js"
+    ],
+    "styles":["labirynthe.css"],
+    "content":"labirynthe.html",
+    "script_name":"labirynthe",
+    "motion":"game_motion"
+}

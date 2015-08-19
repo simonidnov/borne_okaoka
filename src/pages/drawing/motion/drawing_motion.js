@@ -733,13 +733,15 @@ p.nominalBounds = new cjs.Rectangle(-14.3,-64.1,35.2,64.2);
 	this.frame_0 = function() {
 		var status = "play";
 	}
-	this.frame_167 = function() {
+	this.frame_142 = function() {
 		window['navigation'].intro_motion_stopped();
+	}
+	this.frame_167 = function() {
 		this.stop();
 	}
 
 	// actions tween:
-	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(167).call(this.frame_167).wait(4));
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(142).call(this.frame_142).wait(25).call(this.frame_167).wait(4));
 
 	// Calque 1
 	this.instance = new lib.crayon_blanc("synched",0);

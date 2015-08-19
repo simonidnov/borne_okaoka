@@ -3,6 +3,7 @@
     <head>
         <title>Borne Okaidi</title>
         <link rel="stylesheet" type="text/css" href="css/app.css">
+        <link rel="stylesheet" type="text/css" href="css/utilities.css">
     </head>
     <body>
         <div class="right_nav">
@@ -13,6 +14,7 @@
         <div class="app_content">
         </div>
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/html2canvas/build/html2canvas.min.js"></script>
         <script src="bower_components/jquery-ui-draggable/jquery-ui-draggable.js"></script>
         <script src="bower_components/jquery-ui-touch-punch-master/jquery.ui.touch-punch.min.js"></script>
         <script src="bower_components/underscore/underscore-min.js"></script>
@@ -22,17 +24,20 @@
         <script src="bower_components/PreloadJS/lib/preloadjs-0.6.1.combined.js"></script>
         <script src="bower_components/EaselJS/lib/easeljs-0.8.1.combined.js"></script>
         <script src="bower_components/EaselJS/lib/movieclip-0.8.1.combined.js"></script>
+        <script src="bower_components/EaselJS/lib/webgl-0.8.1.combined.js"></script>
+        <script src="bower_components/SoundJS/lib/soundjs-0.6.1.combined.js"></script>
         <script src="bower_components/TweenJS/lib/tweenjs-0.6.1.combined.js"></script>
+        <!--<script src="js/app.js"></script>-->
         <script src="js/utilities.js"></script>
-        <script src="js/app.js"></script>
         <script src="js/navigation.js"></script>
         
         <script src="images/assets/exit_button/exit_button.js"></script>
         <script>
             $(document).ready(function(){
-                //gui.Window.get().showDevTools();
+                if(typeof gui !== "undefined"){
+                    gui.Window.get().showDevTools();
+                }
                 navigation.init();
-                
                 var canvas, stage, exportRoot;
                 canvas = document.getElementById("exit_button_canvas");
                 exportRoot = new lib.exit_button();
@@ -43,5 +48,18 @@
                 createjs.Ticker.addEventListener("tick", stage);
             });
         </script>
+        
+        <script type="text/template" id="app_popup_template">
+            <div class="content_popup" style="background-color:<%= color %>;">
+                <div class="popup_motion">
+                    <canvas id="popup_motion_canvas" width="400" height="200" style="<%= color %>"></canvas>
+                </div>
+                <div class="popup_btns">
+                    <div class="popup_btn" data-value="0" id="btn_no"></div>
+                    <div class="popup_btn" data-value="1" id="btn_yes"></div>
+                </div>
+            </div>
+        </script>
+        <!--<script src="js/app.js"></script>-->
     </body>
 </html>

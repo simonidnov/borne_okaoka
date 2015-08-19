@@ -9,6 +9,7 @@ menu.prototype.init = function(){
         $('#backbutton').css('display', 'none');
     }});
     // $('.app_content').css('background-color', colors.blue);
+    //_current_interface_color
     TweenMax.to($('.app_content'), .5, {"backgroundColor":utilities.colorLuminance(colors.grey, .5)});
     TweenMax.to($('#backbutton'), .5, {'backgroundColor': utilities.colorLuminance(colors.grey, .5)});
     this.load_infos();
@@ -41,7 +42,7 @@ menu.prototype.display_bricks = function(){
         }, 
         stop:function(e){
             var endPos = e.pageX;
-            if(Math.abs(startPos - endPos)){
+            if(Math.abs(startPos - endPos) > 20){
                 self._is_on_drag = true; 
             }
             self.replace_page(startPos, endPos);
@@ -146,16 +147,20 @@ menu.prototype.display_apps = function(page){
                 }
                 TweenMax.to($(this), time, {
                     css:newPos,
-                    ease:Power4.easeOut
+                    ease:Power4.easeOut,
+                    delay:.2
                 });
             }else{
+                navigation._current_interface_color = $(this).css('background-color');
+                TweenMax.to($(this).find('svg'), .2, {opacity:0});
                 TweenMax.to($(this), time, {
                     css:{
                         width:"100%",
                         height:"100%",
                         top:0,
                         left:0
-                    }, 
+                    },
+                    delay:.2,
                     onComplete:function(){
                         navigation.router.navigate('page/'+page, {trigger:true, replace:true});
                     },
@@ -170,12 +175,19 @@ menu.prototype.display_apps = function(page){
 menu.prototype.get_picture_uri = function(name){
     return "../../pages/"+name+"/images/"+name.png;
 }
+menu.prototype.pause = function(){
+    
+}
+menu.prototype.play = function(){
+    
+}
 menu.prototype.destroy = function(callBack){
     $('.menu_content').draggable('disable');
     $('.brick').off('tap, click');
-    TweenMax.to($('.screen_center'), .5, {top:"150%", ease:Power4.easeIn, onComplete:function(){
+    //TweenMax.to($('.screen_center'), .5, {top:"150%", ease:Power4.easeIn, onComplete:function(){
+    //TweenMax.to($('.screen_center'), .5, {opacity:0, ease:Power4.easeIn, onComplete:function(){
         callBack();
-    }});
+    //}});
 }
 
 var positions = {

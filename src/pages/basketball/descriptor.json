@@ -1,0 +1,13 @@
+{
+    "label":"ballbreaker",
+    "version":"0.0.0",
+    "dependencies":[
+        "basketball.js", 
+        "js/phaser.min.js",
+        "motion/game_motion.js"
+    ],
+    "styles":["basketball.css"],
+    "content":"basketball.html",
+    "script_name":"basketball",
+    "motion":"game_motion"
+}

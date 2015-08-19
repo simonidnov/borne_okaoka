@@ -35,7 +35,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,4.9,4.9);
 
 	// Calque 1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#008374").ss(5,1).p("AgmAAIBNAA");
+	this.shape.graphics.f().s("#FFFFFF").ss(5,1).p("AgmAAIBNAA");
 
 	this.addChild(this.shape);
 }).prototype = p = new cjs.Container();
@@ -47,7 +47,7 @@ p.nominalBounds = new cjs.Rectangle(-6.4,-2.5,12.9,5);
 
 	// Calque 1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#FFD000").ss(5,1).p("AhBAAICDAA");
+	this.shape.graphics.f().s("#FFFFFF").ss(5,1).p("AhBAAICDAA");
 
 	this.addChild(this.shape);
 }).prototype = p = new cjs.Container();
@@ -59,7 +59,7 @@ p.nominalBounds = new cjs.Rectangle(-9.1,-2.5,18.3,5);
 
 	// Calque 1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#DA0037").ss(5,1).p("AheAAIC9AA");
+	this.shape.graphics.f().s("#FFFFFF").ss(5,1).p("AheAAIC9AA");
 
 	this.addChild(this.shape);
 }).prototype = p = new cjs.Container();
@@ -308,14 +308,16 @@ p.nominalBounds = new cjs.Rectangle(-14.3,-64.1,35.2,64.2);
 
 
 (lib.discs_motion = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{end:99,"end":122});
+	this.initialize(mode,startPosition,loop,{end:122});
 
 	// timeline functions:
 	this.frame_0 = function() {
 		var status = "play";
 	}
 	this.frame_99 = function() {
-		window['navigation'].intro_motion_stopped();
+		if(typeof window['navigation'] !== "undefined"){
+			window['navigation'].intro_motion_stopped();
+		}
 	}
 	this.frame_122 = function() {
 		this.stop();

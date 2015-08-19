@@ -296,19 +296,19 @@ p.nominalBounds = new cjs.Rectangle(-14.3,-64.1,35.2,64.2);
 
 
 (lib.build_motion = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{end:204});
+	this.initialize(mode,startPosition,loop,{end:16});
 
 	// timeline functions:
 	this.frame_0 = function() {
 		var status = "play";
 	}
-	this.frame_204 = function() {
+	this.frame_16 = function() {
 		window['navigation'].intro_motion_stopped();
 		this.stop();
 	}
 
 	// actions tween:
-	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(204).call(this.frame_204).wait(4));
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(16).call(this.frame_16).wait(192));
 
 	// Calque 1
 	this.instance = new lib.running("synched",0);

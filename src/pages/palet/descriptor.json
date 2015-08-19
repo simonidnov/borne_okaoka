@@ -1,7 +1,11 @@
 {
     "label":"palet",
     "version":"0.0.0",
-    "dependencies":["palet.js", "motion/palet_motion.js"],
+    "dependencies":[
+        "palet.js",  
+        "motion/palet_motion.js",
+        "js/phaser.min.js"
+    ],
     "styles":["palet.css"],
     "content":"palet.html",
     "script_name":"palet",

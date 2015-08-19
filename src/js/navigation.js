@@ -4,6 +4,7 @@ var navigation = {
     _current_page_name : null,
     _page_script : null,
     _last_page_menu : 0,
+    _current_interface_color : colors.blue,
     init : function(){
         this.create_routes();
     },
@@ -33,36 +34,12 @@ var navigation = {
         Backbone.history.start();
         this.router.navigate('page/screensaver', {trigger:true, replace:true});
         $('#backbutton').off('tap, click').on('tap, click', function(){
-            navigation.router.navigate('page/menu', {trigger:true, replace:true});
+            utilities.show_popup({color:navigation._current_interface_color, motion:"exit_game"}, function(e){
+                if(e == 1){
+                    navigation.router.navigate('page/menu', {trigger:true, replace:true});
+                }
+            });
         });
-        /*$("body").on('mousedown', function(e){
-            var draw_dot = false;
-            if(e.pageX > window.innerWidth - 30){
-                draw_dot = true;
-            }
-            if(e.pageX < 30){
-                console.log('<30');
-                draw_dot = true;
-            }
-            if(e.pageY < 30){
-                draw_dot = true;
-            }
-            if(e.pageY > window.innerHeight - 30){
-                draw_dot = true;
-            }
-            if(draw_dot){
-                $('body').append('<div class="dot_pos" style="left:'+(e.pageX - 100)+'px; top:'+(e.pageY - 100)+'px;"></div>');
-                TweenMax.set($('.dot_pos'), {scaleX:0, scaleY:0});
-                TweenMax.to($('.dot_pos'), .5, {scaleX:1, scaleY:1, ease:Back.easeOut});
-            }
-        });
-        $("body").on('mouseup', function(e){
-            if($('.dot_pos').length > 0){
-                TweenMax.to($('.dot_pos'), .5, {scaleX:0, scaleY:0, ease:Back.easeIn, onComplete : function(){
-                    $('.dot_pos').remove();
-                }});
-            }
-        });*/
     },
     remove_dependencies : function(){
         var self = navigation;
@@ -84,6 +61,9 @@ var navigation = {
         if(page === null){
             return false;
         }
+        //_current_interface_color
+        TweenMax.to($('.app_content'), .5, {"backgroundColor"   :   navigation._current_interface_color});
+        TweenMax.to($('#backbutton'), .5, {'backgroundColor'    :   navigation._current_interface_color});
         var self = this;
         self._current_page_name = page;
         $.ajax({
@@ -109,7 +89,7 @@ var navigation = {
             self.page_properties.styles[index] = "pages/"+self._current_page_name+"/"+style;
         });
         var queue = new createjs.LoadQueue();
-            queue.on("complete", callBack);
+            queue.on("complete", function(){this.destroy(); callBack();});
             queue.loadManifest(self.page_properties.styles, false);
             queue.load();
     },
@@ -119,7 +99,7 @@ var navigation = {
             self.page_properties.dependencies[index] = "pages/"+self._current_page_name+"/"+dependencie;
         });
         var queue = new createjs.LoadQueue();
-            queue.on("complete", callBack);
+            queue.on("complete", function(){this.destroy(); callBack();});
             queue.loadManifest(self.page_properties.dependencies, false); // Note the 2nd argument that tells the queue not to start loading yet
             queue.load();
     },
@@ -138,16 +118,13 @@ var navigation = {
             TweenMax.to($('.intro_motion'), .5, {scaleX:1, scaleY:1, onComplete:function(){
 
             }, ease:Back.easeOut});
-            var canvas, stage, exportRoot;
+            //var canvas, stage, exportRoot;
 
             canvas = document.getElementById("motion_canvas");
-
             this.exportRoot = new lib[this.page_properties.motion]();
-
             this.stage = new createjs.Stage(canvas);
             this.stage.addChild(this.exportRoot);
             this.stage.update();
-
             //lib.properties.fps
             createjs.Ticker.setFPS(40);
             createjs.Ticker.addEventListener("tick", this.stage);
@@ -157,11 +134,14 @@ var navigation = {
         callBack();
     },
     intro_motion_stopped : function(){
-        TweenMax.to($('.intro_motion'), .3, {rotation:20});
-        TweenMax.to($('.intro_motion'), .8, {top:"200%", onComplete:function(){
-            createjs.Ticker.removeEventListener("tick", window['navigation']._page_script.stage);
-            delete window['navigation']._page_script.stage;
-            delete window['navigation']._page_script.exportRoot;
+        delete navigation.stage;
+        delete navigation.exportRoot;
+        //TweenMax.to($('.intro_motion'), .3, {rotation:20});
+        TweenMax.to($('.intro_motion'), .8, {opacity:0, onComplete:function(){
+            createjs.Ticker.removeEventListener("tick", navigation.stage);
+            //createjs.Ticker.removeEventListener("tick", window['navigation']._page_script.stage);
+            //delete window['navigation']._page_script.stage;
+            //delete window['navigation']._page_script.exportRoot;
             if(typeof window['navigation']._page_script.create_interface !== "undefined"){
                 window['navigation']._page_script.create_interface();
             }

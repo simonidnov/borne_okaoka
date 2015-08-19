@@ -22,6 +22,12 @@ screensaver.prototype.init = function(){
         ease:Back.easeOut
     });
 }
+screensaver.prototype.pause = function(){
+    
+}
+screensaver.prototype.play = function(){
+    
+}
 screensaver.prototype.destroy = function(callBack){
     $('body').off('tap, click');
     TweenMax.to($('#logo_center'), .5, {

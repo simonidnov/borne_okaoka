@@ -14,6 +14,10 @@ discs.prototype.create_interface = function(){
         
     //}, ease:Power4.easeOut});
 }
+discs.prototype.pause = function(){
+}
+discs.prototype.play = function(){
+}
 discs.prototype.destroy = function(callBack){
     callBack();
 }

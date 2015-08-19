@@ -1,0 +1,14 @@
+{
+    "label":"palet",
+    "version":"0.0.0",
+    "dependencies":[
+        "palet.js",  
+        "motion/palet_motion.js",  
+        "../../js/libs/Box2dWeb-2.1.a.3.min.js",  
+        "../../js/components/Box2D_utilities.js"
+    ],
+    "styles":["palet.css"],
+    "content":"palet.html",
+    "script_name":"palet",
+    "motion":"palet_motion"
+}

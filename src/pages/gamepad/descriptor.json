@@ -1,0 +1,13 @@
+{
+    "label":"gamepad",
+    "version":"0.0.0",
+    "dependencies":[
+        "gamepad.js", 
+        "js/phaser.min.js",
+        "motion/game_motion.js"
+    ],
+    "styles":["gamepad.css"],
+    "content":"gamepad.html",
+    "script_name":"gamepad",
+    "motion":"game_motion"
+}

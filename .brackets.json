@@ -1,7 +1,5 @@
 {
     "jscodehints.detectedExclusions": [
-        "Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/jquery/src/css/var/getStyles",
-        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/app.js",
-        "Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/jquery/src/attributes/val"
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/pages/build/build.js"
     ]
 }

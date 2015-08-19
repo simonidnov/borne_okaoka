@@ -45,11 +45,9 @@ p.nominalBounds = new cjs.Rectangle(-3.1,-6.3,6.3,6.3);
 		this.stop();
 		var self = this;
 		var delay = (Math.round(Math.random()*10000)+2000);
-		console.log(delay);
 		setTimeout(function(){
 			self.play();
 		},12000);
-		console.log(this.width);
 	}
 
 	// actions tween:

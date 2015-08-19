@@ -1,0 +1,16 @@
+.player{
+    width:100px;
+    height:100px;
+    background:#FFFFFF;
+}
+#debug_canvas{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 9;
+}
+#hockey_canvas{
+    position: absolute;
+    top:0;
+    left:0;
+}

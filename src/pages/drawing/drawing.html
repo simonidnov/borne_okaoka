@@ -1,17 +1,21 @@
 <script type="text/template" id="drawing_interface">
     <div id="drawing_tools">
-        <div class="brush" id="brush_1"></div>
-        <div class="brush selected" id="brush_2" data-size="5" data-stylingw="round" data-stylingh="round"></div>
-        <div class="brush" id="brush_3" data-size="10" data-stylingw="round" data-stylingh="round"></div>
-        <div class="brush" id="brush_4" data-size="30" data-stylingw="round" data-stylingh="round"></div>
-        <div class="brush" id="brush_5" data-size="50" data-stylingw="butt" data-stylingh="round"></div>
+        <div class="tool brush" id="brush_1"></div>
+        <div class="tool brush selected" id="brush_2" data-size="5" data-stylingw="round" data-stylingh="round"></div>
+        <div class="tool brush" id="brush_3" data-size="10" data-stylingw="round" data-stylingh="round"></div>
+        <div class="tool brush" id="brush_4" data-size="30" data-stylingw="round" data-stylingh="round"></div>
+        <div class="tool brush" id="brush_5" data-size="50" data-stylingw="butt" data-stylingh="round"></div>
+        <div class="tool" id="gum"></div>
+        <div class="tool" id="cancel"></div>
+        <div class="tool" id="redraw"></div>
+        <div class="tool" id="clear"></div>
     </div>
     <div id="drawing_page">
         <canvas id="drawing_canvas" width="800px" height="600px"></canvas>
     </div>
     <div id="drawing_colors">
         <% $.each(_.keys(colors), function(index, color){ %>
-            <% for(var i=5; i>0; i--){ %>
+            <% for(var i=2; i>0; i--){ %>
                 <div class="color_picker" style="background-color:<%= utilities.colorLuminance(colors[color], i/10) %>" data-color="<%= utilities.colorLuminance(colors[color], i/10) %>">
                 </div>    
             <% } %>
