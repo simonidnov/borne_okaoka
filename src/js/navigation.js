@@ -6,6 +6,7 @@ var navigation = {
     _last_page_menu : 0,
     _current_interface_color : colors.blue,
     init : function(){
+        document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
         this.create_routes();
     },
     create_routes : function(){

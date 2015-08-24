@@ -1,0 +1,13 @@
+{
+    "label":"run",
+    "version":"0.0.0",
+    "dependencies":[
+        "run.js", 
+        "js/phaser.min.js",
+        "motion/running_motion_2.js"
+    ],
+    "styles":["run.css"],
+    "content":"run.html",
+    "script_name":"run",
+    "motion":"running_motion_2"
+}

@@ -21,9 +21,9 @@
     },
     "1":{
         "01":{
-            "name":"running",
+            "name":"run",
             "color":"pink",
-            "description":"this is a drawing tool",
+            "description":"this is a running motion game",
             "luminence":"0.05"
         },
         "02":{
@@ -69,6 +69,12 @@
             "color":"purple",
             "description":"this is a labirynthe game",
             "luminence":"0.10"
+        },
+        "06":{
+            "name":"skate",
+            "color":"pink",
+            "description":"this is a discs game",
+            "luminence":"0.05"
         }
     }
 }

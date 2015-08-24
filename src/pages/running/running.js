@@ -80,18 +80,19 @@ running.prototype.create = function(){
     self.game.physics.p2.restitution = 0;
     self.game.physics.p2.gravity.y = 1000;
     
-    //self.hero = self.game.add.sprite(100, 200, 'hero');
+    self.hero = self.game.add.sprite(100, 200, 'hero');
+    
     self.decors = self.game.add.group();
     
-    self.hero = self.game.add.sprite(100, 200, 'runner');
+    /*self.hero = self.game.add.sprite(100, 200, 'runner');
     self.hero.scale.set(1);
     self.hero.smoothed = true;
     self.hero.animations.add('run', [0,1,2,3,4,5], 10, true);
-    self.hero.play('run');
+    self.hero.play('run');*/
     
     self.game.physics.p2.enable([ self.hero ], false);
     
-    self.hero.body.fixedRotation = true;
+    //self.hero.body.fixedRotation = true;
     //self.hero.body.setCircle(45);
     
     self.create_ground_level();

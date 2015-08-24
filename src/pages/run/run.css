@@ -1,0 +1,30 @@
+.game_infos{
+    display: table;
+    width:500px;
+    left:0;
+    right:0;
+    margin:auto;
+    background:#000;
+    position: absolute;
+}
+.hearts{
+    height: 50px;
+    float:left;
+}
+.hearts .heart{
+    width:50px;
+    height:50px;
+    display: inline-block;
+}
+.hearts .heart svg{
+    width:100%;
+    height:100%;
+}
+.distance{
+    color: #FFF;
+    font-size: 35px;
+    line-height: 50px;
+    font-weight: bold;
+    float: left;
+    margin-left:50px;
+}

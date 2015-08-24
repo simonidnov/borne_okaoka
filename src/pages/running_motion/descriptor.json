@@ -1,0 +1,24 @@
+{
+    "label":"running",
+    "version":"0.0.0",
+    "dependencies":[
+        "running.js", 
+        "assets/motion/hero_run.js",
+        "assets/motion/hero_flip.js",
+        "assets/motion/hero_fail.js",
+        "assets/motion/hero_fail_life.js",
+        "assets/motion/hero_invicible.js",
+        "assets/motion/hero_fail_wall.js",
+        "assets/motion/hero_win_wall.js",
+        "assets/motion/hero_fail_life_wall.js",
+        "assets/motion/hero_fail_watter.js",
+        "assets/motion/hero_win_watter.js",
+        "assets/motion/hero_fail_life_watter.js",
+        "assets/motion/watter_floor.js",
+        "motion/running_motion_2.js"
+    ],
+    "styles":["running.css"],
+    "content":"running.html",
+    "script_name":"running",
+    "motion":"running_motion_2"
+}
