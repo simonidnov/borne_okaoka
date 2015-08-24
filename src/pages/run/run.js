@@ -8,12 +8,14 @@ function run(){
     this.levels = [];
     this._is_down = false;
     this.levels_enemy = [];
+    this.levels_picots = [];
+    this.levels_watter = [];
     this.levels_ceiling = [];
     this.levels_ceiling_enemy = [];
     this.jumping = 0;
     this.jump_tween = {y:0};
     this.jumping_infos = {x:0, y:0, angle:0};
-    
+    this.game_start = 0;
     this.gameInfo = {
         start_date:0, 
         distance:0, 
@@ -45,7 +47,10 @@ run.prototype.preload = function(){
     self.game.load.image('bck_2', 'pages/run/maps/backgrounds/backgrounds-2.png');
     self.game.load.image('bck_3', 'pages/run/maps/backgrounds/backgrounds-3.png');
     
-    self.game.load.image('small_enemy', 'pages/run/maps/small_enemy.png');
+    self.game.load.image('invincible', 'pages/run/maps/special_mutation/invicible.png');
+    self.game.load.image('double_jump', 'pages/run/maps/special_mutation/double_jump.png');
+    self.game.load.image('parachute', 'pages/run/maps/special_mutation/parachute.png');
+    
     self.game.load.image('map_1', 'pages/run/maps/decors/map_2500_map_1.png');
     self.game.load.image('map_2', 'pages/run/maps/decors/map_2500_map_2.png');
     self.game.load.image('map_3', 'pages/run/maps/decors/map_2500_map_3.png');
@@ -59,21 +64,36 @@ run.prototype.preload = function(){
     self.game.load.image('map_11', 'pages/run/maps/decors/map_2500_map_11.png');
     self.game.load.image('map_12', 'pages/run/maps/decors/map_2500_map_12.png');
     
-    self.game.load.image('enemy_1', 'pages/run/maps/decors/map_2500_map_1.png');
-    self.game.load.image('enemy_2', 'pages/run/maps/decors/map_2500_map_2.png');
-    self.game.load.image('enemy_3', 'pages/run/maps/decors/map_2500_map_3.png');
-    self.game.load.image('enemy_4', 'pages/run/maps/decors/map_2500_map_4.png');
-    self.game.load.image('enemy_5', 'pages/run/maps/decors/map_2500_map_5.png');
-    self.game.load.image('enemy_6', 'pages/run/maps/decors/map_2500_map_6.png');
-    self.game.load.image('enemy_7', 'pages/run/maps/decors/map_2500_map_7.png');
-    self.game.load.image('enemy_8', 'pages/run/maps/decors/map_2500_map_8.png');
-    self.game.load.image('enemy_9', 'pages/run/maps/decors/map_2500_map_9.png');
-    self.game.load.image('enemy_10', 'pages/run/maps/decors/map_2500_map_10.png');
-    self.game.load.image('enemy_11', 'pages/run/maps/decors/map_2500_map_11.png');
-    self.game.load.image('enemy_12', 'pages/run/maps/decors/map_2500_map_12.png');
+    self.game.load.image('watter_1', 'pages/run/maps/decors/map_2500_map_1.png');
+    self.game.load.image('watter_2', 'pages/run/maps/decors/map_2500_map_2.png');
+    self.game.load.image('watter_3', 'pages/run/maps/decors/map_2500_map_3.png');
+    self.game.load.image('watter_4', 'pages/run/maps/decors/map_2500_map_4.png');
+    self.game.load.image('watter_5', 'pages/run/maps/decors/map_2500_map_5.png');
+    self.game.load.image('watter_6', 'pages/run/maps/decors/map_2500_map_6.png');
+    self.game.load.image('watter_7', 'pages/run/maps/decors/map_2500_map_7.png');
+    self.game.load.image('watter_8', 'pages/run/maps/decors/map_2500_map_8.png');
+    self.game.load.image('watter_9', 'pages/run/maps/decors/map_2500_map_9.png');
+    self.game.load.image('watter_10', 'pages/run/maps/decors/map_2500_map_10.png');
+    self.game.load.image('watter_11', 'pages/run/maps/decors/map_2500_map_11.png');
+    self.game.load.image('watter_12', 'pages/run/maps/decors/map_2500_map_12.png');
+    
+    self.game.load.image('picots_1', 'pages/run/maps/decors/map_2500_map_1.png');
+    self.game.load.image('picots_2', 'pages/run/maps/decors/map_2500_map_2.png');
+    self.game.load.image('picots_3', 'pages/run/maps/decors/map_2500_map_3.png');
+    self.game.load.image('picots_4', 'pages/run/maps/decors/map_2500_map_4.png');
+    self.game.load.image('picots_5', 'pages/run/maps/decors/map_2500_map_5.png');
+    self.game.load.image('picots_6', 'pages/run/maps/decors/map_2500_map_6.png');
+    self.game.load.image('picots_7', 'pages/run/maps/decors/map_2500_map_7.png');
+    self.game.load.image('picots_8', 'pages/run/maps/decors/map_2500_map_8.png');
+    self.game.load.image('picots_9', 'pages/run/maps/decors/map_2500_map_9.png');
+    self.game.load.image('picots_10', 'pages/run/maps/decors/map_2500_map_10.png');
+    self.game.load.image('picots_11', 'pages/run/maps/decors/map_2500_map_11.png');
+    self.game.load.image('picots_12', 'pages/run/maps/decors/map_2500_map_12.png');
     
     self.game.load.physics('floor_map', 'pages/run/maps/map_2500.json');
-    self.game.load.physics('enemies_map', 'pages/run/maps/map_enemies_2500.json');
+    self.game.load.physics('watter_map', 'pages/run/maps/map_watter_2500.json');
+    self.game.load.physics('picots_map', 'pages/run/maps/map_picots_2500.json');
+    self.game.load.physics('objects_datas', 'pages/run/maps/objects_datas.json');
     
     self.game.load.spritesheet('okaoka', 'pages/run/maps/character/okaoka.png', 75, 75);
     
@@ -82,6 +102,7 @@ run.prototype.preload = function(){
     self.game.load.image('puff', 'pages/run/maps/puff.png');
 }
 run.prototype.create = function(){
+    self.game_start = new Date().getTime();
     self.game.world.setBounds(-4000, -2500, 800000, 2500);
     //self.game.world.setBounds(-1000, -1000, 2000, 2000);
     //self.game.stage.scaleMode = Phaser.scaleModes.DEFAULT; 
@@ -108,7 +129,7 @@ run.prototype.create = function(){
     
     //self.hero = self.game.add.sprite(-3800, -1100, 'hero');
     /* -------- SAMPLE SPRITE ---------- */
-    self.hero = self.game.add.sprite(-3600, -900, 'okaoka');
+    self.hero = self.game.add.sprite(-3400, -900, 'okaoka');
     self.hero.scale.set(1);
     self.hero.smoothed = true;
     self.hero.animations.add('run', [0,1,2,3], 25, true);
@@ -116,11 +137,13 @@ run.prototype.create = function(){
     self.hero.animations.add('jump', [5], 8, false);
     self.hero.animations.add('after_jump', [6], 8, false);
     self.hero.animations.add('wall', [8,9,10,11,12,13,14,15,16,17], 18, false);
+    self.hero.animations.add('watter', [8,9,10,11,12,13,14,15,16,17], 18, false);
+    self.hero.animations.add('picots', [8,9,10,11,12,13,14,15,16,17], 18, false);
     self.hero.animations.add('slide', [18], 1, false);
     self.hero.play('run');
     
     
-    self.hero_boomer = self.game.add.sprite(-3580, -900, 'boomer');
+    self.hero_boomer = self.game.add.sprite(-3380, -900, 'boomer');
     
     self.game.physics.p2.enable([ self.hero, self.hero_boomer ], self._debug);
     
@@ -139,15 +162,12 @@ run.prototype.create = function(){
     self.hero.body.mass = 1000;
     self.hero.body.fixedRotation = true;
     
-    //self.hero.body.setCircle(45);
     self.hero.body.sensor = true;
-    //self.hero_head.body.sensor = true;
     self.hero.body.onBeginContact.add(self.collision, this);
     self.hero.body.onEndContact.add(self.endcollision, this);
     
     self.hero_boomer.body.fixedRotation = true;
-    //self.hero_boomer.body.sensor = true;
-    //self.hero_boomer.body.mass = 1000;
+    
     self.hero_boomer.body.onBeginContact.add(self.head_collision, this);
     self.hero_boomer.body.onEndContact.add(self.head_endcollision, this);
     
@@ -162,7 +182,20 @@ run.prototype.endcollision = function(body, bodyB, shapeA, shapeB, equation){
     self.hero.body.fixedRotation = true;
 }
 run.prototype.collision = function(body, bodyB, shapeA, shapeB, equation){
-    //console.log(body.sprite.key);
+    if(body.sprite.key.indexOf('watter') !== -1){
+        console.log('watter gloups');
+        self.gameInfo.state = "died";
+        self.gameInfo.motion_state = "watter";
+        self.hero.play('watter');
+        self.gameInfo.speed = 0;
+    }
+    if(body.sprite.key.indexOf('picots') !== -1){
+        console.log('picots Aïe !');
+        self.gameInfo.state = "died";
+        self.gameInfo.motion_state = "watter";
+        self.hero.play('picots');
+        self.gameInfo.speed = 0;
+    }
     if(self.gameInfo.state !== "died"){
         if(self.gameInfo.state !== "sliding"){
             self.hero.play('run');
@@ -228,16 +261,27 @@ run.prototype.create_ground_level = function(){
     self.levels[cur_level].body.mass = 1000;
     self.levels[cur_level].body.kinematic = true;
     
-    /* ------- AD ENEMY WITH MAP --------- */
-    self.levels_enemy[cur_level] = self.decors.create(
+    /* ------- ADD WATTER WITH MAP --------- */
+    self.levels_watter[cur_level] = self.decors.create(
         self.gameInfo.tilemap.size.width * (cur_level) - 2500, 
         -1500, 
-        'enemy_'+self._current_decors
+        'watter_'+self._current_decors
     );
-    self.game.physics.p2.enable([ self.levels_enemy[cur_level] ], self._debug);
-    self.levels_enemy[cur_level].body.clearShapes();
-	self.levels_enemy[cur_level].body.loadPolygon('enemies_map', 'map_2500_map_'+self._current_decors);
-    self.levels_enemy[cur_level].body.kinematic = true;
+    self.game.physics.p2.enable([ self.levels_watter[cur_level] ], self._debug);
+    self.levels_watter[cur_level].body.clearShapes();
+	self.levels_watter[cur_level].body.loadPolygon('watter_map', 'map_2500_map_'+self._current_decors);
+    self.levels_watter[cur_level].body.kinematic = true;
+    
+    /* ------- ADD PICOTS WITH MAP --------- */
+    self.levels_picots[cur_level] = self.decors.create(
+        self.gameInfo.tilemap.size.width * (cur_level) - 2500, 
+        -1500, 
+        'picots_'+self._current_decors
+    );
+    self.game.physics.p2.enable([ self.levels_picots[cur_level] ], self._debug);
+    self.levels_picots[cur_level].body.clearShapes();
+	self.levels_picots[cur_level].body.loadPolygon('picots_map', 'map_2500_map_'+self._current_decors);
+    self.levels_picots[cur_level].body.kinematic = true;
     
     //self.decors.add(self.levels_enemy[self.levels_enemy.length-1]);
     
@@ -257,6 +301,8 @@ run.prototype.create_ground_level = function(){
     self.gameInfo.last_created_ground = new Date().getTime();
 }
 run.prototype.on_down = function(evt){
+    console.log("x : ", self.game.camera.position.x + evt.pageX);
+    console.log("y : ", self.game.camera.position.y + evt.pageY);
     if(self.gameInfo.state === "died"){
         return false;
     }
@@ -335,6 +381,16 @@ run.prototype.render = function(){
             //self.levels[0].destroy();
             delete self.levels[level_to_check];
             self.levels.splice(level_to_check, 1);
+            
+            self.levels_watter[level_to_check].body.sprite.destroy();
+            //self.levels[0].destroy();
+            delete self.levels_watter[level_to_check];
+            self.levels_watter.splice(level_to_check, 1);
+            
+            self.levels_picots[level_to_check].body.sprite.destroy();
+            //self.levels[0].destroy();
+            delete self.levels_picots[level_to_check];
+            self.levels_picots.splice(level_to_check, 1);
         }
     }
     
@@ -408,6 +464,8 @@ run.prototype.destroy = function(callBack){
     delete this._total_levels;
     delete this.levels;
     delete this.levels_enemy;
+    delete this.levels_watter;
+    delete this.levels_picots;
     delete this.levels_ceiling;
     delete this.levels_ceiling_enemy;
     delete this.jumping;
