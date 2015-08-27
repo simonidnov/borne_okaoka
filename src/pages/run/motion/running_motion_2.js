@@ -271,7 +271,7 @@ p.nominalBounds = new cjs.Rectangle(-20.3,-60.6,54.1,60.5);
 	this.shape_29.graphics.f("#FFFFFF").s().p("AiiE9QgMgHAAgPQAAgGADgGIBnigQACgDAAgDQAAgHgFgFQgFgFgGAAIhFAAQgKAAgHgHQgGgHAAgKQAAgKAGgIQAHgHAKAAIDdAAQAKAAAHAHQAHAIAAAKQAAAKgHAHQgHAHgKAAIhHAAIBcC0QADAGAAAHQAAAOgMAHQgJAFgKgDQgJgDgFgIIhMiZIhmCcQgFAIgKADIgGABQgHAAgFgDgACFAzQgHgHAAgKQAAgKAHgIQAIgHAKAAQAKAAAIAHQAGAIABAKQgBAKgGAHQgIAHgKAAQgKAAgIgHgAhhgBQggAAgXgXQgXgXABghIAAihQgBggAXgXQAXgXAgAAIBxAAQAhAAAWAXQAXAXAAAgIAAChQAAAhgXAXQgWAXghAAgAh0kEQgKALAAAOIAACVQAAAPAKAKQAKALAPAAIBlAAQAPAAAKgLQALgKAAgPIAAiVQAAgOgLgLQgKgKgPAAIhlAAQgPAAgKAKg");
 	this.shape_29.setTransform(3.3,-32.1);
 
-	this.instance_3 = new lib.runner();
+	this.instance_3 = new lib.runner("synched",0);
 	this.instance_3.setTransform(-0.5,-31.6,1,1,0,0,0,-1.2,-29.7);
 
 	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.shape_29},{t:this.instance_2}]}).to({state:[]},28).to({state:[{t:this.instance_3}]},6).to({state:[]},174).wait(45));
@@ -285,19 +285,19 @@ p.nominalBounds = new cjs.Rectangle(-14.3,-64.1,35.2,64.2);
 
 
 (lib.running_motion_2 = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{end:17});
+	this.initialize(mode,startPosition,loop,{end:80});
 
 	// timeline functions:
 	this.frame_0 = function() {
 		var status = "play";
 	}
-	this.frame_17 = function() {
+	this.frame_80 = function() {
 		window['navigation'].intro_motion_stopped();
 		this.stop();
 	}
 
 	// actions tween:
-	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(17).call(this.frame_17).wait(191));
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(80).call(this.frame_80).wait(128));
 
 	// Calque 1
 	this.instance = new lib.running("synched",0);

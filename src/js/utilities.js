@@ -12,10 +12,13 @@ var utilities = {
         }
         TweenMax.to($('.app_popup'), .5, {opacity:1});
         var tmp = _.template($('#app_popup_template').html());
+        if(typeof params.buttons === "undefined"){
+            params.buttons = ["no", "yes"];
+        }
         $('.app_popup').append(tmp(params));
         if(typeof params.motion !== "undefined"){
             $('.app_popup .motion').css('display', 'block');
-            if(typeof lib[params.motion] === "undefined"){
+            if(typeof lib[params.motion+"_motion"] === "undefined"){
                 var queue = new createjs.LoadQueue();
                     queue.on("complete", function(){
                         this.destroy();
@@ -27,23 +30,32 @@ var utilities = {
                 utilities.play_motion(params, "popup_motion_canvas");
             }
         }
-        $('#btn_no').load('./images/assets/cross_button.svg', function(e){
-            $('#btn_no svg *').attr('stroke', '#FFFFFF');
-        });
+        for(var i=0; i<params.buttons.length; i++){
+            $('#btn_'+params.buttons[i]).load('./images/assets/btn_'+params.buttons[i]+'.svg', function(e){
+                $(this).find('svg *').attr('stroke', '#FFFFFF');
+            });
+        }
+        /*
         $('#btn_yes').load('./images/assets/valid_button.svg', function(){
             $('#btn_yes svg *').attr('stroke', '#FFFFFF');
         });
+        */
+        
         $('.popup_btn').off('click').on('click', function(){
             var btn_pos = $(this).position();
-            var selected_color = colors.blue;
+            var btn_id = $(this).attr('id');
+            var selected_color = navigation._current_interface_color;
             $(this).css({"position":"absolute", "left":btn_pos.left+"px", "top":btn_pos.top+"px"});
             if($(this).attr('id') == 'btn_yes'){
-                $('#btn_no').remove();
                 selected_color = colors.green;
             }else if($(this).attr('id') == 'btn_no'){
-                $('#btn_yes').remove();
                 selected_color = colors.red;
             }
+            $.each($('.popup_btn'), function(){
+                if($(this).attr('id') !== btn_id){
+                    $(this).remove();
+                }
+            });
             $('.popup_motion').remove();
             var value = $(this).attr('data-value');
             TweenMax.to($(this), .2, {
@@ -115,7 +127,13 @@ var utilities = {
         return rgb;
     }
 }
-
+function rgb2hex(rgb){
+ rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+ return (rgb && rgb.length === 4) ? "#" +
+  ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+  ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+  ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+}
 var colors = {
     "purple":"#612B9B",
     "green":"#44AC34",

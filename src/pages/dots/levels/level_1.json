@@ -1,0 +1,13 @@
+{
+    "legend":"Casser des briques",
+    "dot_size":50,
+    "grid_size":{"c":3, "l":1},
+    "_grid_size":100,
+    "hits":1,
+    "objectives":{
+        "yellow":3
+    },
+    "colors":[
+        "yellow"
+    ]
+}

@@ -14,18 +14,19 @@
         <div class="app_content">
         </div>
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="bower_components/html2canvas/build/html2canvas.min.js"></script>
+        <!--<script src="bower_components/html2canvas/build/html2canvas.min.js"></script>-->
         <script src="bower_components/jquery-ui-draggable/jquery-ui-draggable.js"></script>
-        <script src="bower_components/jquery-ui-touch-punch-master/jquery.ui.touch-punch.min.js"></script>
+        <!--<script src="bower_components/jquery-ui-touch-punch-master/jquery.ui.touch-punch.min.js"></script>-->
         <script src="bower_components/underscore/underscore-min.js"></script>
         <script src="bower_components/backbone/backbone-min.js"></script>
         <script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
         <script src="bower_components/gsap/src/minified/easing/EasePack.min.js"></script>
+        <script src="bower_components/gsap/src/minified/plugins/ColorPropsPlugin.min.js"></script>
         <script src="bower_components/PreloadJS/lib/preloadjs-0.6.1.combined.js"></script>
         <script src="bower_components/EaselJS/lib/easeljs-0.8.1.combined.js"></script>
         <script src="bower_components/EaselJS/lib/movieclip-0.8.1.combined.js"></script>
-        <script src="bower_components/EaselJS/lib/webgl-0.8.1.combined.js"></script>
-        <script src="bower_components/SoundJS/lib/soundjs-0.6.1.combined.js"></script>
+        <!--<script src="bower_components/EaselJS/lib/webgl-0.8.1.combined.js"></script>
+        <script src="bower_components/SoundJS/lib/soundjs-0.6.1.combined.js"></script>-->
         <script src="bower_components/TweenJS/lib/tweenjs-0.6.1.combined.js"></script>
         <!--<script src="js/app.js"></script>-->
         <script src="js/utilities.js"></script>
@@ -55,7 +56,9 @@
                     <canvas id="popup_motion_canvas" width="400" height="200" style="<%= color %>"></canvas>
                 </div>
                 <div class="popup_btns">
-                    <div class="popup_btn" data-value="0" id="btn_no"></div>
+                    <% for(var i=0; i<buttons.length; i++){ %>
+                        <div class="popup_btn" data-value="<%= i %>" id="btn_<%= buttons[i] %>" style="width:<%= 100 / buttons.length %>%;"></div>
+                    <% } %>
                     <div class="popup_btn" data-value="1" id="btn_yes"></div>
                 </div>
             </div>

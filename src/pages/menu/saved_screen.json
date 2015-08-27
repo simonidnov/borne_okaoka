@@ -1,0 +1,40 @@
+{
+    "2":{
+        "01":{
+            "name":"bounceball",
+            "color":"pink",
+            "description":"this is a bounceball game like flappy bird",
+            "luminence":"0.05"
+        },
+        "02":{
+            "name":"basketball",
+            "color":"sblue",
+            "description":"this is a basketball game like angry bird",
+            "luminence":"0.08"
+        },
+        "03":{
+            "name":"ballbreaker",
+            "color":"green",
+            "description":"this is a ball breaker game like arcade game engine",
+            "luminence":"0.10"
+        },
+        "04":{
+            "name":"ballcamp",
+            "color":"purple",
+            "description":"this is a ball ball camp game balle au prisonnier",
+            "luminence":"0.10"
+        },
+        "05":{
+            "name":"gamepad",
+            "color":"purple",
+            "description":"this is a labirynthe game",
+            "luminence":"0.10"
+        },
+        "06":{
+            "name":"skate",
+            "color":"pink",
+            "description":"this is a discs game",
+            "luminence":"0.05"
+        }
+    }
+}

@@ -6,7 +6,7 @@ var navigation = {
     _last_page_menu : 0,
     _current_interface_color : colors.blue,
     init : function(){
-        document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
+        //document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
         this.create_routes();
     },
     create_routes : function(){
@@ -33,7 +33,14 @@ var navigation = {
         Backbone.emulateHTTP = true;
         this.router = new Router();
         Backbone.history.start();
-        this.router.navigate('page/screensaver', {trigger:true, replace:true});
+        var hash = window.location.hash;
+        if(hash == ""){
+            hash = 'page/screensaver';
+        }else{
+            hash.replace('#', '');
+        }
+        this.router.navigate(hash, {trigger:true, replace:true});
+        delete hash;
         $('#backbutton').off('tap, click').on('tap, click', function(){
             utilities.show_popup({color:navigation._current_interface_color, motion:"exit_game"}, function(e){
                 if(e == 1){
@@ -72,6 +79,11 @@ var navigation = {
             url: 'pages/'+page+'/descriptor.json',
             data: {},
             success: function(datas){
+                if(typeof datas.color !== "undefined"){
+                    self._current_interface_color = colors[datas.color];
+                    TweenMax.to($('.app_content'), .5, {"backgroundColor"   :   navigation._current_interface_color});
+                    TweenMax.to($('#backbutton'), .5, {'backgroundColor'    :   navigation._current_interface_color});
+                }
                 self.page_properties = datas;
                 self.load_styles(function(){
                     self.load_dependencies(function(){

@@ -1,0 +1,10 @@
+{
+    "label":"dots",
+    "version":"0.0.0",
+    "color":"yellow",
+    "dependencies":["dots.js", "motion/dots_motion.js"],
+    "styles":["dots.css"],
+    "content":"dots.html",
+    "script_name":"dots",
+    "motion":"dots_motion"
+}

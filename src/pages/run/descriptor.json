@@ -1,10 +1,15 @@
 {
     "label":"run",
     "version":"0.0.0",
+    "color":"pink",
     "dependencies":[
         "run.js", 
-        "js/phaser.min.js",
-        "motion/running_motion_2.js"
+        "js/phaser-2.1.1.min.js",
+        "motion/intro_run/intro_run_motion.js",
+        "motion/intro_run/wall_run_motion.js",
+        "motion/intro_run/watter_run_motion.js",
+        "motion/running_motion_2.js",
+        "maps/objects_datas.js"
     ],
     "styles":["run.css"],
     "content":"run.html",
