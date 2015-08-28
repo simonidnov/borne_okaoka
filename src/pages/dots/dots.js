@@ -4,7 +4,11 @@ function dots(){
     this._levels = null;
     this._navigation = {container:null, buttons:null, line:null};
     
+    this.angle = 0;
+    this.particles_container;
+    this.particles=[];
     
+    this._nav_is_open = true;
     this.dots = [];
     this.grid_size = {c:3, l:3};
     this.position = {x:0, y:0};
@@ -121,22 +125,33 @@ dots.prototype.stage_up = function(e){
         self.destroy_all_color(_.findWhere(self.dots, {id:self._selected_dots[0]}).color);
     }else{
         self.check_selected_dots();
-    }   
+    }
 }
 dots.prototype.create_grid = function(){
     self.stage.addEventListener("stagemousedown", self.stage_down);
     self.stage.addEventListener("stagemouseup", self.stage_up);
     
     self.create_objectives();
+    self._objectives_container.x = window.innerWidth;
     
     self._line = new createjs.Shape();
     self.stage.addChild(self._line);
     
     self.grid = self.stage.addChild(new createjs.Container());
+    self.grid.x = window.innerWidth;
+    TweenMax.to(self._objectives_container, 1, {
+        x:(window.innerWidth/2) - ((self._grid_size * self.grid_size.c)/2) - (self._grid_size/2), 
+        ease:Power4.easeInOut,
+        delay:.2
+    });
+    TweenMax.to(self.grid, 1, {
+        x:(window.innerWidth/2) - ((self._grid_size * self.grid_size.c)/2) - (self._grid_size/2), 
+        ease:Power4.easeInOut
+    });
     //self.grid.y = -window.innerHeight;
     //TweenMax.to(self.grid, 1, {y:0});
     
-    self._objectives_container.x = self.grid.x = self._line.x = (window.innerWidth/2) - ((self._grid_size * self.grid_size.c)/2) - (self._grid_size/2);
+    self._line.x = (window.innerWidth/2) - ((self._grid_size * self.grid_size.c)/2) - (self._grid_size/2);
     self.grid.y = self._line.y = (window.innerHeight/2) - ((self._grid_size * self.grid_size.l)/2) - (self._grid_size/2);
     
     self._objectives_container.y = (window.innerHeight/2) - ((self._grid_size * self.grid_size.l)/2) - (self._grid_size/2) -50;
@@ -258,7 +273,7 @@ dots.prototype.tick = function(){
         delete l;
         self.redraw_line_selection();
     }
-    //stage.update(event);
+    self.update_particles();
     self.stage.update();
 }
 dots.prototype.is_a_shape = function(id){
@@ -531,6 +546,8 @@ dots.prototype.load_level = function(lvl){
         data: {},
         success: function(datas){
             self._levels = datas;
+            self.build_decors();
+            self.create_particles();
             self.build_navigation();
         }
     });
@@ -553,40 +570,302 @@ dots.prototype.select_level = function(id){
     });
     TweenMax.to($('.app_content'), .5, {backgroundColor:colors[datas.color]});
     TweenMax.to($('#backbutton'), .5, {backgroundColor:colors[datas.color]});
-    TweenMax.to(self._navigation.container, 1, {y:window.innerHeight, onComplete : function(){
-        self.create_grid();
-    }});
+    self.create_grid();
 }
 dots.prototype.destroy_grid = function(){
-    var l = self.grid.getNumChildren();
-    for (var i=0; i<l; i++) {
-        self.dots = _.reject(self.dots, {id:self.grid.getChildAt(i).id});
-        //self.grid.removeChild(self.grid.getChildAt(i));
-    }
-    self.stage.removeChild(self.grid);
-    self.stage.removeChild(self._objectives_container);
+    TweenMax.to(self._objectives_container, 1, {
+        x:window.innerWidth,
+        ease:Power4.easeInOut
+    });
+    TweenMax.to(self.grid, 1, {
+        x:window.innerWidth,
+        ease:Power4.easeInOut,
+        onComplete:function(){
+            var l = self.grid.getNumChildren();
+            for (var i=0; i<l; i++) {
+                self.dots = _.reject(self.dots, {id:self.grid.getChildAt(i).id});
+                //self.grid.removeChild(self.grid.getChildAt(i));
+            }
+            self.stage.removeChild(self.grid);
+            self.stage.removeChild(self._objectives_container);
+        }
+    });
 }
 dots.prototype.open_nav = function(){
-    TweenMax.to(self._navigation.container, .5, {y:0});
+    /*$('#dots_page').append('<div class="scroller"></div>');
+    $('.scroller').css({
+        width:window.innerWidth+"px", 
+        height:self._navigation.container.getBounds().height,
+        top:self._navigation.container.y,
+        left:0,
+        background:'rgba(0,0,0,.2)'
+    });*/
+    //Draggable.create('.scroller', {type:"x,y", edgeResistance:0.65, bounds:".app_content", throwProps:true, onComplete:function(){console.log($('.scroller').position());}});
+    
+    self._nav_is_open = true;
+    self.stage.removeEventListener("stagemousedown");
+    self.stage.removeEventListener("stagemouseup");
+    var offset = new createjs.Point();
+    var start_point = {x:0, y:0};
+    self.stage.addEventListener("pressup", function (evt) {
+        if(self._nav_is_open){
+            self.replace_decors();
+            if(self._navigation.container.y > (self._navigation.container.getBounds().height - (window.innerHeight / 2))){
+                TweenMax.to(self._navigation.container, 1, {
+                    y : (self._navigation.container.getBounds().height - (window.innerHeight / 2)), 
+                    ease:Power4.easeInOut,
+                    onUpdate : function(){
+                        self.replace_decors();   
+                    }
+                });
+            }
+            if(self._navigation.container.y < -(self._navigation.container.getBounds().height + self._navigation.container.getBounds().y - (window.innerHeight / 2))){
+                TweenMax.to(self._navigation.container, 1, {
+                    y : -(self._navigation.container.getBounds().height + self._navigation.container.getBounds().y - (window.innerHeight / 2)), 
+                    ease:Power4.easeInOut,
+                    onUpdate : function(){
+                        self.replace_decors();   
+                    }
+                });
+            }
+        }
+    });
+    self.stage.addEventListener("mousedown", function (evt) {
+		if(self._nav_is_open){
+            start_point = {x: evt.stageX, y: evt.stageY, default_pos:self._navigation.container.y};
+        }
+	});
+    self.stage.addEventListener("pressmove", function (evt) {
+        if(self._nav_is_open){
+            //self._navigation.container.y = $('.scroller').position().top;
+            self._navigation.container.y = start_point.default_pos + (evt.stageY - start_point.y)/1.2;
+            self.replace_decors();
+        }
+    });
+    TweenMax.to(self._navigation.container, 1, {x:0, ease : Power4.easeInOut});
+}
+dots.prototype.close_nav = function(){
+    self._nav_is_open = false;
+    self.stage.removeEventListener("pressup");
+    self.stage.removeEventListener("mousedown");
+    self.stage.removeEventListener("pressmove");
+    TweenMax.to(self._navigation.container, 1, {x:-window.innerWidth, ease : Power4.easeInOut});
+}
+dots.prototype.build_decors = function(){
+    self.decors = {container:null, bottom_left:null, bottom_right:null, bottom_center:null, watter:null, elements:{}};
+    
+    self.decors.container = self.stage.addChild(new createjs.Container());
+    
+    self.decors.bottom_left = new createjs.Bitmap("./pages/dots/images/decors/bottom_left.png");
+    self.decors.container.addChild(self.decors.bottom_left);
+    
+    self.decors.bottom_right = new createjs.Bitmap("./pages/dots/images/decors/bottom_right.png");
+    self.decors.container.addChild(self.decors.bottom_right);
+    
+    self.decors.bottom_center = new createjs.Bitmap("./pages/dots/images/decors/bottom_center.png");
+    self.decors.container.addChild(self.decors.bottom_center);
+    
+    self.decors.bottom_left.scaleX = self.decors.bottom_left.scaleY = self.decors.bottom_right.scaleX = self.decors.bottom_right.scaleY = self.decors.bottom_center.scaleX = self.decors.bottom_center.scaleY = 0;
+    
+    self.decors.watter = new createjs.Bitmap("./pages/dots/images/decors/watter_white.png");
+    self.decors.watter.x = -100;
+    self.decors.watter.y = window.innerHeight + 300;
+    self.decors.container.addChild(self.decors.watter);
+    
+    TweenMax.to(self.decors.watter, 1, {
+        y:window.innerHeight-40,
+        delay:1
+    });
+    
+    self.decors.elements['square'] = new createjs.Bitmap("./pages/dots/images/decors/square_green.png");
+    self.decors.elements['square'].x = window.innerWidth/2 - 250;
+    self.decors.elements['square'].y = 400;
+    self.decors.elements['square'].level = 2;
+    self.decors.container.addChild(self.decors.elements['square']);
+    self.decors.elements.square.regX = self.decors.elements.square.regY = 50;
+    TweenMax.to(self.decors.elements['square'], 12, {
+        rotation:360,
+        rotation:360,
+        repeat:-1,
+        ease:Linear.easeInOut
+    });
+    
+    self.decors.elements['triangle_pink'] = new createjs.Bitmap("./pages/dots/images/decors/triangle_pink.png");
+    self.decors.elements['triangle_pink'].x = 250;
+    self.decors.elements['triangle_pink'].y = 0;
+    self.decors.elements['triangle_pink'].level = 1;
+    self.decors.container.addChild(self.decors.elements['triangle_pink']);
+    self.decors.elements.triangle_pink.regX = self.decors.elements.triangle_pink.regY = 50;
+    TweenMax.to(self.decors.elements['triangle_pink'], 24, {
+        rotation:360,
+        repeat:-1,
+        ease:Linear.easeInOut
+    });
+    
+    self.decors.elements['wave_pink'] = new createjs.Bitmap("./pages/dots/images/decors/wave_pink.png");
+    self.decors.elements['wave_pink'].x = window.innerWidth/2 + 330;
+    self.decors.elements['wave_pink'].y = 225;
+    self.decors.elements['wave_pink'].level = 2;
+    self.decors.container.addChild(self.decors.elements['wave_pink']);
+    self.decors.elements.wave_pink.regX = self.decors.elements.wave_pink.regY = 50;
+    /*TweenMax.to(self.decors.elements['wave_pink'], 5, {
+        scaleX:0,
+        scaleY:0,
+        yoyo:true,
+        repeat:-1,
+        ease:Linear.easeInOut,
+        onComplete:function(){
+            var m =this;
+            this.pause();
+            setTimeout(function(){
+                m.resume();
+            },2500);
+        }
+    });*/
+    
+    self.decors.elements['circular_green'] = new createjs.Bitmap("./pages/dots/images/decors/circular_green.png");
+    self.decors.elements['circular_green'].x = window.innerWidth - 150;
+    self.decors.elements['circular_green'].y = window.innerHeight - 200;
+    self.decors.elements['circular_green'].level = 3;
+    self.decors.container.addChild(self.decors.elements['circular_green']);
+    self.decors.elements.circular_green.regX = self.decors.elements.circular_green.regY = 100;
+    TweenMax.to(self.decors.elements['circular_green'], 35, {
+        rotation:360,
+        repeat:-1,
+        ease:Linear.easeInOut
+    });
+    
+    self.decors.elements['herisson_green'] = new createjs.Bitmap("./pages/dots/images/decors/herisson_green.png");
+    self.decors.elements['herisson_green'].x = window.innerWidth - 250;
+    self.decors.elements['herisson_green'].y = -280;
+    self.decors.elements['herisson_green'].level = 4;
+    self.decors.container.addChild(self.decors.elements['herisson_green']);
+    self.decors.elements.herisson_green.regX = self.decors.elements.herisson_green.regY = 78;
+    TweenMax.to(self.decors.elements['herisson_green'], 8, {
+        rotation:360,
+        repeat:-1,
+        ease:Linear.easeInOut
+    });
+    
+    
+    setTimeout(function(){
+        self.decors.bottom_left.regY = self.decors.bottom_left.getBounds().height;
+        self.decors.bottom_left.y = window.innerHeight;
+        self.decors.bottom_left.regX = 0;
+        
+        self.decors.bottom_right.regX = self.decors.bottom_right.getBounds().width;
+        self.decors.bottom_right.regY = self.decors.bottom_right.getBounds().height;
+        self.decors.bottom_right.x = window.innerWidth;
+        self.decors.bottom_right.y = window.innerHeight;
+        
+        self.decors.bottom_center.regX = self.decors.bottom_center.getBounds().width/2;
+        self.decors.bottom_center.regY = self.decors.bottom_center.getBounds().height;
+        self.decors.bottom_center.x = window.innerWidth/2;
+        self.decors.bottom_center.y = window.innerHeight;
+        
+        var updt = {scale:0}
+        TweenMax.to(updt, 1, {scale:1, onUpdate:function(){
+            self.decors.bottom_left.scaleX = self.decors.bottom_left.scaleY = self.decors.bottom_right.scaleX = self.decors.bottom_right.scaleY = self.decors.bottom_center.scaleX = self.decors.bottom_center.scaleY = updt.scale;
+        }, delay:1});
+        self.replace_decors();
+    }, 500);
+}
+dots.prototype.create_particles = function(){
+    self.particles_container = self.stage.addChild(new createjs.Container());
+    for(var i=0; i<25; i++){
+        self.particles[i] = new createjs.Shape();
+        self.particles[i].graphics.beginFill("#FFFFFF").drawCircle(0, 0, Math.round(Math.random()*5)+1);
+        self.particles[i].x = Math.random()*window.innerWidth;
+        self.particles[i].y = Math.random()*window.innerHeight;   
+        self.particles[i].alpha = .1 + Math.random()*1;
+        self.particles_container.addChild(self.particles[i]);
+    }
+}
+dots.prototype.redraw_particles = function(){
+    
+}
+dots.prototype.update_particles = function(){
+    var W = window.innerWidth;
+    var H = window.innerWidth;
+    self.angle += 0.01;
+	for(var i = 0; i < self.particles.length; i++)
+	{
+		var p = self.particles[i];
+		p.y += Math.cos(self.angle) + 1;
+		p.x += Math.sin(self.angle) * 2;
+        //console.log(p.x);
+		if(p.x > W+5 || p.x < -5 || p.y > H)
+		{
+			if(i%3 > 0) //66.67% of the flakes
+			{
+				self.particles[i].x = Math.random()*W;
+                self.particles[i].y = -10;
+                //, r: p.r, d: p.d};
+			}
+			else
+			{
+				if(Math.sin(self.angle) > 0)
+				{
+					self.particles[i].x = -5;
+                    self.particles[i].y = Math.random()*H;
+                    //, r: p.r, d: p.d};
+				}
+				else
+				{
+					self.particles[i].x = W+5;
+                    self.particles[i].y = Math.random()*H;
+                    //, r: p.r, d: p.d};
+				}
+			}
+		}
+	}
+	   
+}
+dots.prototype.replace_decors = function(){
+    // set self.decors.container relative to self._navigation.container.y
+    self.decors.container.y = self._navigation.container.y / 2;
+    self.decors.bottom_center.y = -(self.decors.container.y) / 2 + window.innerHeight;
+    /*for(var i=0; i<_.keys(self.decors.elements).length; i++){
+        console.log(self.decors.elements[_.keys(self.decors.elements)[i]].y);
+        self.decors.elements[_.keys(self.decors.elements)[i]].y = -(self.decors.container.y) / self.decors.elements[_.keys(self.decors.elements)[i]].level;
+    }*/
 }
 dots.prototype.build_navigation = function(){
+    self.hit_zone = new createjs.Shape();
+    self.hit_zone.graphics.beginFill(colors['yellow']).drawRect(0,0,window.innerWidth, window.innerHeight);
+    self.stage.addChild(self.hit_zone);
+    self.hit_zone.alpha = 0.01;
+    
     self._navigation = {container:null, buttons:{}, line:null};
     self._navigation.container = self.stage.addChild(new createjs.Container());
     self._navigation.line = new createjs.Shape();
-    self._navigation.line.graphics.setStrokeStyle(40);
+    self._navigation.line.graphics.setStrokeStyle(40, "round", "round");
     self._navigation.line.graphics.beginStroke("#FFF");
-    self._navigation.line.graphics.moveTo(260, (window.innerHeight / 2) - 25);
-    self._navigation.line.graphics.lineTo((100 + (160 * _.keys(self._levels).length)), (window.innerHeight / 2) - 25);
+    self._navigation.line.graphics.moveTo(window.innerWidth/2, (window.innerHeight - 125));
+    self._navigation.line.graphics.lineTo(
+        window.innerWidth/2, 
+        (window.innerHeight - 50) - (125 * _.keys(self._levels).length)
+    );
     self._navigation.container.addChild(self._navigation.line);
+    //self._navigation.line.scaleX = 0;
+    self.stage.enableMouseOver(20);
+    self.stage.mouseMoveOutside = true;
     
     $.each(_.keys(self._levels), function(i, lvl){
-        self._navigation.buttons[lvl] = {dot:null, text:null, percent:null};
+        self._navigation.buttons[lvl] = {container:null, dot:null, text:null, percent:null};
+        self._navigation.buttons[lvl].container = self._navigation.container.addChild(new createjs.Container());
+        self._navigation.buttons[lvl].container.y = (window.innerHeight - 125) - (150 * i);
+        self._navigation.buttons[lvl].container.x = window.innerWidth/2;
+        self._navigation.buttons[lvl].container.id = lvl;
+        self._navigation.buttons[lvl].container.scaleX = 0;
+        self._navigation.buttons[lvl].container.scaleY = 0;
+            
         self._navigation.buttons[lvl].dot = new createjs.Shape();
         self._navigation.buttons[lvl].dot.graphics.setStrokeStyle(20);
         self._navigation.buttons[lvl].dot.graphics.beginStroke("#FFF");
         self._navigation.buttons[lvl].dot.graphics.beginFill(colors[self._levels[lvl].color]).drawCircle(0, 0, 50);
-        self._navigation.buttons[lvl].dot.y = (window.innerHeight / 2) - 25;
-        self._navigation.buttons[lvl].dot.x = 100 + (160 * (i+1));
+        self._navigation.buttons[lvl].dot.y = 30;
+        //self._navigation.buttons[lvl].dot.x = window.innerWidth/2 - 50;
         self._navigation.buttons[lvl].dot.id = lvl;
         
         
@@ -594,17 +873,95 @@ dots.prototype.build_navigation = function(){
         self._navigation.buttons[lvl].text.font = "700 50px Roboto";
         self._navigation.buttons[lvl].text.color = "#FFFFFF";
         self._navigation.buttons[lvl].text.text = lvl;
-        self._navigation.buttons[lvl].text.x = 100 + (160 * (i+1));
-        self._navigation.buttons[lvl].text.y = (window.innerHeight / 2) - 55;
+        //self._navigation.buttons[lvl].text.x = window.innerWidth/2 - 50;
+        //self._navigation.buttons[lvl].text.y = (window.innerHeight - 155) - (150 * i);
         self._navigation.buttons[lvl].text.width = 100;
         self._navigation.buttons[lvl].text.textAlign = "center"; 
         
-        self._navigation.container.addChild(self._navigation.buttons[lvl].dot);
-        self._navigation.container.addChild(self._navigation.buttons[lvl].text);
+        self._navigation.buttons[lvl].container.addChild(self._navigation.buttons[lvl].dot);
+        self._navigation.buttons[lvl].container.addChild(self._navigation.buttons[lvl].text);
         
-        self._navigation.buttons[lvl].dot.addEventListener("click", function(e){
+        self._navigation.buttons[lvl].container.addEventListener("mousedown", function(e){
+            TweenMax.to(self._navigation.buttons[e.currentTarget.id].dot, .3, {scaleX:1.3, scaleY:1.3, ease:Back.easeOut});
+        });
+        self._navigation.buttons[lvl].container.addEventListener("mouseover", function(e){
+            TweenMax.to(self._navigation.buttons[e.currentTarget.id].dot, .3, {scaleX:1.3, scaleY:1.3, ease:Back.easeOut});
+        });
+        self._navigation.buttons[lvl].container.addEventListener("mouseup", function(e){
+            for(var i=0; i<_.keys(self._navigation.buttons).length; i++){
+                TweenMax.to(
+                    self._navigation.buttons[_.keys(self._navigation.buttons)[i]],
+                    .3, 
+                    {scaleX:1, scaleY:1}
+                ); 
+            }
+        });
+        self._navigation.buttons[lvl].container.addEventListener("mouseout", function(e){
+            TweenMax.to(self._navigation.buttons[e.currentTarget.id].dot, .3, {scaleX:1, scaleY:1}); 
+        });
+        self._navigation.buttons[lvl].container.addEventListener("click", function(e){
+            self.close_nav();
             self.select_level(e.currentTarget.id);
         });
+        TweenMax.to(self._navigation.buttons[lvl].container, .6, {
+            scaleX:1,
+            scaleY:1,
+            ease:Back.easeOut,
+            delay:(.1*i)
+        });
+    });
+    self._navigation.container.y = -(self._navigation.container.getBounds().height + self._navigation.container.getBounds().y - (window.innerHeight / 2));
+    self.open_nav();
+    self.intro_hand();
+}
+dots.prototype.intro_hand = function(){
+    var hand = new createjs.Bitmap("./pages/dots/images/decors/hand.png");
+    hand.x = window.innerWidth;
+    hand.y = window.innerHeight;
+    self.stage.addChild(hand);
+    TweenMax.to(hand, 1, {
+        y:window.innerHeight/2, 
+        x:window.innerWidth/2 + 200,
+        onComplete:function(){
+            TweenMax.to(hand, 1, {
+                y:window.innerHeight/2 + 250, 
+                x:window.innerWidth/2 + 200,
+                onUpdate : function(){
+                    self._navigation.container.y = (hand.y - window.innerHeight/2) -(self._navigation.container.getBounds().height + self._navigation.container.getBounds().y - (window.innerHeight / 2));
+                    self.replace_decors();
+                },
+                onComplete:function(){
+                    TweenMax.to(hand, 1, {
+                        y:window.innerHeight/2 - 250, 
+                        x:window.innerWidth/2 + 200,
+                        onUpdate : function(){
+                            self._navigation.container.y = (hand.y - window.innerHeight/2) -(self._navigation.container.getBounds().height + self._navigation.container.getBounds().y - (window.innerHeight / 2));
+                            self.replace_decors();
+                        },
+                        onComplete:function(){
+                            TweenMax.to(hand, 1, {
+                                y:window.innerHeight/2, 
+                                x:window.innerWidth/2 + 200,
+                                onUpdate : function(){
+                                    self._navigation.container.y = (hand.y - window.innerHeight/2) -(self._navigation.container.getBounds().height + self._navigation.container.getBounds().y - (window.innerHeight / 2));
+                                    self.replace_decors();
+                                },
+                                onComplete:function(){
+                                    TweenMax.to(hand, 1, {
+                                        y:window.innerHeight, 
+                                        x:window.innerWidth,
+                                        ease:Back.easeIn,
+                                        onComplete:function(){
+                                            self.stage.removeChild(hand);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
     });
 }
 dots.prototype.pause = function(){
@@ -612,7 +969,9 @@ dots.prototype.pause = function(){
 dots.prototype.play = function(){
 }
 dots.prototype.destroy = function(callBack){
-    createjs.Ticker.removeEventListener('tick', self.tick);
+    if(self.tick){
+        createjs.Ticker.removeEventListener('tick', self.tick);
+    }
     callBack();
 }
 Array.prototype.clean = function(deleteValue) {

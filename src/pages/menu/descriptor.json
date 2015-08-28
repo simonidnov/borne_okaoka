@@ -1,7 +1,7 @@
 {
     "label":"menu",
     "version":"0.0.0",
-    "dependencies":["menu.js"],
+    "dependencies":["menu.js", "slider.js"],
     "styles":["menu.css"],
     "content":"menu.html",
     "script_name":"menu"

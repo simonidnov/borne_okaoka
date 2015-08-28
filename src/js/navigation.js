@@ -124,7 +124,7 @@ var navigation = {
     },
     init_current_page : function(callBack){
         if(typeof this.page_properties.motion !== "undefined"){
-            $('.app_content').append('<div class="intro_motion" id="motion_draw"><canvas id="motion_canvas" width="900" height="400" style="background-color:rgba(0,0,0,0);"></canvas></div>');
+            $('.app_content').append('<div class="intro_motion" id="motion_draw"><canvas id="motion_canvas" width="'+window.innerWidth+'" height="'+window.innerHeight+'" style="background-color:rgba(0,0,0,0);"></canvas></div>');
             var self = this;
             
             TweenMax.set($('.intro_motion'), {scaleX:0, scaleY:0});
