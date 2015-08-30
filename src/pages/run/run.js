@@ -23,15 +23,18 @@ function run(){
     this.jumping_infos = {x:0, y:0, angle:0};
     this.game_start = 0;
     this.gameInfo = {
+        total_maps:25,
         start_date:0, 
         distance:0, 
         tilemap:{
             size:{
-                width:2500, 
+                width:1250, 
                 height:2500
             }, 
             def:6515
         }, 
+        width:window.innerWidth,
+        height:window.innerHeight,
         speed:0, 
         state:"", 
         motion_state:"",
@@ -45,15 +48,15 @@ function run(){
 }
 run.prototype.init = function(){
     TweenMax.set($('#phaser-run'), {opacity:0});
-    $('#phaser-run').css({width:window.innerWidth+"px", height:window.innerHeight+"px"});
-    self.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'phaser-run', { preload: self.preload, create: self.create, update: self.update, render: self.render });
+    $('#phaser-run').css({width:self.gameInfo.width+"px", height:self.gameInfo.height+"px"});
+    self.game = new Phaser.Game(self.gameInfo.width, self.gameInfo.height, Phaser.CANVAS, 'phaser-run', { preload: self.preload, create: self.create, update: self.update, render: self.render });
 }
 run.prototype.preload = function(){
     self.game.time.advancedTiming = true;
     
-    self.game.load.image('bck_1', 'pages/run/maps/backgrounds/backgrounds-1.png');
-    self.game.load.image('bck_2', 'pages/run/maps/backgrounds/backgrounds-2.png');
-    self.game.load.image('bck_3', 'pages/run/maps/backgrounds/backgrounds-3.png');
+    self.game.load.image('bck_1', 'pages/run/maps/backgrounds/background_1-01.png');
+    self.game.load.image('bck_2', 'pages/run/maps/backgrounds/background_2-01.png');
+    self.game.load.image('bck_3', 'pages/run/maps/backgrounds/background_3-01.png');
     
     self.game.load.image('invicible', 'pages/run/maps/special_mutation/invicible.png');
     self.game.load.image('double_jump', 'pages/run/maps/special_mutation/double_jump.png');
@@ -69,49 +72,18 @@ run.prototype.preload = function(){
     self.game.load.image('house', 'pages/run/maps/house.png');
     self.game.load.image('info_bul', 'pages/run/maps/info_bul.png');
     
-    self.game.load.image('map_1', 'pages/run/maps/decors/map_2500_map_1.png');
-    self.game.load.image('map_2', 'pages/run/maps/decors/map_2500_map_2.png');
-    self.game.load.image('map_3', 'pages/run/maps/decors/map_2500_map_3.png');
-    self.game.load.image('map_4', 'pages/run/maps/decors/map_2500_map_4.png');
-    self.game.load.image('map_5', 'pages/run/maps/decors/map_2500_map_5.png');
-    self.game.load.image('map_6', 'pages/run/maps/decors/map_2500_map_6.png');
-    self.game.load.image('map_7', 'pages/run/maps/decors/map_2500_map_7.png');
-    self.game.load.image('map_8', 'pages/run/maps/decors/map_2500_map_8.png');
-    self.game.load.image('map_9', 'pages/run/maps/decors/map_2500_map_9.png');
-    self.game.load.image('map_10', 'pages/run/maps/decors/map_2500_map_10.png');
-    self.game.load.image('map_11', 'pages/run/maps/decors/map_2500_map_11.png');
-    self.game.load.image('map_12', 'pages/run/maps/decors/map_2500_map_12.png');
+    for(var i=1; i<26; i++){
+        console.log(i);
+        self.game.load.image('map_'+i, 'pages/run/maps/1250/decors/map_1250_map_'+i+'.png');
+        self.game.load.image('watter_'+i, 'pages/run/maps/1250/decors/map_1250_map_'+i+'.png');
+        self.game.load.image('picots_'+i, 'pages/run/maps/1250/decors/map_1250_map_'+i+'.png');
+    }
     
-    self.game.load.image('watter_1', 'pages/run/maps/decors/map_2500_map_1.png');
-    self.game.load.image('watter_2', 'pages/run/maps/decors/map_2500_map_2.png');
-    self.game.load.image('watter_3', 'pages/run/maps/decors/map_2500_map_3.png');
-    self.game.load.image('watter_4', 'pages/run/maps/decors/map_2500_map_4.png');
-    self.game.load.image('watter_5', 'pages/run/maps/decors/map_2500_map_5.png');
-    self.game.load.image('watter_6', 'pages/run/maps/decors/map_2500_map_6.png');
-    self.game.load.image('watter_7', 'pages/run/maps/decors/map_2500_map_7.png');
-    self.game.load.image('watter_8', 'pages/run/maps/decors/map_2500_map_8.png');
-    self.game.load.image('watter_9', 'pages/run/maps/decors/map_2500_map_9.png');
-    self.game.load.image('watter_10', 'pages/run/maps/decors/map_2500_map_10.png');
-    self.game.load.image('watter_11', 'pages/run/maps/decors/map_2500_map_11.png');
-    self.game.load.image('watter_12', 'pages/run/maps/decors/map_2500_map_12.png');
+    self.game.load.physics('floor_map', 'pages/run/maps/1250/maps_1250_colliders.json');
+    self.game.load.physics('watter_map', 'pages/run/maps/1250/maps_1250_watter.json');
+    self.game.load.physics('picots_map', 'pages/run/maps/1250/maps_1250_picots.json');
     
-    self.game.load.image('picots_1', 'pages/run/maps/decors/map_2500_map_1.png');
-    self.game.load.image('picots_2', 'pages/run/maps/decors/map_2500_map_2.png');
-    self.game.load.image('picots_3', 'pages/run/maps/decors/map_2500_map_3.png');
-    self.game.load.image('picots_4', 'pages/run/maps/decors/map_2500_map_4.png');
-    self.game.load.image('picots_5', 'pages/run/maps/decors/map_2500_map_5.png');
-    self.game.load.image('picots_6', 'pages/run/maps/decors/map_2500_map_6.png');
-    self.game.load.image('picots_7', 'pages/run/maps/decors/map_2500_map_7.png');
-    self.game.load.image('picots_8', 'pages/run/maps/decors/map_2500_map_8.png');
-    self.game.load.image('picots_9', 'pages/run/maps/decors/map_2500_map_9.png');
-    self.game.load.image('picots_10', 'pages/run/maps/decors/map_2500_map_10.png');
-    self.game.load.image('picots_11', 'pages/run/maps/decors/map_2500_map_11.png');
-    self.game.load.image('picots_12', 'pages/run/maps/decors/map_2500_map_12.png');
-    
-    self.game.load.physics('floor_map', 'pages/run/maps/map_2500.json');
-    self.game.load.physics('watter_map', 'pages/run/maps/map_watter_2500.json');
-    self.game.load.physics('picots_map', 'pages/run/maps/map_picots_2500.json');
-    
+    self.game.load.spritesheet('bear', 'pages/run/maps/character/bear.png', 75, 150);
     self.game.load.spritesheet('okaoka', 'pages/run/maps/character/okaoka.png', 75, 75);
     
     self.game.load.image('hero', 'pages/run/maps/hero.png');
@@ -133,9 +105,9 @@ run.prototype.create = function(){
     //game.physics.p2.world.defaultContactMaterial.friction = 0.3;
     self.game.physics.p2.gravity.y = 1500;
     
-    self.mountain_3 = self.game.add.tileSprite(-window.innerWidth/2, -400, window.innerWidth*2, window.innerHeight*2, 'bck_3');
-    self.mountain_2 = self.game.add.tileSprite(-window.innerWidth/2, -400, window.innerWidth*2, window.innerHeight*2, 'bck_2');
-    self.mountain_1 = self.game.add.tileSprite(-window.innerWidth/2, -400, window.innerWidth*2, window.innerHeight*2, 'bck_1');
+    self.mountain_3 = self.game.add.tileSprite(-self.gameInfo.width/2, -400, self.gameInfo.width*2, self.gameInfo.height*2, 'bck_3');
+    self.mountain_2 = self.game.add.tileSprite(-self.gameInfo.width/2, -400, self.gameInfo.width*2, self.gameInfo.height*2, 'bck_2');
+    self.mountain_1 = self.game.add.tileSprite(-self.gameInfo.width/2, -400, self.gameInfo.width*2, self.gameInfo.height*2, 'bck_1');
     
     self.mountain_3.fixedToCamera = true;
     self.mountain_2.fixedToCamera = true;
@@ -147,7 +119,7 @@ run.prototype.create = function(){
     
     //self.hero = self.game.add.sprite(-3800, -1100, 'hero');
     /* -------- SAMPLE SPRITE ---------- */
-    self.hero = self.game.add.sprite(-3420, -900, 'okaoka');
+    /*self.hero = self.game.add.sprite(-3420, -900, 'okaoka');
     self.hero.scale.set(1);
     self.hero.smoothed = true;
     self.hero.animations.add('run', [0,1,2,3,4,5,6,7,8], 25, true);
@@ -164,11 +136,28 @@ run.prototype.create = function(){
     self.hero.animations.add('picots', [70], 25, false);
     self.hero.animations.add('slide', [80], 1, false);
     self.hero.animations.add('died', [85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100], 25, true);
+    self.hero.play('oka');*/
+    
+    self.hero = self.game.add.sprite(-2800, -1200, 'bear');
+    self.hero.scale.set(1);
+    self.hero.smoothed = true;
+    self.hero.animations.add('run', [0,1,2,3,4,5,6,7,8,9,10,11,12,13], 25, true);
+    self.hero.animations.add('small_jump', [14,15,16], 25, false);
+    self.hero.animations.add('jump', [17,18,19,20], 25, false);
+    self.hero.animations.add('after_jump', [21,22,23], 25, false);
+    self.hero.animations.add('oka', [24,25,26,27,28,29], 25, false);
+    self.hero.animations.add('wall', [30,31,32,33,34], 25, false);
+    self.hero.animations.add('wall_end', [35,36,37,38,39], 25, false);
+    self.hero.animations.add('parachute', [40,41,42,43,44], 25, false);
+    self.hero.animations.add('invicible', [45,46,47,48,49,50,51,52,53,54,55,56,57], 25, true);
+    self.hero.animations.add('watter', [58], 12, true);
+    self.hero.animations.add('picots', [58], 25, false);
+    self.hero.animations.add('died', [59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74], 25, true);
     self.hero.play('oka');
     
     
-    self.hero_boomer = self.game.add.sprite(-3380, -900, 'boomer');
-    self.hero_powers = self.game.add.sprite(-3420, -900, 'boomer');
+    self.hero_boomer = self.game.add.sprite(-3380, -800, 'boomer');
+    self.hero_powers = self.game.add.sprite(-3420, -800, 'boomer');
     
     self.game.physics.p2.enable([ self.hero, self.hero_boomer, self.hero_powers ], self._debug);
     
@@ -193,17 +182,18 @@ run.prototype.create = function(){
     self.puff();
     self.particle();
     
-    self.house = self.game.add.sprite(-3450, -1000, 'house');
+    self.house = self.game.add.sprite(-2850, -1200, 'house');
     
     self.fast_emitter.on = false;
     //self.game.camera.follow(self.hero);
     /* replace element hero on left */
-    self.game.camera.setSize(900,window.innerHeight);
+    self.game.camera.setSize(900,self.gameInfo.height);
     /* ------ SET HERO PROPERTIES ------ */
     self.hero.body.mass = 1000;
     
-    //self.hero.body.setRectangle(75,75);
-    self.hero.body.setCircle(37);
+    self.hero.body.setRectangle(75,150);
+    //self.hero.body.y = 75;
+    //self.hero.body.setCircle(37);
     self.hero.body.fixedRotation = true;
     
     self.hero.body.sensor = true;
@@ -449,8 +439,8 @@ run.prototype.particle = function(){
     self.particles.makeParticles( [ 'particles', 'particles5', 'particles2' ] );
     //self.emitter.color = ["#FFF"];
     self.particles.gravity = 0;
-    self.particles.width = window.innerWidth;
-    self.particles.height = window.innerHeight/2;
+    self.particles.width = self.gameInfo.width;
+    self.particles.height = self.gameInfo.height/2;
     self.particles.minParticleSpeed.set(0, 50);
     self.particles.maxParticleSpeed.set(0, 200);
 
@@ -480,7 +470,7 @@ run.prototype.create_ground_level = function(){
     //(self.gameInfo.tilemap.size.height - self.gameInfo.tilemap.def) * cur_level
     self.game.physics.p2.enable([ self.levels[cur_level] ], self._debug);
     self.levels[cur_level].body.clearShapes();
-	self.levels[cur_level].body.loadPolygon('floor_map', 'map_2500_map_'+self._current_decors);
+	self.levels[cur_level].body.loadPolygon('floor_map', 'map_1250_map_'+self._current_decors);
     self.levels[cur_level].body.mass = 1000;
     self.levels[cur_level].body.kinematic = true;
     
@@ -492,7 +482,7 @@ run.prototype.create_ground_level = function(){
     );
     self.game.physics.p2.enable([ self.levels_watter[cur_level] ], self._debug);
     self.levels_watter[cur_level].body.clearShapes();
-	self.levels_watter[cur_level].body.loadPolygon('watter_map', 'map_2500_map_'+self._current_decors);
+	self.levels_watter[cur_level].body.loadPolygon('watter_map', 'map_1250_map_'+self._current_decors);
     self.levels_watter[cur_level].body.kinematic = true;
     
     /* ------- ADD PICOTS WITH MAP --------- */
@@ -503,7 +493,7 @@ run.prototype.create_ground_level = function(){
     );
     self.game.physics.p2.enable([ self.levels_picots[cur_level] ], self._debug);
     self.levels_picots[cur_level].body.clearShapes();
-	self.levels_picots[cur_level].body.loadPolygon('picots_map', 'map_2500_map_'+self._current_decors);
+	self.levels_picots[cur_level].body.loadPolygon('picots_map', 'map_1250_map_'+self._current_decors);
     self.levels_picots[cur_level].body.kinematic = true;
     
     var screen_datas = _.findWhere(run_objects.screens, {"name":"screen_"+self._current_decors});
@@ -513,21 +503,21 @@ run.prototype.create_ground_level = function(){
             switch(obj.type){
                 case 'double_jump':
                     self.levels_objects[cur_level][i] = self.decors.create(
-                        (x_pos) + (obj.position.x - 1250), 
+                        (x_pos) + (obj.position.x - (self.gameInfo.tilemap.size.width/2)), 
                         obj.position.y - 1500, 
                         'double_jump'
                     );
                     break;
                 case 'invicible':
                     self.levels_objects[cur_level][i] = self.decors.create(
-                        (x_pos) + (obj.position.x - 1250), 
+                        (x_pos) + (obj.position.x - (self.gameInfo.tilemap.size.width/2)), 
                         obj.position.y - 1500, 
                         'invicible'
                     );
                     break;
                 case 'parachute':
                     self.levels_objects[cur_level][i] = self.decors.create(
-                        (x_pos) + (obj.position.x - 1250), 
+                        (x_pos) + (obj.position.x - (self.gameInfo.tilemap.size.width/2)), 
                         obj.position.y - 1500, 
                         'parachute'
                     );
@@ -549,7 +539,7 @@ run.prototype.create_ground_level = function(){
     
     self._current_level++;
     self._current_decors++;
-    if(self._current_decors == 13){
+    if(self._current_decors == self.gameInfo.total_maps+1){
         self._current_decors = 1;
     }
     self.gameInfo.last_created_ground = new Date().getTime();
@@ -653,7 +643,7 @@ run.prototype.on_up = function(evt){
         if(dist > 100){
             //self.game.physics.p2.gravity.y = -1000;
         }else if(dist < -100){
-            self.gameInfo.state="sliding";
+            /*self.gameInfo.state="sliding";
             self.hero.play('slide');
             self.hero.body.velocity.y = self.hero.body.velocity.y + 700;
             
@@ -663,7 +653,7 @@ run.prototype.on_up = function(evt){
                 self.hero.play('run');
                 self.emitter.on = false;
                 self.hero.body.setRectangle(75,75);
-            },3500);
+            },3500);*/
             //self.game.physics.p2.gravity.y = 1000;
         }
     }
@@ -671,11 +661,6 @@ run.prototype.on_up = function(evt){
 run.prototype.render = function(){
     if(self.game.paused){
         return false;
-    }
-    /*if(self.gameInfo.speed === 0){
-        return false;
-    }*/
-    if(self._is_down){
     }
     if(self.gameInfo.state !== "died"){
         if(self.jumping_infos.is_jumping && self.gameInfo.state === "jumping"){
@@ -699,7 +684,6 @@ run.prototype.render = function(){
             }
         }
     }
-    
     if(self.game.camera.position.x > self.levels[self.levels.length-1].position.x - 500){
         self.create_ground_level();
     }
@@ -728,32 +712,32 @@ run.prototype.render = function(){
     if(self.gameInfo.state !== "died"){
         self.hero.body.velocity.x = self.gameInfo.speed;
     }
-    //self.hero.rotation+=self.gameInfo.rotation;
-    //self.hero.body.rotation+=self.gameInfo.rotation;
-    
     self.mountain_3.tilePosition.x -= self.hero.body.velocity.x / 200;
     self.mountain_2.tilePosition.x -= self.hero.body.velocity.x / 190;
     self.mountain_1.tilePosition.x -= self.hero.body.velocity.x / 180;
+    self.mountain_3.tilePosition.y = (Math.abs(self.hero.position.y) / 300) + (self.gameInfo.height/3);
+    self.mountain_2.tilePosition.y = (Math.abs(self.hero.position.y) / 50) + (self.gameInfo.height/3);
+    self.mountain_1.tilePosition.y = (Math.abs(self.hero.position.y) / 15) + (self.gameInfo.height/3);
+
+    
     /* REPLACE EMITTER COLLIDER */
     if(typeof self.emitter !== "undefined"){
         self.emitter.emitX = self.hero.x;
-        self.emitter.emitY = self.hero.y + 40;
+        self.emitter.emitY = self.hero.y + 75;
     }
     if(typeof self.fast_emitter !== "undefined"){
         self.fast_emitter.emitX = self.hero.x;
-        self.fast_emitter.emitY = self.hero.y + 40;
+        self.fast_emitter.emitY = self.hero.y + 75;
     }
     if(typeof self.particles !== "undefined"){
-        self.particles.emitX = self.game.camera.x + window.innerWidth/2;
+        self.particles.emitX = self.game.camera.x + self.gameInfo.width/2;
         self.particles.emitY = self.game.camera.y;
     }
     
     
     self.game.world.wrap(self.hero, 64);
     
-    self.mountain_3.tilePosition.y = Math.abs(self.hero.position.y) / 200;
-    self.mountain_2.tilePosition.y = Math.abs(self.hero.position.y) / 30;
-    self.mountain_1.tilePosition.y = Math.abs(self.hero.position.y) / 15;
+    
     
     /* ------- REPLACE HERO POWER ICONS ------- */
     $.each(self.hero_power, function(i, p){
@@ -795,7 +779,7 @@ run.prototype.render = function(){
     /* REPLACE CAMERA ON HERO */
     var np = {
         x:self.hero.position.x * self.scale - 300,
-        y:self.hero.position.y * self.scale - window.innerHeight/2
+        y:self.hero.position.y * self.scale - self.gameInfo.height/2
     }
     self.game.camera.setPosition(np.x, np.y);
 }

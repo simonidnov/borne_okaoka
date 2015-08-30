@@ -1,0 +1,237 @@
+{ 
+    
+    "map_1250_map_1": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_2": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_3": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   620.5, 1809  ,  448, 1809.5  ,  447.5, 1771  ,  449, 1770.5  ,  620, 1770.5  ]
+        }
+    ]
+    , 
+    "map_1250_map_4": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_5": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_6": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_7": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_8": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   1250.5, 1587  ,  1147, 1587.5  ,  1146.5, 1554  ,  1148, 1553.5  ,  1250, 1553.5  ]
+        }
+    ]
+    , 
+    "map_1250_map_9": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   256.5, 1587  ,  0, 1587.5  ,  -0.5, 1554  ,  1, 1553.5  ,  256, 1553.5  ]
+        }
+    ]
+    , 
+    "map_1250_map_10": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   1250.5, 1797  ,  1220, 1797.5  ,  1219.5, 1771  ,  1221, 1770.5  ,  1250, 1770.5  ]
+        }
+    ]
+    , 
+    "map_1250_map_11": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   516, 1770.5  ,  516.5, 1797  ,  0, 1797.5  ,  -0.5, 1771  ,  1, 1770.5  ]
+        } ,
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   1250.5, 1797  ,  941, 1797.5  ,  940.5, 1796  ,  1181, 1770.5  ,  1250, 1770.5  ]
+        } ,
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   942, 1770.5  ,  1181, 1770.5  ,  940.5, 1796  ,  940.5, 1771  ]
+        }
+    ]
+    , 
+    "map_1250_map_12": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   570, 1770.5  ,  570.5, 1797  ,  0, 1797.5  ,  -0.5, 1771  ,  1, 1770.5  ]
+        }
+    ]
+    , 
+    "map_1250_map_13": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_14": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_15": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_16": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_17": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_18": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   1250.5, 1827  ,  979, 1827.5  ,  978.5, 1763  ,  980, 1762.5  ,  1250, 1762.5  ]
+        }
+    ]
+    , 
+    "map_1250_map_19": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   427.5, 1827  ,  0, 1827.5  ,  -0.5, 1763  ,  1, 1762.5  ,  427, 1762.5  ]
+        }
+    ]
+    , 
+    "map_1250_map_20": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_21": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_22": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_23": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_24": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+    , 
+    "map_1250_map_25": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   0, 2501  ,  0, 2461  ,  40, 2461  ]
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 {
     "label":"discs",
     "version":"0.0.0",
-    "dependencies":["discs.js", "motion/discs_motion.js"],
+    "dependencies":["discs.js", "levels.js", "motion/discs_motion.js"],
     "styles":["discs.css"],
     "content":"discs.html",
     "script_name":"discs",

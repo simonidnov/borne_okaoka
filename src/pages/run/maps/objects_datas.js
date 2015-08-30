@@ -1,36 +1,36 @@
 var run_objects = {
     "screens":[
         {
-            "name":"screen_4",
+            "name":"screen_8",
             "objects":[
                 {
                     "type":"double_jump",
                     "position":{
-                        "x":1675,
+                        "x":425,
                         "y":0
                     }
                 }
             ]
         },
         {
-            "name":"screen_5",
+            "name":"screen_10",
             "objects":[
                 {
                     "type":"invicible",
                     "position":{
-                        "x":1420,
+                        "x":169,
                         "y":0
                     }
                 }
             ]
         },
         {
-            "name":"screen_7",
+            "name":"screen_14",
             "objects":[
                 {
                     "type":"parachute",
                     "position":{
-                        "x":1547,
+                        "x":298,
                         "y":0
                     }
                 }
