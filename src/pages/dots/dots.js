@@ -101,7 +101,20 @@ dots.prototype.create_objectives = function(){
         self._objectives_texts[obk].text.textAlign = "center"; 
         self._objectives_container.addChild(self._objectives_texts[obk].text);
     });
+    /* create five_hits_sprite */
+    var data = {
+        images: ["./pages/dots/images/five_hits_sprite.png"],
+        frames: {width:100, height:100},
+        animations: {
+            hit:[0,15,true],
+            stop:16
+        }
+    };
+    var spriteSheet = new createjs.SpriteSheet(data);
+    self.fivehits = new createjs.Sprite(spriteSheet, "stop");
+    self.fivehits.x = 40;
     
+    self._objectives_container.addChild(self.fivehits);
 }
 dots.prototype.init_stage = function(){
     $('#dots_canvas').css({"width":window.innerWidth, "height":window.innerHeight});
@@ -443,6 +456,11 @@ dots.prototype.check_game_state = function(callBack){
     }
     /* --- On check s'il reste des hits et on met à jour les hits ------- */
     self._objectives_hits.text.text = self._total_hits - self._hits;
+    if(self._total_hits - self._hits <= 5 && self._total_hits - self._hits > 0){
+        self.fivehits.gotoAndPlay('hit');
+    }else{
+        self.fivehits.gotoAndStop('stop');
+    }
     if(self._total_hits - self._hits <= 0){
         if(status.objectifs === false){
             status.label = "lose";
@@ -570,7 +588,11 @@ dots.prototype.select_level = function(id){
     });
     TweenMax.to($('.app_content'), .5, {backgroundColor:colors[datas.color]});
     TweenMax.to($('#backbutton'), .5, {backgroundColor:colors[datas.color]});
+    self.create_objectives_popup();
     self.create_grid();
+}
+dots.prototype.create_objectives_popup = function(){
+       
 }
 dots.prototype.destroy_grid = function(){
     TweenMax.to(self._objectives_container, 1, {
@@ -667,7 +689,7 @@ dots.prototype.build_decors = function(){
     
     self.decors.bottom_left.scaleX = self.decors.bottom_left.scaleY = self.decors.bottom_right.scaleX = self.decors.bottom_right.scaleY = self.decors.bottom_center.scaleX = self.decors.bottom_center.scaleY = 0;
     
-    self.decors.watter = new createjs.Bitmap("./pages/dots/images/decors/watter_white.png");
+    /*self.decors.watter = new createjs.Bitmap("./pages/dots/images/decors/watter_white.png");
     self.decors.watter.x = -100;
     self.decors.watter.y = window.innerHeight + 300;
     self.decors.container.addChild(self.decors.watter);
@@ -675,9 +697,9 @@ dots.prototype.build_decors = function(){
     TweenMax.to(self.decors.watter, 1, {
         y:window.innerHeight-40,
         delay:1
-    });
+    });*/
     
-    self.decors.elements['square'] = new createjs.Bitmap("./pages/dots/images/decors/square_green.png");
+    /*self.decors.elements['square'] = new createjs.Bitmap("./pages/dots/images/decors/square_green.png");
     self.decors.elements['square'].x = window.innerWidth/2 - 250;
     self.decors.elements['square'].y = 400;
     self.decors.elements['square'].level = 2;
@@ -707,7 +729,7 @@ dots.prototype.build_decors = function(){
     self.decors.elements['wave_pink'].y = 225;
     self.decors.elements['wave_pink'].level = 2;
     self.decors.container.addChild(self.decors.elements['wave_pink']);
-    self.decors.elements.wave_pink.regX = self.decors.elements.wave_pink.regY = 50;
+    self.decors.elements.wave_pink.regX = self.decors.elements.wave_pink.regY = 50;*/
     /*TweenMax.to(self.decors.elements['wave_pink'], 5, {
         scaleX:0,
         scaleY:0,
@@ -723,7 +745,7 @@ dots.prototype.build_decors = function(){
         }
     });*/
     
-    self.decors.elements['circular_green'] = new createjs.Bitmap("./pages/dots/images/decors/circular_green.png");
+    /*self.decors.elements['circular_green'] = new createjs.Bitmap("./pages/dots/images/decors/circular_green.png");
     self.decors.elements['circular_green'].x = window.innerWidth - 150;
     self.decors.elements['circular_green'].y = window.innerHeight - 200;
     self.decors.elements['circular_green'].level = 3;
@@ -745,23 +767,23 @@ dots.prototype.build_decors = function(){
         rotation:360,
         repeat:-1,
         ease:Linear.easeInOut
-    });
+    });*/
     
     
     setTimeout(function(){
         self.decors.bottom_left.regY = self.decors.bottom_left.getBounds().height;
-        self.decors.bottom_left.y = window.innerHeight;
+        self.decors.bottom_left.y = window.innerHeight + 300;
         self.decors.bottom_left.regX = 0;
         
         self.decors.bottom_right.regX = self.decors.bottom_right.getBounds().width;
         self.decors.bottom_right.regY = self.decors.bottom_right.getBounds().height;
         self.decors.bottom_right.x = window.innerWidth;
-        self.decors.bottom_right.y = window.innerHeight;
+        self.decors.bottom_right.y = window.innerHeight + 300;
         
         self.decors.bottom_center.regX = self.decors.bottom_center.getBounds().width/2;
         self.decors.bottom_center.regY = self.decors.bottom_center.getBounds().height;
         self.decors.bottom_center.x = window.innerWidth/2;
-        self.decors.bottom_center.y = window.innerHeight;
+        self.decors.bottom_center.y = window.innerHeight + 300;
         
         var updt = {scale:0}
         TweenMax.to(updt, 1, {scale:1, onUpdate:function(){
@@ -824,7 +846,7 @@ dots.prototype.update_particles = function(){
 dots.prototype.replace_decors = function(){
     // set self.decors.container relative to self._navigation.container.y
     self.decors.container.y = self._navigation.container.y / 2;
-    self.decors.bottom_center.y = -(self.decors.container.y) / 2 + window.innerHeight;
+    self.decors.bottom_center.y = -(self.decors.container.y) / 2 + window.innerHeight + 300;
     /*for(var i=0; i<_.keys(self.decors.elements).length; i++){
         console.log(self.decors.elements[_.keys(self.decors.elements)[i]].y);
         self.decors.elements[_.keys(self.decors.elements)[i]].y = -(self.decors.container.y) / self.decors.elements[_.keys(self.decors.elements)[i]].level;
@@ -912,7 +934,7 @@ dots.prototype.build_navigation = function(){
     });
     self._navigation.container.y = -(self._navigation.container.getBounds().height + self._navigation.container.getBounds().y - (window.innerHeight / 2));
     self.open_nav();
-    self.intro_hand();
+    //self.intro_hand();
 }
 dots.prototype.intro_hand = function(){
     var hand = new createjs.Bitmap("./pages/dots/images/decors/hand.png");

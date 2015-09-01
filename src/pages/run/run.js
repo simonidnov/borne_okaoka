@@ -73,7 +73,6 @@ run.prototype.preload = function(){
     self.game.load.image('info_bul', 'pages/run/maps/info_bul.png');
     
     for(var i=1; i<26; i++){
-        console.log(i);
         self.game.load.image('map_'+i, 'pages/run/maps/1250/decors/map_1250_map_'+i+'.png');
         self.game.load.image('watter_'+i, 'pages/run/maps/1250/decors/map_1250_map_'+i+'.png');
         self.game.load.image('picots_'+i, 'pages/run/maps/1250/decors/map_1250_map_'+i+'.png');
@@ -84,7 +83,8 @@ run.prototype.preload = function(){
     self.game.load.physics('picots_map', 'pages/run/maps/1250/maps_1250_picots.json');
     
     self.game.load.spritesheet('bear', 'pages/run/maps/character/bear.png', 75, 150);
-    self.game.load.spritesheet('okaoka', 'pages/run/maps/character/okaoka.png', 75, 75);
+    self.game.load.spritesheet('okaoka2', 'pages/run/maps/character/okaoka.png', 75, 150);
+    self.game.load.spritesheet('okaoka', 'pages/run/maps/character/okaoka.png', 75, 150);
     
     self.game.load.image('hero', 'pages/run/maps/hero.png');
     self.game.load.image('boomer', 'pages/run/maps/boomer.png');
@@ -119,7 +119,7 @@ run.prototype.create = function(){
     
     //self.hero = self.game.add.sprite(-3800, -1100, 'hero');
     /* -------- SAMPLE SPRITE ---------- */
-    /*self.hero = self.game.add.sprite(-3420, -900, 'okaoka');
+    self.hero = self.game.add.sprite(-2800, -1200, 'okaoka');
     self.hero.scale.set(1);
     self.hero.smoothed = true;
     self.hero.animations.add('run', [0,1,2,3,4,5,6,7,8], 25, true);
@@ -136,9 +136,9 @@ run.prototype.create = function(){
     self.hero.animations.add('picots', [70], 25, false);
     self.hero.animations.add('slide', [80], 1, false);
     self.hero.animations.add('died', [85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100], 25, true);
-    self.hero.play('oka');*/
+    self.hero.play('oka');
     
-    self.hero = self.game.add.sprite(-2800, -1200, 'bear');
+    /*self.hero = self.game.add.sprite(-2800, -1200, 'bear');
     self.hero.scale.set(1);
     self.hero.smoothed = true;
     self.hero.animations.add('run', [0,1,2,3,4,5,6,7,8,9,10,11,12,13], 25, true);
@@ -153,7 +153,7 @@ run.prototype.create = function(){
     self.hero.animations.add('watter', [58], 12, true);
     self.hero.animations.add('picots', [58], 25, false);
     self.hero.animations.add('died', [59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74], 25, true);
-    self.hero.play('oka');
+    self.hero.play('oka');*/
     
     
     self.hero_boomer = self.game.add.sprite(-3380, -800, 'boomer');
@@ -180,7 +180,7 @@ run.prototype.create = function(){
     
     self.faster();
     self.puff();
-    self.particle();
+    //self.particle();
     
     self.house = self.game.add.sprite(-2850, -1200, 'house');
     
@@ -236,7 +236,7 @@ run.prototype.intro_game = function(){
                         self.bubble.destroy();
                         setTimeout(function(){
                             self.hero.play('run');
-                            self.gameInfo.speed = 500;
+                            self.gameInfo.speed = 600;
                         }, 500);
                     }
                 );
@@ -287,7 +287,6 @@ run.prototype.add_power = function(power){
     _constraint.lowerLimit = 0;*/
 }
 run.prototype.collision = function(body, bodyB, shapeA, shapeB, equation){
-    console.log('collision');
     if(body === null){
         return false;
     }
@@ -596,9 +595,9 @@ run.prototype.on_down = function(evt){
     self.gameInfo.state="jumping";
     self.emitter.on = false;
     if(!self.jumping_infos.is_jumping){
-        self.hero.body.velocity.y = -700;
+        self.hero.body.velocity.y = -600;
         TweenMax.to(self.jump_tween, .5, {y:20, onUpdate:function(){
-            self.hero.body.velocity.y = self.hero.body.velocity.y - 15;
+            self.hero.body.velocity.y = self.hero.body.velocity.y - 20;
         }});
         //self.hero.body.velocity.x = self.hero.body.velocity.x+250;
     }else{
@@ -687,7 +686,7 @@ run.prototype.render = function(){
     if(self.game.camera.position.x > self.levels[self.levels.length-1].position.x - 500){
         self.create_ground_level();
     }
-    var level_to_check = self._current_level - 1;
+    var level_to_check = self._current_level - 2;
     if(typeof self.levels[level_to_check] === "undefined"){
         delete self.levels[level_to_check];
         self.levels.splice(level_to_check, 1);
@@ -712,39 +711,37 @@ run.prototype.render = function(){
     if(self.gameInfo.state !== "died"){
         self.hero.body.velocity.x = self.gameInfo.speed;
     }
+    
     self.mountain_3.tilePosition.x -= self.hero.body.velocity.x / 200;
     self.mountain_2.tilePosition.x -= self.hero.body.velocity.x / 190;
     self.mountain_1.tilePosition.x -= self.hero.body.velocity.x / 180;
     self.mountain_3.tilePosition.y = (Math.abs(self.hero.position.y) / 300) + (self.gameInfo.height/3);
     self.mountain_2.tilePosition.y = (Math.abs(self.hero.position.y) / 50) + (self.gameInfo.height/3);
     self.mountain_1.tilePosition.y = (Math.abs(self.hero.position.y) / 15) + (self.gameInfo.height/3);
-
+    
     
     /* REPLACE EMITTER COLLIDER */
     if(typeof self.emitter !== "undefined"){
-        self.emitter.emitX = self.hero.x;
-        self.emitter.emitY = self.hero.y + 75;
+        if(self.emitter.on){
+            self.emitter.emitX = self.hero.x;
+            self.emitter.emitY = self.hero.y + 75;
+        }
     }
     if(typeof self.fast_emitter !== "undefined"){
-        self.fast_emitter.emitX = self.hero.x;
-        self.fast_emitter.emitY = self.hero.y + 75;
+        if(self.fast_emitter.on){
+            self.fast_emitter.emitX = self.hero.x;
+            self.fast_emitter.emitY = self.hero.y + 75;
+        }
     }
     if(typeof self.particles !== "undefined"){
         self.particles.emitX = self.game.camera.x + self.gameInfo.width/2;
         self.particles.emitY = self.game.camera.y;
     }
     
-    
     self.game.world.wrap(self.hero, 64);
-    
-    
     
     /* ------- REPLACE HERO POWER ICONS ------- */
     $.each(self.hero_power, function(i, p){
-        /*TweenMax.to(self.hero_power[i].obj.position, .5, {
-            x : self.hero_powers.body.x - (30 * (i+1)),
-            y : self.hero_powers.body.y - ((self.hero.body.velocity.y / 10)*(i+1))
-        });*/
         self.hero_power[i].obj.position.x = self.hero_powers.body.x - (30 * (i+1));
         self.hero_power[i].obj.position.y = self.hero_powers.body.y - ((self.hero.body.velocity.y / 10)*(i+1));
     });
@@ -774,7 +771,8 @@ run.prototype.render = function(){
     //self.mountain_3.world.scale.setTo(self.scale + 1, self.scale + 1);
     //self.mountain_2.world.scale.setTo(self.scale + 1, self.scale + 1);
     //self.mountain_1.world.scale.setTo(self.scale + 1, self.scale + 1);
-    self.game.world.scale.setTo(self.scale, self.scale);
+    
+    //self.game.world.scale.setTo(self.scale, self.scale);
     
     /* REPLACE CAMERA ON HERO */
     var np = {
@@ -795,7 +793,7 @@ run.prototype.died = function(){
     //self.pause();
     setTimeout(function(){
         self.hero.play('died');
-        self.hero.body.setRectangle(75,50);
+        //self.hero.body.setRectangle(75,50);
         setTimeout(function(){
             utilities.show_popup(
                 {color:navigation._current_interface_color, motion:self.gameInfo.motion_state+"_run", buttons:["quit", "refresh"]}, 

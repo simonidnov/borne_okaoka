@@ -5,7 +5,7 @@
         "dot_size":20,
         "grid_size":{"c":5, "l":5},
         "_grid_size":80,
-        "hits":40,
+        "hits":6,
         "objectives":{
             "purple":2,
             "green":2,
@@ -23,7 +23,7 @@
         "dot_size":20,
         "grid_size":{"c":8, "l":4},
         "_grid_size":80,
-        "hits":40,
+        "hits":10,
         "objectives":{
             "purple":20,
             "green":10,

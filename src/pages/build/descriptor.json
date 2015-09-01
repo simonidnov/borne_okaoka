@@ -1,6 +1,7 @@
 {
     "label":"build",
     "version":"0.0.0",
+    "color":"green",
     "dependencies":["build.js", "motion/build_motion.js"],
     "styles":["build.css"],
     "content":"build.html",

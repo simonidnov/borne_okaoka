@@ -13,7 +13,7 @@
             "luminence":"0.05"
         },
         "03":{
-            "name":"discs",
+            "name":"simplediscs",
             "color":"sblue",
             "description":"this is a discs game",
             "luminence":"0.05"

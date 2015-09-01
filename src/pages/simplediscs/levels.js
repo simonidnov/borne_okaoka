@@ -1,0 +1,30 @@
+var simplediscs_levels = [
+    {
+        bkColor:"sblue",
+        colors:["yellow","green","purple"]
+    },
+    {
+        bkColor:"yellow",
+        colors:["pink","purple","orange"]
+    },
+    {
+        bkColor:"orange",
+        colors:["maroon","grey","green"]
+    },
+    {
+        bkColor:"sblue",
+        colors:["lighblue","dgreen","fblue"]
+    },
+    {
+        bkColor:"purple",
+        colors:["pink","lighblue","red"]
+    },
+    {
+        bkColor:"dgreen",
+        colors:["grey","pink","black"]
+    },
+    {
+        bkColor:"sblue",
+        colors:["purple","green","yellow"]
+    }
+]

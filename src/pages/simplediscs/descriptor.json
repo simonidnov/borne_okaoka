@@ -1,0 +1,10 @@
+{
+    "label":"discs",
+    "version":"0.0.0",
+    "color":"sblue",
+    "dependencies":["simplediscs.js", "motion/tuto_popup_motion.js", "motion/end_popup_motion.js", "levels.js", "motion/discs_motion.js"],
+    "styles":["simplediscs.css"],
+    "content":"simplediscs.html",
+    "script_name":"simplediscs",
+    "motion":"discs_motion"
+}

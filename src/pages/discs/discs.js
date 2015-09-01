@@ -3,7 +3,7 @@ function discs(){
     this.scene = null;
     this.camera = null;
     this.renderer = null;
-    this.cubes = [];
+    this.cubes = {};
     this.preview = null;
     this.cube_size = 3;
     this._current_level = Math.floor(Math.random()*discs_levels.length);
@@ -102,7 +102,38 @@ discs.prototype.play_wrong = function(){
         }, delay:.1});
     }});
 }
+discs.prototype.destroy_all = function(){
+    $.each(_.keys(self.cubes), function(i, cube){
+        var cur_cube = self.scene.getObjectByName("cube_"+cube); 
+        cur_cube.geometry.dispose();
+        //cur_cube.material.dispose();
+        //cur_cube.texture.dispose();
+        self.scene.remove( cur_cube );
+        delete cur_cube;
+    });
+    var preview = self.scene.getObjectByName("preview");
+    self.scene.remove(preview);
+    delete preview;
+    var choice_1 = self.scene.getObjectByName("choice_1");
+    self.scene.remove(choice_1);
+    delete choice_1;
+    var choice_2 = self.scene.getObjectByName("choice_2");
+    self.scene.remove(choice_2);
+    delete choice_2;
+    var choice_3 = self.scene.getObjectByName("choice_3");
+    self.scene.remove(choice_3);
+    delete choice_3;
+    var choice_4 = self.scene.getObjectByName("choice_4");
+    self.scene.remove(choice_4);
+    delete choice_4;
+}
 discs.prototype.create_level = function(){
+    if(typeof self.preview !== undefined){
+        self.destroy_all();
+        //self.scene.remove( self.preview );
+    }
+    delete self.cubes;
+    self.cubes = {};
     self.colors = [
         parseInt(colors[_.keys(colors)[1]].replace('#', '')),
         0xfff000,
@@ -163,10 +194,8 @@ discs.prototype.create_level = function(){
     $('.choice').css('display', 'block');
 }
 discs.prototype.create_preview = function(){
-    if(typeof self.preview !== undefined){
-        self.scene.remove( self.preview );
-    }
     self.preview = new THREE.Object3D();//create an empty container
+    self.preview.name = "preview";
     self.scene.add( self.preview );
     self.preview.scale.x = self.preview.scale.y = self.preview.scale.z = 0;
     
@@ -218,12 +247,13 @@ discs.prototype.create_preview = function(){
                             //wireframe :true
                         }
                     );
-                    var current_cube = self.cubes.lenght;
+                    var current_cube = _.keys(self.cubes).length;
                     self.cubes[current_cube] = new THREE.Mesh( geometry, material );
                     self.cubes[current_cube].material.shading = THREE.SmoothShading;
                     self.cubes[current_cube].position.x = setX + startX;
                     self.cubes[current_cube].position.y = setY + startY;
                     self.cubes[current_cube].position.z = setZ + startZ;
+                    self.cubes[current_cube].name = "cube_"+current_cube;
                     self.preview.add( self.cubes[current_cube] );
                 }
                 setX+=self.cube_size;
@@ -246,7 +276,7 @@ discs.prototype.create_choices = function(id, lvl_id){
     self["choice_"+id] = new THREE.Object3D();//create an empty container
     self.scene.add( self["choice_"+id] );
     self["choice_"+id].scale.x = self["choice_"+id].scale.y = self["choice_"+id].scale.z = 0;
-    
+    self["choice_"+id].name = "choice_"+id;
     self["choice_"+id].rotation.x = .4;
     self["choice_"+id].rotation.y = .8;
     
@@ -303,7 +333,7 @@ discs.prototype.create_choices = function(id, lvl_id){
                             //wireframe :true
                         }
                     );
-                    var current_cube = self.cubes.lenght;
+                    var current_cube = _.keys(self.cubes).length;
                     self.cubes[current_cube] = new THREE.Mesh( geometry, material );
                     
                     self.cubes[current_cube].material.shading = THREE.SmoothShading;
@@ -311,6 +341,7 @@ discs.prototype.create_choices = function(id, lvl_id){
                     self.cubes[current_cube].position.x = setX + startX;
                     self.cubes[current_cube].position.y = setY + startY;
                     self.cubes[current_cube].position.z = setZ + startZ;
+                    self.cubes[current_cube].name = 'cube_'+current_cube;
                     self["choice_"+id].add( self.cubes[current_cube] );
                 }
                 setX+=choice_size;
@@ -368,6 +399,10 @@ discs.prototype.pause = function(){
 discs.prototype.play = function(){
 }
 discs.prototype.destroy = function(callBack){
+    if(typeof self.preview !== undefined){
+        self.destroy_all();
+        //self.scene.remove( self.preview );
+    }
     cancelAnimationFrame(self.render);// Stop the animation
     
     //self.renderer.domElement.addEventListener('dblclick', null, false); //remove listener to render
