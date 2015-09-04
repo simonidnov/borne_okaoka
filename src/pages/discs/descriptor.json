@@ -1,6 +1,7 @@
 {
     "label":"discs",
     "version":"0.0.0",
+    "color":"sblue",
     "dependencies":["discs.js", "levels.js", "motion/discs_motion.js"],
     "styles":["discs.css"],
     "content":"discs.html",

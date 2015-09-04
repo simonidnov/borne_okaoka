@@ -92,6 +92,9 @@ run.prototype.preload = function(){
     self.game.load.image('invicible_emitter', 'pages/run/maps/invicible_emitter.png');
 }
 run.prototype.create = function(){
+    self.game.time.events.loop(Phaser.Timer.SECOND / 20, self.moveBody, this);
+    self.game.time.events.loop(Phaser.Timer.SECOND * 2, self.clean_game, this);
+    
     self.game_start = new Date().getTime();
     self.game.world.setBounds(-4000, -2500, 800000, 2500);
     //self.game.world.setBounds(-1000, -1000, 2000, 2000);
@@ -100,10 +103,14 @@ run.prototype.create = function(){
     self.game.stage.backgroundColor = colors.pink;
     
     self.game.physics.startSystem(Phaser.Physics.P2JS);
+    
+    self.game.time.desiredFps = 30;
+    
     self.game.physics.p2.restitution = 0;
     self.game.physics.p2.friction = 0;
     //game.physics.p2.world.defaultContactMaterial.friction = 0.3;
     self.game.physics.p2.gravity.y = 1500;
+    
     
     self.mountain_3 = self.game.add.tileSprite(-self.gameInfo.width/2, -400, self.gameInfo.width*2, self.gameInfo.height*2, 'bck_3');
     self.mountain_2 = self.game.add.tileSprite(-self.gameInfo.width/2, -400, self.gameInfo.width*2, self.gameInfo.height*2, 'bck_2');
@@ -119,7 +126,8 @@ run.prototype.create = function(){
     
     //self.hero = self.game.add.sprite(-3800, -1100, 'hero');
     /* -------- SAMPLE SPRITE ---------- */
-    self.hero = self.game.add.sprite(-2800, -1200, 'okaoka');
+    
+    /*self.hero = self.game.add.sprite(-2800, -1200, 'okaoka');
     self.hero.scale.set(1);
     self.hero.smoothed = true;
     self.hero.animations.add('run', [0,1,2,3,4,5,6,7,8], 25, true);
@@ -136,9 +144,10 @@ run.prototype.create = function(){
     self.hero.animations.add('picots', [70], 25, false);
     self.hero.animations.add('slide', [80], 1, false);
     self.hero.animations.add('died', [85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100], 25, true);
-    self.hero.play('oka');
+    self.hero.play('oka');*/
     
-    /*self.hero = self.game.add.sprite(-2800, -1200, 'bear');
+    
+    self.hero = self.game.add.sprite(-2800, -1200, 'bear');
     self.hero.scale.set(1);
     self.hero.smoothed = true;
     self.hero.animations.add('run', [0,1,2,3,4,5,6,7,8,9,10,11,12,13], 25, true);
@@ -153,8 +162,7 @@ run.prototype.create = function(){
     self.hero.animations.add('watter', [58], 12, true);
     self.hero.animations.add('picots', [58], 25, false);
     self.hero.animations.add('died', [59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74], 25, true);
-    self.hero.play('oka');*/
-    
+    self.hero.play('oka');
     
     self.hero_boomer = self.game.add.sprite(-3380, -800, 'boomer');
     self.hero_powers = self.game.add.sprite(-3420, -800, 'boomer');
@@ -180,7 +188,7 @@ run.prototype.create = function(){
     
     self.faster();
     self.puff();
-    //self.particle();
+    self.particle();
     
     self.house = self.game.add.sprite(-2850, -1200, 'house');
     
@@ -212,6 +220,7 @@ run.prototype.create = function(){
     self.hero_boomer.body.onBeginContact.add(self.head_collision, this);
     self.hero_boomer.body.onEndContact.add(self.head_endcollision, this);
     
+    self.create_ground_level();
     self.create_ground_level();
     //self.game.input.onDown.add(self.on_down, this);
     //self.game.input.onUp.add(self.on_up, this);
@@ -662,6 +671,26 @@ run.prototype.render = function(){
         return false;
     }
     if(self.gameInfo.state !== "died"){
+        self.hero.body.velocity.x = self.gameInfo.speed;
+    }
+    self.game.world.wrap(self.hero, 64);
+    /* ------- REPLACE HERO POWER ICONS ------- */
+    $.each(self.hero_power, function(i, p){
+        self.hero_power[i].obj.position.x = self.hero_powers.body.x - (30 * (i+1));
+        self.hero_power[i].obj.position.y = self.hero_powers.body.y - ((self.hero.body.velocity.y / 10)*(i+1));
+    });
+    /* REPLACE CAMERA ON HERO */
+    var np = {
+        x:self.hero.position.x * self.scale - 300,
+        y:self.hero.position.y * self.scale - self.gameInfo.height/2
+    }
+    self.game.camera.setPosition(np.x, np.y);
+}
+run.prototype.moveBody = function(){
+    if(self.game.paused){
+        return false;
+    }
+    if(self.gameInfo.state !== "died"){
         if(self.jumping_infos.is_jumping && self.gameInfo.state === "jumping"){
             if(self.hero.body.velocity.y > 0){
                 if(self.gameInfo.motion_state !== "after_jump"){
@@ -683,34 +712,11 @@ run.prototype.render = function(){
             }
         }
     }
+    
     if(self.game.camera.position.x > self.levels[self.levels.length-1].position.x - 500){
         self.create_ground_level();
     }
-    var level_to_check = self._current_level - 2;
-    if(typeof self.levels[level_to_check] === "undefined"){
-        delete self.levels[level_to_check];
-        self.levels.splice(level_to_check, 1);
-    }else{
-        if(self.levels[level_to_check].position.x < self.game.camera.position.x - 3000){
-            self.levels[level_to_check].body.sprite.destroy();
-            //self.levels[0].destroy();
-            delete self.levels[level_to_check];
-            self.levels.splice(level_to_check, 1);
-            
-            self.levels_watter[level_to_check].body.sprite.destroy();
-            //self.levels[0].destroy();
-            delete self.levels_watter[level_to_check];
-            self.levels_watter.splice(level_to_check, 1);
-            
-            self.levels_picots[level_to_check].body.sprite.destroy();
-            //self.levels[0].destroy();
-            delete self.levels_picots[level_to_check];
-            self.levels_picots.splice(level_to_check, 1);
-        }
-    }
-    if(self.gameInfo.state !== "died"){
-        self.hero.body.velocity.x = self.gameInfo.speed;
-    }
+    
     
     self.mountain_3.tilePosition.x -= self.hero.body.velocity.x / 200;
     self.mountain_2.tilePosition.x -= self.hero.body.velocity.x / 190;
@@ -718,7 +724,6 @@ run.prototype.render = function(){
     self.mountain_3.tilePosition.y = (Math.abs(self.hero.position.y) / 300) + (self.gameInfo.height/3);
     self.mountain_2.tilePosition.y = (Math.abs(self.hero.position.y) / 50) + (self.gameInfo.height/3);
     self.mountain_1.tilePosition.y = (Math.abs(self.hero.position.y) / 15) + (self.gameInfo.height/3);
-    
     
     /* REPLACE EMITTER COLLIDER */
     if(typeof self.emitter !== "undefined"){
@@ -737,49 +742,43 @@ run.prototype.render = function(){
         self.particles.emitX = self.game.camera.x + self.gameInfo.width/2;
         self.particles.emitY = self.game.camera.y;
     }
-    
-    self.game.world.wrap(self.hero, 64);
-    
-    /* ------- REPLACE HERO POWER ICONS ------- */
-    $.each(self.hero_power, function(i, p){
-        self.hero_power[i].obj.position.x = self.hero_powers.body.x - (30 * (i+1));
-        self.hero_power[i].obj.position.y = self.hero_powers.body.y - ((self.hero.body.velocity.y / 10)*(i+1));
-    });
-    /* SCALE THE WORLD */
-    /*var ps = -(self.hero.body.velocity.y) / 2000;
-    if(ps < -0.2){
-        ps = -0.2;
-    }
-    if(ps > 0.6){
-        ps = 0.6;
-    }
-    var s = {v:self.scale, b:self.scale};
-    TweenMax.to(s, .5, {v:(1-ps), b:(1-ps), onUpdate:function(){
-        self.scale = s.v;
-    }});
-    
-    self.mountain_3.scale.x = self.mountain_3.scale.y = s.b;
-    self.mountain_2.scale.x = self.mountain_2.scale.y = s.b;
-    self.mountain_1.scale.x = self.mountain_1.scale.y = s.b;*/
-    /*
-    self.mountain_3.tileScale.y = s.b;
-    self.mountain_2.tileScale.x = s.b;
-    self.mountain_2.tileScale.y = s.b;
-    self.mountain_1.tileScale.x = s.b;
-    self.mountain_1.tileScale.y = s.b;
-    */
-    //self.mountain_3.world.scale.setTo(self.scale + 1, self.scale + 1);
-    //self.mountain_2.world.scale.setTo(self.scale + 1, self.scale + 1);
-    //self.mountain_1.world.scale.setTo(self.scale + 1, self.scale + 1);
-    
-    //self.game.world.scale.setTo(self.scale, self.scale);
-    
-    /* REPLACE CAMERA ON HERO */
-    var np = {
-        x:self.hero.position.x * self.scale - 300,
-        y:self.hero.position.y * self.scale - self.gameInfo.height/2
-    }
-    self.game.camera.setPosition(np.x, np.y);
+}
+run.prototype.clean_game = function(){
+    console.log(self.game.time.fps);
+    $.each(self.levels, function(i, lvl){
+        var level_to_check = i;
+        if(typeof self.levels[level_to_check] === "undefined"){
+            delete self.levels[level_to_check];
+            self.levels.splice(level_to_check, 1);
+        }else{
+            if(self.levels[level_to_check].position.x < self.game.camera.position.x - 3000){
+                self.levels[level_to_check].body.sprite.destroy();
+                //self.levels[0].destroy();
+                delete self.levels[level_to_check];
+                self.levels.splice(level_to_check, 1);
+            }
+        }
+        if(typeof self.levels_watter[level_to_check] === "undefined"){
+            delete self.levels_watter[level_to_check];
+            self.levels_watter.splice(level_to_check, 1);
+        }else{
+            if(self.levels_watter[level_to_check].position.x < self.game.camera.position.x - 3000){
+                self.levels_watter[level_to_check].body.sprite.destroy();
+                delete self.levels_watter[level_to_check];
+                self.levels_watter.splice(level_to_check, 1);
+            }
+        }
+        if(typeof self.levels_picots[level_to_check] === "undefined"){
+            delete self.levels_picots[level_to_check];
+            self.levels_picots.splice(level_to_check, 1);
+        }else{
+            if(self.levels_picots[level_to_check].position.x < self.game.camera.position.x - 3000){
+                self.levels_picots[level_to_check].body.sprite.destroy();
+                delete self.levels_picots[level_to_check];
+                self.levels_picots.splice(level_to_check, 1);
+            }
+        }
+    });   
 }
 run.prototype.update = function(){
     

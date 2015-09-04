@@ -2,6 +2,9 @@
     "jscodehints.detectedExclusions": [
         "TweenLite.js",
         "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/pages/running_motion/running.js",
-        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/jquery/src/ajax/load.js"
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/jquery/src/ajax/load.js",
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/phantomjs/examples/pagecallback.js",
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/html2canvas/src/renderers/SVG.js",
+        "jquery.js"
     ]
 }

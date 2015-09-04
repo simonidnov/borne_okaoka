@@ -1,8 +1,9 @@
 var self = null;
 function simplediscs(){
     this.okaokarun = new Image();
-    this.okaokarun.src = "pages/simplediscs/images/okaoka_run.png";
-    this.party = {hits:0, great:0, wrong:0, start:new Date().getTime(), delay:6000};
+    this.pause_time = new Date().getTime();
+    this.okaokarun.src = "pages/simplediscs/images/simple_run.png";
+    this.party = {hits:0, great:0, wrong:0, start:new Date().getTime(), delay:6000, play_time:false};
     this.circles = [];
     this._is_playing = false;
     self = this;
@@ -16,11 +17,14 @@ simplediscs.prototype.init = function(){
     self.create_structure();
     createjs.Touch.enable(self.stage);
     createjs.Ticker.addEventListener("tick", self.render);
+    createjs.Ticker.setFPS(60);
     utilities.show_popup(
         {color:navigation._current_interface_color, motion:"tuto_popup", buttons:["play"]}, 
         function(e){
             /* have to init gameplay */
-            self.launch_game();
+            setTimeout(function(){
+                self.launch_game();
+            },800);
         }
     );
 }
@@ -51,7 +55,7 @@ simplediscs.prototype.create_structure = function(){
     self.choices_lines = new createjs.Shape();
     //self.choices_lines.regX = self.choices_lines.regY = 300;
     self.choices_lines.graphics.setStrokeStyle(3);
-    self.choices_lines.graphics.beginStroke("rgba(0,0,0,.3)");
+    self.choices_lines.graphics.beginStroke("rgba(0,0,0,.1)");
     self.choices_lines.graphics.moveTo(300, 50);
     self.choices_lines.graphics.lineTo(300, 550);
     self.choices_lines.graphics.moveTo(50, 300);
@@ -122,16 +126,20 @@ simplediscs.prototype.create_structure = function(){
     
     var data = {
         images: [self.okaokarun],
-        frames: {width:75, height:75},
+        frames: {width:80, height:80},
         animations: {
-            stand:0,
-            run:[0,7]
-        }
+            stand:{frames:[0]},
+            run:{frames:[0,0,1,1,2,2,3,3,4,4,5,5,6,6], frequency:50},
+            great:{frames:[7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16], next:"run"},
+            wrong:{frames:[17,17,18,18,19,19,20,20,21,21,22,22,23,23,24], next:"wrongslide"},
+            wrongslide:{frames:[21,21,22,22,23,23,21,21,22,22,23,23,21,21,22,22,23,23,21,21,22,22,23,23], next:"run"}
+        },
+        framerate: 5
     };
     var spriteSheet = new createjs.SpriteSheet(data);
     self.okaokasprite = new createjs.Sprite(spriteSheet, "run");
     self.okaokasprite.scaleX = self.okaokasprite.scaleY = .7;
-    self.okaokasprite.y = -50;
+    self.okaokasprite.y = -55;
     self.okaokasprite.gotoAndStop('stand');
     self.chronos_line.addChild(self.okaokasprite);
     
@@ -141,8 +149,8 @@ simplediscs.prototype.create_structure = function(){
     self.score_infos.x = window.innerWidth/2;
     self.score_infos.y = 45;
     self.score_infos_ground = new createjs.Shape();
-    self.score_infos_ground.graphics.beginFill('#FFFFFF');
-    self.score_infos_ground.graphics.drawRoundRect(0,0,400,60,30);
+    //self.score_infos_ground.graphics.beginFill('#FFFFFF');
+    //self.score_infos_ground.graphics.drawRoundRect(0,0,400,60,30);
     self.score_infos.addChild(self.score_infos_ground);
     
     var star = {
@@ -168,18 +176,18 @@ simplediscs.prototype.create_structure = function(){
     self.chronosprite = new createjs.Sprite(imgAssets, "chronos");
     
     self.greattext = new createjs.Text();
-    self.greattext.font = "700 50px Roboto";
-    self.greattext.color = "#A7A9AB";
+    self.greattext.font = "100 50px Roboto";
+    self.greattext.color = "#FFFFFF";
     self.greattext.text = '0';
     
     self.wrongtext = new createjs.Text();
-    self.wrongtext.font = "700 50px Roboto";
-    self.wrongtext.color = "#A7A9AB";
+    self.wrongtext.font = "100 50px Roboto";
+    self.wrongtext.color = "#FFFFFF";
     self.wrongtext.text = '0';
     
     self.chronostext = new createjs.Text();
-    self.chronostext.font = "700 50px Roboto";
-    self.chronostext.color = "#A7A9AB";
+    self.chronostext.font = "100 50px Roboto";
+    self.chronostext.color = "#FFFFFF";
     self.chronostext.text = '60';
     
     self.greatsprite.y = self.wrongsprite.y = self.chronosprite.y = 7;
@@ -199,8 +207,8 @@ simplediscs.prototype.create_structure = function(){
     
     //check_great_motion.png
     var great = {
-        images: ["pages/simplediscs/motion/check_great_motion.png"],
-        frames: {width:120, height:120},
+        images: ["pages/simplediscs/motion/great_motion_200.png"],
+        frames: {width:200, height:200},
         animations: {
             great:[0,46, false],
             stay:48
@@ -208,14 +216,15 @@ simplediscs.prototype.create_structure = function(){
     };
     var greatAssets = new createjs.SpriteSheet(great);
     self.great_motion = new createjs.Sprite(greatAssets, "stay");
-    self.great_motion.regX = self.great_motion.regY = 60;
+    self.great_motion.regX = self.great_motion.regY = 100;
     self.great_motion.x = window.innerWidth /2;
     self.great_motion.y = window.innerHeight /2;
-    self.stage.addChild(self.great_motion);
+    self.great_motion.rotation = -self.choices.rotation;
+    self.choices.addChild(self.great_motion);
     
     var wrong = {
-        images: ["pages/simplediscs/motion/check_wrong_motion.png"],
-        frames: {width:120, height:120},
+        images: ["pages/simplediscs/motion/wrong_motion_200.png"],
+        frames: {width:200, height:200},
         animations: {
             wrong:[0,46, false],
             stay:48
@@ -223,23 +232,24 @@ simplediscs.prototype.create_structure = function(){
     };
     var wrongAssets = new createjs.SpriteSheet(wrong);
     self.wrong_motion = new createjs.Sprite(wrongAssets, "stay");
-    self.wrong_motion.regX = self.wrong_motion.regY = 60;
+    self.wrong_motion.regX = self.wrong_motion.regY = 100;
     self.wrong_motion.x = window.innerWidth /2;
     self.wrong_motion.y = window.innerHeight /2;
-    self.stage.addChild(self.wrong_motion);
+    self.wrong_motion.rotation = -self.choices.rotation;
+    self.choices.addChild(self.wrong_motion);
 }
 simplediscs.prototype.respond = function(resp){
-    console.log(self.response, ' ?= ', resp);
+    if(!self._is_playing){
+        return false;
+    }
     if(resp === self.response+1){
-        console.log('great');
         self.party.great++;
         self.greattext.text = self.party.great;
-        self.play_response('great');
+        self.play_response('great', resp);
     }else{
-        console.log('wrong');
         self.party.wrong++;
         self.wrongtext.text = self.party.wrong;
-        self.play_response('wrong');
+        self.play_response('wrong', resp);
     }
     self.party.hits++;
     self.destroy_level(function(){
@@ -247,16 +257,45 @@ simplediscs.prototype.respond = function(resp){
         self.create_level(lvl);
     });
 }
-simplediscs.prototype.play_response = function(type){
-    console.log('play motion ::: ', type);
+simplediscs.prototype.play_response = function(type, resp){
+    var pos = {x:self.choices.x, y:self.choices.y};
+    var target_pos  = self['choice_'+(self.response+1)];
+    var resp_target = self['choice_'+resp];
+    var adds = {time:0};
+    self._is_playing = false;
     switch(type){
         case 'great':
-            self.great_motion.gotoAndPlay('great');
+            self.party.delay+=200;
+            TweenMax.to(adds, .5,{
+                time:20,
+                onUpdate:function(){
+                },
+                onComplete:function(){
+                    self._is_playing = true;
+                }
+            });
+            self.okaokasprite.gotoAndPlay('great');
             break;
         case 'wrong':
+            self.party.delay-=200;
+            TweenMax.to(adds, .5,{
+                time:20,
+                onUpdate:function(){
+                    
+                },
+                onComplete:function(){
+                    self._is_playing = true;
+                }
+            });
+            self.okaokasprite.gotoAndPlay('wrong');
+            self.wrong_motion.x = resp_target.x - 150;
+            self.wrong_motion.y = resp_target.y - 150;
             self.wrong_motion.gotoAndPlay('wrong');
             break;
     }
+    self.great_motion.x = target_pos.x - 150;
+    self.great_motion.y = target_pos.y - 150;
+    self.great_motion.gotoAndPlay('great');
 }
 simplediscs.prototype.destroy_level = function(callBack){
     var cur = 0;
@@ -299,7 +338,9 @@ simplediscs.prototype.end_game = function(){
         function(e){
             console.log(e);
             if(e==1){
-                self.launch_game();
+                setTimeout(function(){
+                    self.launch_game();
+                },800);
             }else{
                 navigation.router.navigate('page/menu', {trigger:true, replace:true});
             }
@@ -309,7 +350,7 @@ simplediscs.prototype.end_game = function(){
 simplediscs.prototype.launch_game = function(){
     self._is_playing = true;
     self.okaokasprite.gotoAndPlay('run');
-    self.party = {hits:0, great:0, wrong:0, start:new Date().getTime(), delay:60000};
+    self.party = {hits:0, great:0, wrong:0, start:new Date().getTime(), delay:60000, play_time:false};
     var lvl = Math.floor(Math.random() * simplediscs_levels.length);
     self.create_level(lvl);
 }
@@ -409,25 +450,57 @@ simplediscs.prototype.render = function(){
         var now = new Date().getTime();
         /* CHECKING TIME AND RENDER BAR + CHRONOS self.party.start */
         var elapsed = now - self.party.start;
-        var rest = self.party.delay - elapsed;
+        var rest = (self.party.delay - elapsed);
         self.chronostext.text = Math.round(rest/1000);
         var percent_progress = 100 - ((rest * 100 ) / self.party.delay);
         self.chronos_line_progress.scaleX = percent_progress / 100;
         self.okaokasprite.x = (window.innerWidth) * (percent_progress/ 100) - 50;
         if(Math.round(rest/1000) === 0){
-            self._is_playing = false;
-            //self.destroy_level(function(){});
-            self.okaokasprite.gotoAndStop('stand');
-            self.end_game();
-            return false;    
+            var extra_time = (500 * self.party.great) - (800 * self.party.wrong);
+            /*if(!self.party.play_time && extra_time > 0){
+                self._is_playing = false;
+                self.party.delay+= (200 * self.party.great);
+                
+                elapsed = now - self.party.start;
+                rest = (self.party.delay - elapsed);
+                self.chronostext.text = Math.round(rest/1000);
+                
+                percent_progress = 100 - ((rest * 100 ) / self.party.delay);
+                TweenMax.to(self.chronos_line_progress, .5, {scaleX:percent_progress / 100});
+                TweenMax.to(self.okaokasprite, .5, {
+                    x : (window.innerWidth) * (percent_progress/ 100) - 50, 
+                    onComplete : function(){
+                        utilities.show_popup(
+                            {color:navigation._current_interface_color, motion:"tuto_popup", buttons:["play"]}, 
+                            function(e){
+                                self._is_playing = true;
+                                console.log('goooo !');
+                            }
+                        );
+                        console.log('ready');
+                    }
+                });
+                self.party.play_time = true;
+            }else{*/
+                //+(200 * self.party.great)+(100 * self.party.wrong);
+                self._is_playing = false;
+                //self.destroy_level(function(){});
+                self.okaokasprite.gotoAndStop('stand');
+                self.end_game();
+                return false;   
+            //}
         }
     }
     self.stage.update();
 }
 simplediscs.prototype.pause = function(){
+    self.pause_time = new Date().getTime();
     createjs.Ticker.removeEventListener('tick', self.render);
 }
 simplediscs.prototype.play = function(){
+    if(self._is_playing){
+        self.party.delay += new Date().getTime() - self.pause_time;  
+    }
     createjs.Ticker.addEventListener("tick", self.render);
 }
 simplediscs.prototype.destroy = function(callBack){

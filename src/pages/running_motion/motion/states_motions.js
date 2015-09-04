@@ -53,7 +53,7 @@ p.nominalBounds = new cjs.Rectangle(-9.9,-20.3,19.8,21.6);
 
 	this.addChild(this.shape);
 }).prototype = p = new cjs.Container();
-p.nominalBounds = new cjs.Rectangle(-8.5,-31.6,17.3,33);
+p.nominalBounds = new cjs.Rectangle(-8.5,-31.6,17.3,33.3);
 
 
 (lib.wallpiece6 = function() {
@@ -79,7 +79,7 @@ p.nominalBounds = new cjs.Rectangle(-11.1,-24.6,22.3,26.1);
 
 	this.addChild(this.shape);
 }).prototype = p = new cjs.Container();
-p.nominalBounds = new cjs.Rectangle(-16.1,-31.5,32.9,32.7);
+p.nominalBounds = new cjs.Rectangle(-16.1,-31.5,32.9,32.8);
 
 
 (lib.wallpiece4 = function() {
@@ -105,7 +105,7 @@ p.nominalBounds = new cjs.Rectangle(-8.9,-27.8,17.4,29.4);
 
 	this.addChild(this.shape);
 }).prototype = p = new cjs.Container();
-p.nominalBounds = new cjs.Rectangle(-8.7,-19,18.5,20.9);
+p.nominalBounds = new cjs.Rectangle(-8.7,-19,18.4,20.9);
 
 
 (lib.wallpiece2 = function() {
@@ -118,7 +118,7 @@ p.nominalBounds = new cjs.Rectangle(-8.7,-19,18.5,20.9);
 
 	this.addChild(this.shape);
 }).prototype = p = new cjs.Container();
-p.nominalBounds = new cjs.Rectangle(-8.5,-23.9,17.2,25);
+p.nominalBounds = new cjs.Rectangle(-8.5,-26.1,17.2,27.1);
 
 
 (lib.wallpiece1 = function() {
@@ -131,7 +131,7 @@ p.nominalBounds = new cjs.Rectangle(-8.5,-23.9,17.2,25);
 
 	this.addChild(this.shape);
 }).prototype = p = new cjs.Container();
-p.nominalBounds = new cjs.Rectangle(-8.7,-24.2,17.4,25.3);
+p.nominalBounds = new cjs.Rectangle(-8.7,-23.4,17.4,27.1);
 
 
 (lib.wall = function() {
@@ -5248,7 +5248,7 @@ p.nominalBounds = new cjs.Rectangle(-97.6,-162.7,400,200);
 	this.instance_29.setTransform(147.7,466,1,1,0,0,0,8.6,-27.8);
 
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#FFBF10").ss(2,1).p("EgkIh3oMAAAD/jEhlxiH6MDGJAAAEAg7h3oMAAAD/jEBlyh3oMAAAD/j");
+	this.shape.graphics.f().s("#FFBF10").ss(2,1).p("EBlyh3oMAAAD/jEAg7h3oMAAAD/jEhlxiH6MDGJAAAEgkIh3oMAAAD/j");
 	this.shape.setTransform(695.4,1105.9);
 
 	this.addChild(this.shape,this.instance_29,this.instance_28,this.instance_27,this.instance_26,this.instance_25,this.instance_24,this.instance_23,this.instance_22,this.instance_21,this.instance_20,this.instance_19,this.instance_18,this.instance_17,this.instance_16,this.instance_15,this.instance_14,this.instance_13,this.instance_12,this.instance_11,this.text_3,this.text_2,this.text_1,this.instance_10,this.instance_9,this.instance_8,this.text,this.instance_7,this.instance_6,this.instance_5,this.instance_4,this.instance_3,this.instance_2,this.instance_1,this.instance);

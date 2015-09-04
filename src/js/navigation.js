@@ -42,7 +42,7 @@ var navigation = {
         this.router.navigate(hash, {trigger:true, replace:true});
         delete hash;
         $('#backbutton').off('tap, click').on('tap, click', function(){
-            utilities.show_popup({color:navigation._current_interface_color, motion:"exit_game"}, function(e){
+            utilities.show_popup({color:navigation._current_interface_color, motion:"exit_game", buttons:["no", "yes"]}, function(e){
                 if(e == 1){
                     navigation.router.navigate('page/menu', {trigger:true, replace:true});
                 }

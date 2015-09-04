@@ -1,0 +1,17 @@
+{
+    "label":"run",
+    "version":"0.0.0",
+    "color":"pink",
+    "dependencies":[
+        "runperf.js", 
+        "js/phaser-2.4.4.min.js",
+        "motion/intro_run/intro_run_motion.js",
+        "motion/intro_run/wall_run_motion.js",
+        "motion/intro_run/watter_run_motion.js",
+        "motion/running_motion_2.js"
+    ],
+    "styles":["runperf.css"],
+    "content":"runperf.html",
+    "script_name":"run",
+    "motion":"running_motion_2"
+}

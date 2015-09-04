@@ -2,9 +2,9 @@
     "1":{
         "color":"yellow",
         "legend":"Casser des briques",
-        "dot_size":20,
-        "grid_size":{"c":5, "l":5},
-        "_grid_size":80,
+        "dot_size":40,
+        "grid_size":{"c":4, "l":4},
+        "_grid_size":130,
         "hits":6,
         "objectives":{
             "purple":2,
@@ -36,10 +36,10 @@
         ]
     },
     "3":{
-        "color":"purple",
+        "color":"yellow",
         "legend":"Casser des briques",
         "dot_size":20,
-        "grid_size":{"c":5, "l":5},
+        "grid_size":{"c":9, "l":3},
         "_grid_size":80,
         "hits":40,
         "objectives":{
@@ -48,9 +48,10 @@
             "pink":50
         },
         "colors":[
-            "yellow",
+            "sblue",
             "green",
-            "pink"
+            "pink",
+            "purple"
         ]
     },
     "4":{
