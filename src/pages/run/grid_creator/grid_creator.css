@@ -1,0 +1,139 @@
+html,body{
+    padding:0;
+    margin:0;
+    font-family: sans-serif;
+}
+.grid_creator{
+    
+}
+.content_grid{
+    width:2500px;
+    height:2500px;
+    position: relative;
+}
+.brick{
+    width:160px;
+    height:60px;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    position: absolute;
+    border:1px solid rgba(0,0,0,.1);
+    background-size: cover;
+}
+.brick:hover{
+    border:2px solid #FFFF00;
+}
+.draggable.setted{
+    border:none;
+}
+.brick.setted:hover{
+    border:2px solid #FFFF00;
+}
+.middle_line{
+    background:#FFF000;
+    position:absolute;
+    z-index: 9;
+    top:0;
+    bottom:0;
+    height:3px;
+    margin:auto;
+    width:100%;
+}
+.draggables{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:80px;
+    background-color:#FFF;
+    border-top: 2px solid #000;
+    transition: height 1s;
+    z-index: 99;
+}
+.draggable{
+    width:160px;
+    height:60px;
+    float:left;
+    margin:10px;
+    box-sizing: border-box;
+    background-size: cover;
+}
+.draggable.selected{
+    border: 2px solid #FF0000;
+}
+.onglets{
+    height:50px;
+    width:100%;
+    float:left;
+    position: absolute;
+    top:-40px;
+}
+.onglet{
+    float:left;
+    margin-right:1px;
+    color:#FFF;
+    background-color:#000;
+    font-family: sans-serif;
+    padding:10px;
+    cursor: pointer;
+}
+.onglet.right{
+    float:right;
+}
+.onglet.selected{
+    color:#FFF;
+    background-color:#FF0000;
+}
+.physics{
+    width:100%;
+    height:100%;
+    overflow: scroll;
+}
+.decors{
+    width:100%;
+    height:100%;
+    overflow: scroll;
+    display: none;
+}
+
+
+
+.levels{
+    position: fixed;
+    top:0;
+    width:100%;
+    z-index: 99;
+    cursor: pointer;
+}
+.add_level{
+    float:left;
+    width:40px;
+    height:40px;
+    color:#FFF;
+    background: #000;
+    line-height: 13px;
+    font-size: 30px;
+    text-align: center;
+    padding:10px;
+    box-sizing: border-box;
+}
+.level_tab{
+    height:40px;
+    background:#000;
+    color:#FFF;
+    float:left;
+    display: inline-block;
+    padding:10px;
+    box-sizing: border-box;
+    margin-left:1px;
+    cursor: pointer;
+}
+.level_tab.selected{
+    background-color:#FF0000;   
+}
+.level_tab .label{
+    float:left;
+}
+.level_tab .destroy{
+    float:left;
+    padding-left:10px;
+}

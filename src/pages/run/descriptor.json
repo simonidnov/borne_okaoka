@@ -3,7 +3,8 @@
     "version":"0.0.0",
     "color":"pink",
     "dependencies":[
-        "run.js", 
+        "run_2.js", 
+        "levels.js",
         "js/phaser-2.1.1.min.js",
         "motion/intro_run/intro_run_motion.js",
         "motion/intro_run/wall_run_motion.js",

@@ -1,6 +1,7 @@
 {
     "label":"palet",
     "version":"0.0.0",
+    "color":"sblue",
     "dependencies":[
         "palet.js",  
         "motion/palet_motion.js",

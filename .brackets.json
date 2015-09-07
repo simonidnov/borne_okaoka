@@ -1,5 +1,6 @@
 {
     "jscodehints.detectedExclusions": [
-        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/pages/build/build.js"
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/pages/build/build.js",
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/pages/run/grid_creator/grid_creator.js"
     ]
 }
