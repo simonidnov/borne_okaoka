@@ -466,6 +466,24 @@ dots.prototype.end_game = function(){
                             score+="0";
                         }
                     }
+                    self.replay_button = new createjs.Bitmap("./images/assets/btn_replay.png");
+                    self.replay_button.x = window.innerWidth/2 + 20;
+                    self.replay_button.y = self.total_score_text.y + self.total_score_text.getBounds().height + 20;
+                    
+                    self.stats_button = new createjs.Bitmap("./images/assets/btn_stats.png");
+                    self.stats_button.x = window.innerWidth/2 - 120;
+                    self.stats_button.y = self.total_score_text.y + self.total_score_text.getBounds().height + 20;
+                    
+                    self.replay_button.addEventListener("click", function(event) { 
+                        window.location.reload();
+                    });
+                    self.stats_button.addEventListener("click", function(event) { 
+                        utilities.show_score_game('dots', total_score);
+                    });
+                    
+                    self.stage.addChild(self.replay_button);
+                    self.stage.addChild(self.stats_button);
+                    
                     score+= num.toString();
                     self.total_score_text.text = score;
                 },

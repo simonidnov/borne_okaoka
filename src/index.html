@@ -66,7 +66,36 @@
                     <% for(var i=0; i<buttons.length; i++){ %>
                         <div class="popup_btn" data-value="<%= i %>" id="btn_<%= buttons[i] %>" style="width:<%= 100 / buttons.length %>%;"></div>
                     <% } %>
-                    <div class="popup_btn" data-value="1" id="btn_yes"></div>
+                </div>
+            </div>
+        </script>
+        
+        <script type="text/template" id="score_popup_template">
+            <div class="content_popup" style="background-color:<%= utilities.colorLuminance(color, .05) %>;">
+                <div class="popup_header" style="border-bottom:1px solid <%= utilities.colorLuminance(color, -.1) %>;">
+                    <div class="left_icon"></div>
+                    <div class="right_icon"></div>
+                </div>
+                <div class="popup_list">
+                    <% if(error !== ""){ %>
+                        <div class="connexion_error">
+                            <img src="./images/assets/no_connexion.png" width="100%;"/>
+                        </div>
+                    <% }else{ %>
+                        <% for(var i=0; i<list.length; i++){ %>
+                            <% if(list[i].score != score){ %>
+                                <div class="popup_line" style="background-color:<%= utilities.colorLuminance(color, .1) %>; border-bottom:1px solid <%= utilities.colorLuminance(color, -.1) %>;">
+                                    <div class="line_position"><%= i %></div>
+                                    <div class="line_score"><%= list[i].score %></div>
+                                </div>
+                            <% }else{ %>
+                                <div class="popup_line" style="background-color:<%= color %>; border-bottom:1px solid <%= utilities.colorLuminance(color, -.1) %>;" data-value="<%= i %>">
+                                    <div class="line_position"><%= i %></div>
+                                    <div class="line_score"><%= list[i].score %></div>
+                                </div>
+                            <% } %>
+                        <% } %>
+                    <% } %>
                 </div>
             </div>
         </script>

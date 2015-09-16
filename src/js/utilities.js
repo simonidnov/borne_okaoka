@@ -157,6 +157,32 @@ var utilities = {
             rgb += ("00"+c).substr(c.length);
         }
         return rgb;
+    },
+    show_score_game : function(gameName, score){
+        if($('.app_popup').length == 0){
+            $('body').append('<div class="app_popup"></div>');
+        }else{
+            $('.app_popup').html('');
+        }
+        var error = "";
+        if(typeof require === "undefined"){
+            //set error status @ "no_connexion"
+            error = "no_require";
+        }
+        TweenMax.to($('.app_popup'), .5, {opacity:1});
+        var tmp = _.template($('#score_popup_template').html());
+        var params = {
+            "color":navigation._current_interface_color,
+            "list":[{id:1,score:"01000"},{id:2,score:"00900"},{id:2,score:"00900"},{id:2,score:"00900"},{id:2,score:"00900"},{id:2,score:"00900"},{id:2,score:"00900"},{id:2,score:"00900"}],
+            "score":score,
+            "error":error
+        }
+        $('.app_popup').append(tmp(params));
+        TweenMax.to($('.content_popup'), .5, {css:{top:0}, ease:Back.easeOut});
+        $('.right_icon').on('click', function(){
+            $('.right_icon').off('click');
+            utilities.hide_popup();
+        });
     }
 }
 function rgb2hex(rgb){
