@@ -1,7 +1,7 @@
 var self = null;
 function simplediscs(){
-    this.okaokarun = new Image();
     this.pause_time = new Date().getTime();
+    this.okaokarun = new Image();
     this.okaokarun.src = "pages/simplediscs/images/simple_run.png";
     this.party = {hits:0, great:0, wrong:0, start:new Date().getTime(), delay:6000, play_time:false};
     this.circles = [];

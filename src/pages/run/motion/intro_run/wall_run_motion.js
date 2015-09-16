@@ -374,22 +374,29 @@ p.nominalBounds = new cjs.Rectangle(-177.6,-70.9,400,84.1);
 
 
 (lib.wall_run_motion = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{});
+	this.initialize(mode,startPosition,loop,{choice_0:87,choice_1:99});
 
 	// timeline functions:
 	this.frame_84 = function() {
+		this.gotoAndPlay(1);//utilities.pop_up_motion_callback();
+	}
+	this.frame_93 = function() {
 		this.stop();
-		utilities.pop_up_motion_callback();
+		utilities.pop_up_motion_callback("end");
+	}
+	this.frame_105 = function() {
+		this.stop();
+		utilities.pop_up_motion_callback("end");
 	}
 
 	// actions tween:
-	this.timeline.addTween(cjs.Tween.get(this).wait(84).call(this.frame_84).wait(146));
+	this.timeline.addTween(cjs.Tween.get(this).wait(84).call(this.frame_84).wait(9).call(this.frame_93).wait(12).call(this.frame_105).wait(146));
 
 	// Calque 4
 	this.instance = new lib.fail_wall("synched",6,false);
 	this.instance.setTransform(186.3,134.9,1,1,0,0,0,8.6,-27.8);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(230));
+	this.timeline.addTween(cjs.Tween.get(this.instance).to({_off:true},230).wait(21));
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(200,191.8,400,84.1);

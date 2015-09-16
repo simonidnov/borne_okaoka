@@ -16,6 +16,7 @@ function drawing(){
     this.oldMidY;
     this.oldX;
     this.oldY;
+    this.prevent_color = null;
     this.touchPos = null;
     self = this;
     this.init();
@@ -37,7 +38,7 @@ drawing.prototype.create_interface = function(){
         TweenMax.to($('.app_content'), .5, {css:{'backgroundColor':self.color}});
         TweenMax.to($('#backbutton'), .5, {css:{'backgroundColor':self.color}});
     });
-    $('.color_picker').css('height', ((window.innerHeight)/_.keys(colors).length)+'px');
+    $('.color_picker').css('height', Math.ceil(window.innerHeight/_.keys(colors).length)+'px');
     $.each($('.color_picker'), function(index, color){
         TweenMax.to($(this), .5, {scaleX:1, scaleY:1, delay:index/100});
     });
@@ -53,16 +54,18 @@ drawing.prototype.create_interface = function(){
         // ajouter les outils à droite
         /* -------- set tools last --------- */
         for(var i=1; i<6; i++){
-            $('#brush_'+i).css('top', (50*(i-1))+'px');
+            //$('#brush_'+i).css('top', (50*(i-1))+'px');
             $('#brush_'+i).load(self.base+'images/brushes/brush_'+i+'.svg', function(){
             });
         }
         $('.brush svg').css({'width':'100%', 'height':'100%'});
     }, ease:Power4.easeInOut, delay:.5});
-    
-    
     /* ------- set brush events ------- */
     $('.brush').on('click', function(){
+        if(self.prevent_color && self.color === 'rgb(255,255,255)'){
+            self.color = self.prevent_color;
+            self.prevent_color = null;
+        }
         $('.selected').removeClass('selected');
         $(this).addClass('selected');
         self.strokerstyle.size = $(this).attr('data-size');
@@ -76,19 +79,35 @@ drawing.prototype.create_interface = function(){
     $('#redraw').load(self.base+'images/brushes/redraw.svg');
     $('#clear').load(self.base+'images/brushes/clear.svg');
     var ttop = ($('.brush').length * 50);
-    $('#gum').css({"top":ttop+"px", "left":"100px"});
-    $('#cancel').css({"top":(ttop + 50)+"px", "left":"100px"});
-    $('#redraw').css({"top":(ttop + (50*2))+"px", "left":"100px"});
-    $('#clear').css({"top":(ttop + (50*3))+"px", "left":"100px"});
+    //$('#gum').css({"top":ttop+"px", "left":"100px"});
+    //$('#cancel').css({"top":(ttop + 50)+"px", "left":"100px"});
+    //$('#redraw').css({"top":(ttop + (50*2))+"px", "left":"100px"});
+    //$('#clear').css({"top":(ttop + (50*3))+"px", "left":"100px"});
     $.each($('.tool'), function(index, t){
-        TweenMax.to($(this), .5, {css:{"left":"0px"}, delay:(.1*index)+.8});
+        
     });
+    $('#gum').on('click', self.get_gum);
     $('#clear').on('click', self.clear_drawing);
     $('#cancel').on('click', self.remove_last);
     $('#redraw').on('click', self.redraw_last);
     
+    var tool_height = (window.innerHeight - $('#backbutton').height()) / $('.tool').length;
+    $('.tool').css('height', tool_height+'px');
+    $.each($('.tool'), function(i, tool){
+        $(this).css({'top': tool_height*i+"px", 'left':"100px"}); 
+        TweenMax.to($(this), .5, {css:{"left":"0px"}, delay:(.1*i)+.8});
+    });
     
     this.init_draw_tool();
+}
+drawing.prototype.get_gum = function(){
+    self.prevent_color = self.color;
+    self.color = 'rgb(255,255,255)';
+    $('.selected').removeClass('selected');
+    $('#gum').addClass('selected');
+    self.strokerstyle.size = $(this).attr('data-size');
+    self.strokerstyle.stylingW = $(this).attr('data-stylingw');
+    self.strokerstyle.stylingH = $(this).attr('data-stylingh');
 }
 drawing.prototype.init_draw_tool = function(){
     self.stage = new createjs.Stage("drawing_canvas");

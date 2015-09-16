@@ -22,7 +22,7 @@ lib.properties = {
 
 	// Calque 1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#FFFFFF").ss(20,1,0,3).p("AAAIKIAAwTApCIKIJCAAIJDAA");
+	this.shape.graphics.f().s("#FFFFFF").ss(20,1,0,3).p("ApCIKIJCAAIJDAAAAAIKIAAwT");
 	this.shape.setTransform(58,52.3);
 
 	this.addChild(this.shape);
@@ -99,7 +99,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 p.nominalBounds = new cjs.Rectangle(13.5,-10,60.5,60.5);
 
 
-(lib.motion_wrong = function(mode,startPosition,loop) {
+(lib.motion_wrong_open = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// Calque 3
@@ -347,7 +347,7 @@ p.nominalBounds = new cjs.Rectangle(-15,-15,85.5,30);
 
 	// Calque 1
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#FFFFFF").ss(30,1,0,3).p("AmTAAIMoAA");
+	this.shape.graphics.f().s("#FFFFFF").ss(30,1,0,3).p("AmUAAIMpAA");
 	this.shape.setTransform(40.5,0);
 
 	this.addChild(this.shape);
@@ -369,14 +369,26 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 
 // stage content:
 (lib.tuto_popup_motion = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{});
+	this.initialize(mode,startPosition,loop,{choice_0:317});
+
+	// timeline functions:
+	this.frame_314 = function() {
+		this.gotoAndPlay(1);//utilities.pop_up_motion_callback();
+	}
+	this.frame_323 = function() {
+		this.stop();
+		utilities.pop_up_motion_callback("end");
+	}
+
+	// actions tween:
+	this.timeline.addTween(cjs.Tween.get(this).wait(314).call(this.frame_314).wait(9).call(this.frame_323).wait(3));
 
 	// Calque 4
 	this.shape = new cjs.Shape();
 	this.shape.graphics.f().s("#FFFFFF").ss(5,1,1).p("EgimAAAMBFNAAA");
 	this.shape.setTransform(209.6,196.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.shape).wait(314));
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(326));
 
 	// Calque 16
 	this.instance = new lib.motion_check("synched",0,false);
@@ -385,13 +397,13 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_1 = new lib.motion_check_reverse("synched",0,false);
 	this.instance_1.setTransform(200,103.7,1,1,0,0,0,32,20.2);
 
-	this.instance_2 = new lib.motion_wrong("synched",0,false);
+	this.instance_2 = new lib.motion_wrong_open("synched",0,false);
 	this.instance_2.setTransform(189,101.2,1,1,0,0,0,32,20.2);
 
 	this.instance_3 = new lib.motion_wrong_reverse("synched",0,false);
 	this.instance_3.setTransform(189,101.2,1,1,0,0,0,32,20.2);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.instance}]},113).to({state:[{t:this.instance_1}]},21).to({state:[]},16).to({state:[{t:this.instance_2}]},122).to({state:[{t:this.instance_3}]},21).to({state:[]},16).wait(5));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.instance}]},113).to({state:[{t:this.instance_1}]},21).to({state:[]},16).to({state:[{t:this.instance_2}]},122).to({state:[{t:this.instance_3}]},21).to({state:[]},16).wait(17));
 
 	// Calque 19
 	this.instance_4 = new lib.circle();
@@ -400,7 +412,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_4.filters = [new cjs.ColorFilter(0, 0, 0, 1, 72, 93, 167, 0)];
 	this.instance_4.cache(-2,-2,112,112);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_4).wait(298).to({_off:false},0).to({regX:53.8,regY:53.8,scaleX:4.65,scaleY:4.65,x:200.3,y:100.3},15,cjs.Ease.get(-0.75)).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance_4).wait(298).to({_off:false},0).to({regX:53.8,regY:53.8,scaleX:4.65,scaleY:4.65,x:200.3,y:100.3},15,cjs.Ease.get(-0.75)).wait(13));
 
 	// Calque 20
 	this.instance_5 = new lib.circle();
@@ -409,7 +421,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_5.filters = [new cjs.ColorFilter(0, 0, 0, 1, 205, 34, 57, 0)];
 	this.instance_5.cache(-2,-2,112,112);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_5).wait(265).to({_off:false},0).to({regX:53.8,regY:53.8,scaleX:1.1,scaleY:1.1,x:200.1,y:100.1},7).to({scaleX:1,scaleY:1},4).wait(17).to({scaleX:4.65,scaleY:4.65,x:200.3,y:100.3},15,cjs.Ease.get(-0.47)).wait(6));
+	this.timeline.addTween(cjs.Tween.get(this.instance_5).wait(265).to({_off:false},0).to({regX:53.8,regY:53.8,scaleX:1.1,scaleY:1.1,x:200.1,y:100.1},7).to({scaleX:1,scaleY:1},4).wait(17).to({scaleX:4.65,scaleY:4.65,x:200.3,y:100.3},15,cjs.Ease.get(-0.47)).wait(18));
 
 	// Calque 15
 	this.instance_6 = new lib.circle();
@@ -418,7 +430,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_6.filters = [new cjs.ColorFilter(0, 0, 0, 1, 73, 165, 76, 0)];
 	this.instance_6.cache(-2,-2,112,112);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_6).wait(106).to({_off:false},0).to({regX:53.8,regY:53.8,scaleX:1.1,scaleY:1.1,x:200.1,y:100.1},7).to({scaleX:1,scaleY:1},4).wait(17).to({scaleX:4.65,scaleY:4.65,x:200.3,y:100.3},15).to({_off:true},3).wait(162));
+	this.timeline.addTween(cjs.Tween.get(this.instance_6).wait(106).to({_off:false},0).to({regX:53.8,regY:53.8,scaleX:1.1,scaleY:1.1,x:200.1,y:100.1},7).to({scaleX:1,scaleY:1},4).wait(17).to({scaleX:4.65,scaleY:4.65,x:200.3,y:100.3},15).to({_off:true},3).wait(174));
 
 	// circle
 	this.instance_7 = new lib.circle();
@@ -427,7 +439,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_7.filters = [new cjs.ColorFilter(0, 0, 0, 1, 255, 255, 255, 0)];
 	this.instance_7.cache(-2,-2,112,112);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_7).wait(63).to({_off:false},0).to({regX:53.6,regY:53.6,scaleX:0.2,scaleY:0.2},6).to({regX:53.7,regY:53.7,scaleX:0.18,scaleY:0.18},3).to({_off:true},80).wait(162));
+	this.timeline.addTween(cjs.Tween.get(this.instance_7).wait(63).to({_off:false},0).to({regX:53.6,regY:53.6,scaleX:0.2,scaleY:0.2},6).to({regX:53.7,regY:53.7,scaleX:0.18,scaleY:0.18},3).to({_off:true},80).wait(174));
 
 	// circle
 	this.instance_8 = new lib.circle();
@@ -436,7 +448,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_8.filters = [new cjs.ColorFilter(0, 0, 0, 1, 246, 202, 50, 0)];
 	this.instance_8.cache(-2,-2,112,112);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_8).wait(60).to({_off:false},0).to({scaleX:0.45,scaleY:0.45},6).to({scaleX:0.41,scaleY:0.41},3).to({_off:true},83).wait(162));
+	this.timeline.addTween(cjs.Tween.get(this.instance_8).wait(60).to({_off:false},0).to({scaleX:0.45,scaleY:0.45},6).to({scaleX:0.41,scaleY:0.41},3).to({_off:true},83).wait(174));
 
 	// circle
 	this.instance_9 = new lib.circle();
@@ -445,7 +457,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_9.filters = [new cjs.ColorFilter(0, 0, 0, 1, 0, 128, 111, 0)];
 	this.instance_9.cache(-2,-2,112,112);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_9).wait(57).to({_off:false},0).to({regX:53.6,regY:53.6,scaleX:0.72,scaleY:0.72,x:316.2,y:99.2},6).to({regX:53.7,regY:53.7,scaleX:0.66,scaleY:0.66,x:316.3,y:99.3},3).to({_off:true},86).wait(162));
+	this.timeline.addTween(cjs.Tween.get(this.instance_9).wait(57).to({_off:false},0).to({regX:53.6,regY:53.6,scaleX:0.72,scaleY:0.72,x:316.2,y:99.2},6).to({regX:53.7,regY:53.7,scaleX:0.66,scaleY:0.66,x:316.3,y:99.3},3).to({_off:true},86).wait(174));
 
 	// circle
 	this.instance_10 = new lib.circle();
@@ -454,14 +466,14 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_10.filters = [new cjs.ColorFilter(0, 0, 0, 1, 62, 192, 199, 0)];
 	this.instance_10.cache(-2,-2,112,112);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_10).wait(54).to({_off:false},0).to({regX:53.7,regY:53.7,scaleX:0.97,scaleY:0.97},6).to({regX:53.8,regY:53.8,scaleX:0.88,scaleY:0.88},3).to({_off:true},89).wait(162));
+	this.timeline.addTween(cjs.Tween.get(this.instance_10).wait(54).to({_off:false},0).to({regX:53.7,regY:53.7,scaleX:0.97,scaleY:0.97},6).to({regX:53.8,regY:53.8,scaleX:0.88,scaleY:0.88},3).to({_off:true},89).wait(174));
 
 	// circle
 	this.instance_11 = new lib.circle();
 	this.instance_11.setTransform(316.3,99.3,0.1,0.1,0,0,0,53.5,53.5);
 	this.instance_11._off = true;
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_11).wait(51).to({_off:false},0).to({regX:53.8,regY:53.8,scaleX:1.1,scaleY:1.1,x:316.4,y:99.4},6).to({scaleX:1,scaleY:1,x:316.3,y:99.3},3).to({_off:true},92).wait(162));
+	this.timeline.addTween(cjs.Tween.get(this.instance_11).wait(51).to({_off:false},0).to({regX:53.8,regY:53.8,scaleX:1.1,scaleY:1.1,x:316.4,y:99.4},6).to({scaleX:1,scaleY:1,x:316.3,y:99.3},3).to({_off:true},92).wait(174));
 
 	// egal_baton
 	this.shape_1 = new cjs.Shape();
@@ -496,7 +508,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.shape_8.graphics.f().s("#FFFFFF").ss(20,1,0,3).p("AjTAAIGnAA");
 	this.shape_8.setTransform(205.3,119.5);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.shape_1}]},42).to({state:[{t:this.shape_2}]},1).to({state:[{t:this.shape_3}]},1).to({state:[{t:this.shape_4}]},1).to({state:[{t:this.shape_5}]},1).to({state:[{t:this.shape_6}]},1).to({state:[{t:this.shape_7}]},1).to({state:[{t:this.shape_8}]},1).to({state:[]},103).wait(162));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.shape_1}]},42).to({state:[{t:this.shape_2}]},1).to({state:[{t:this.shape_3}]},1).to({state:[{t:this.shape_4}]},1).to({state:[{t:this.shape_5}]},1).to({state:[{t:this.shape_6}]},1).to({state:[{t:this.shape_7}]},1).to({state:[{t:this.shape_8}]},1).to({state:[]},103).wait(174));
 
 	// egal_baton
 	this.shape_9 = new cjs.Shape();
@@ -531,7 +543,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.shape_16.graphics.f().s("#FFFFFF").ss(20,1,0,3).p("AjTAAIGnAA");
 	this.shape_16.setTransform(205.3,89.5);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.shape_9}]},39).to({state:[{t:this.shape_10}]},1).to({state:[{t:this.shape_11}]},1).to({state:[{t:this.shape_12}]},1).to({state:[{t:this.shape_13}]},1).to({state:[{t:this.shape_14}]},1).to({state:[{t:this.shape_15}]},1).to({state:[{t:this.shape_16}]},1).to({state:[]},106).wait(162));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.shape_9}]},39).to({state:[{t:this.shape_10}]},1).to({state:[{t:this.shape_11}]},1).to({state:[{t:this.shape_12}]},1).to({state:[{t:this.shape_13}]},1).to({state:[{t:this.shape_14}]},1).to({state:[{t:this.shape_15}]},1).to({state:[{t:this.shape_16}]},1).to({state:[]},106).wait(174));
 
 	// baton_3
 	this.instance_12 = new lib.baton_3();
@@ -540,7 +552,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_12.filters = [new cjs.ColorFilter(0, 0, 0, 1, 246, 202, 50, 0)];
 	this.instance_12.cache(-17,-17,66,34);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_12).wait(14).to({_off:false},0).to({y:65},6).to({y:55},3).to({y:65},3).wait(7).to({x:160.1},0).to({x:91},9,cjs.Ease.get(0.62)).to({_off:true},110).wait(162));
+	this.timeline.addTween(cjs.Tween.get(this.instance_12).wait(14).to({_off:false},0).to({y:65},6).to({y:55},3).to({y:65},3).wait(7).to({x:160.1},0).to({x:91},9,cjs.Ease.get(0.62)).to({_off:true},110).wait(174));
 
 	// baton_2
 	this.instance_13 = new lib.baton_2();
@@ -549,7 +561,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_13.filters = [new cjs.ColorFilter(0, 0, 0, 1, 0, 128, 111, 0)];
 	this.instance_13.cache(-17,-17,90,34);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_13).wait(10).to({_off:false},0).to({y:95},6).to({y:85},3).to({y:95},3).wait(11).to({x:160},0).to({x:91},9,cjs.Ease.get(0.62)).to({_off:true},110).wait(162));
+	this.timeline.addTween(cjs.Tween.get(this.instance_13).wait(10).to({_off:false},0).to({y:95},6).to({y:85},3).to({y:95},3).wait(11).to({x:160},0).to({x:91},9,cjs.Ease.get(0.62)).to({_off:true},110).wait(174));
 
 	// baton_1
 	this.instance_14 = new lib.baton_1();
@@ -558,13 +570,13 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_14.filters = [new cjs.ColorFilter(0, 0, 0, 1, 62, 192, 199, 0)];
 	this.instance_14.cache(-17,-17,115,34);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_14).wait(6).to({_off:false},0).to({y:125},6).to({y:115},3).to({y:125},3).wait(15).to({x:160},0).to({x:91},9,cjs.Ease.get(0.62)).to({_off:true},110).wait(162));
+	this.timeline.addTween(cjs.Tween.get(this.instance_14).wait(6).to({_off:false},0).to({y:125},6).to({y:115},3).to({y:125},3).wait(15).to({x:160},0).to({x:91},9,cjs.Ease.get(0.62)).to({_off:true},110).wait(174));
 
 	// pied
 	this.instance_15 = new lib.discs_foot();
 	this.instance_15.setTransform(200.1,-63.3,1,1,0,0,0,58,52.2);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_15).to({y:97.7},6).to({y:87.7},3).to({y:97.7},3).wait(21).to({x:160.1},0).to({x:91},9,cjs.Ease.get(0.62)).to({_off:true},110).wait(162));
+	this.timeline.addTween(cjs.Tween.get(this.instance_15).to({y:97.7},6).to({y:87.7},3).to({y:97.7},3).wait(21).to({x:160.1},0).to({x:91},9,cjs.Ease.get(0.62)).to({_off:true},110).wait(174));
 
 	// circle
 	this.instance_16 = new lib.circle();
@@ -573,7 +585,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_16.filters = [new cjs.ColorFilter(0, 0, 0, 1, 255, 255, 255, 0)];
 	this.instance_16.cache(-2,-2,112,112);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_16).wait(230).to({_off:false},0).to({regX:53.6,regY:53.6,scaleX:0.2,scaleY:0.2},6).to({regX:53.7,regY:53.7,scaleX:0.18,scaleY:0.18},3).wait(75));
+	this.timeline.addTween(cjs.Tween.get(this.instance_16).wait(230).to({_off:false},0).to({regX:53.6,regY:53.6,scaleX:0.2,scaleY:0.2},6).to({regX:53.7,regY:53.7,scaleX:0.18,scaleY:0.18},3).wait(87));
 
 	// circle
 	this.instance_17 = new lib.circle();
@@ -582,7 +594,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_17.filters = [new cjs.ColorFilter(0, 0, 0, 1, 62, 192, 199, 0)];
 	this.instance_17.cache(-2,-2,112,112);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_17).wait(227).to({_off:false},0).to({scaleX:0.45,scaleY:0.45},6).to({scaleX:0.41,scaleY:0.41},3).wait(78));
+	this.timeline.addTween(cjs.Tween.get(this.instance_17).wait(227).to({_off:false},0).to({scaleX:0.45,scaleY:0.45},6).to({scaleX:0.41,scaleY:0.41},3).wait(90));
 
 	// circle
 	this.instance_18 = new lib.circle();
@@ -591,7 +603,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_18.filters = [new cjs.ColorFilter(0, 0, 0, 1, 0, 128, 111, 0)];
 	this.instance_18.cache(-2,-2,112,112);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_18).wait(224).to({_off:false},0).to({regX:53.6,regY:53.6,scaleX:0.72,scaleY:0.72,x:316.2,y:99.2},6).to({regX:53.7,regY:53.7,scaleX:0.66,scaleY:0.66,x:316.3,y:99.3},3).wait(81));
+	this.timeline.addTween(cjs.Tween.get(this.instance_18).wait(224).to({_off:false},0).to({regX:53.6,regY:53.6,scaleX:0.72,scaleY:0.72,x:316.2,y:99.2},6).to({regX:53.7,regY:53.7,scaleX:0.66,scaleY:0.66,x:316.3,y:99.3},3).wait(93));
 
 	// circle
 	this.instance_19 = new lib.circle();
@@ -600,14 +612,14 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_19.filters = [new cjs.ColorFilter(0, 0, 0, 1, 243, 129, 47, 0)];
 	this.instance_19.cache(-2,-2,112,112);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_19).wait(221).to({_off:false},0).to({regX:53.7,regY:53.7,scaleX:0.97,scaleY:0.97},6).to({regX:53.8,regY:53.8,scaleX:0.88,scaleY:0.88},3).wait(84));
+	this.timeline.addTween(cjs.Tween.get(this.instance_19).wait(221).to({_off:false},0).to({regX:53.7,regY:53.7,scaleX:0.97,scaleY:0.97},6).to({regX:53.8,regY:53.8,scaleX:0.88,scaleY:0.88},3).wait(96));
 
 	// circle
 	this.instance_20 = new lib.circle();
 	this.instance_20.setTransform(316.3,99.3,0.1,0.1,0,0,0,53.5,53.5);
 	this.instance_20._off = true;
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_20).wait(218).to({_off:false},0).to({regX:53.8,regY:53.8,scaleX:1.1,scaleY:1.1,x:316.4,y:99.4},6).to({scaleX:1,scaleY:1,x:316.3,y:99.3},3).wait(87));
+	this.timeline.addTween(cjs.Tween.get(this.instance_20).wait(218).to({_off:false},0).to({regX:53.8,regY:53.8,scaleX:1.1,scaleY:1.1,x:316.4,y:99.4},6).to({scaleX:1,scaleY:1,x:316.3,y:99.3},3).wait(99));
 
 	// egal_baton
 	this.shape_17 = new cjs.Shape();
@@ -642,7 +654,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.shape_24.graphics.f().s("#FFFFFF").ss(20,1,0,3).p("AjTAAIGnAA");
 	this.shape_24.setTransform(205.3,119.5);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.shape_17}]},209).to({state:[{t:this.shape_18}]},1).to({state:[{t:this.shape_19}]},1).to({state:[{t:this.shape_20}]},1).to({state:[{t:this.shape_21}]},1).to({state:[{t:this.shape_22}]},1).to({state:[{t:this.shape_23}]},1).to({state:[{t:this.shape_24}]},1).wait(98));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.shape_17}]},209).to({state:[{t:this.shape_18}]},1).to({state:[{t:this.shape_19}]},1).to({state:[{t:this.shape_20}]},1).to({state:[{t:this.shape_21}]},1).to({state:[{t:this.shape_22}]},1).to({state:[{t:this.shape_23}]},1).to({state:[{t:this.shape_24}]},1).wait(110));
 
 	// egal_baton
 	this.shape_25 = new cjs.Shape();
@@ -677,7 +689,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.shape_32.graphics.f().s("#FFFFFF").ss(20,1,0,3).p("AjTAAIGnAA");
 	this.shape_32.setTransform(205.3,89.5);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.shape_25}]},206).to({state:[{t:this.shape_26}]},1).to({state:[{t:this.shape_27}]},1).to({state:[{t:this.shape_28}]},1).to({state:[{t:this.shape_29}]},1).to({state:[{t:this.shape_30}]},1).to({state:[{t:this.shape_31}]},1).to({state:[{t:this.shape_32}]},1).wait(101));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.shape_25}]},206).to({state:[{t:this.shape_26}]},1).to({state:[{t:this.shape_27}]},1).to({state:[{t:this.shape_28}]},1).to({state:[{t:this.shape_29}]},1).to({state:[{t:this.shape_30}]},1).to({state:[{t:this.shape_31}]},1).to({state:[{t:this.shape_32}]},1).wait(113));
 
 	// baton_3
 	this.instance_21 = new lib.baton_3();
@@ -686,7 +698,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_21.filters = [new cjs.ColorFilter(0, 0, 0, 1, 205, 34, 57, 0)];
 	this.instance_21.cache(-17,-17,66,34);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_21).wait(181).to({_off:false},0).to({y:65},6).to({y:55},3).to({y:65},3).wait(7).to({x:160.1},0).to({x:91},9,cjs.Ease.get(0.62)).wait(105));
+	this.timeline.addTween(cjs.Tween.get(this.instance_21).wait(181).to({_off:false},0).to({y:65},6).to({y:55},3).to({y:65},3).wait(7).to({x:160.1},0).to({x:91},9,cjs.Ease.get(0.62)).wait(117));
 
 	// baton_2
 	this.instance_22 = new lib.baton_2();
@@ -695,7 +707,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_22.filters = [new cjs.ColorFilter(0, 0, 0, 1, 91, 48, 141, 0)];
 	this.instance_22.cache(-17,-17,90,34);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_22).wait(177).to({_off:false},0).to({y:95},6).to({y:85},3).to({y:95},3).wait(11).to({x:160},0).to({x:91},9,cjs.Ease.get(0.62)).wait(105));
+	this.timeline.addTween(cjs.Tween.get(this.instance_22).wait(177).to({_off:false},0).to({y:95},6).to({y:85},3).to({y:95},3).wait(11).to({x:160},0).to({x:91},9,cjs.Ease.get(0.62)).wait(117));
 
 	// baton_1
 	this.instance_23 = new lib.baton_1();
@@ -704,14 +716,14 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.instance_23.filters = [new cjs.ColorFilter(0, 0, 0, 1, 211, 35, 138, 0)];
 	this.instance_23.cache(-17,-17,115,34);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_23).wait(173).to({_off:false},0).to({y:125},6).to({y:115},3).to({y:125},3).wait(15).to({x:160},0).to({x:91},9,cjs.Ease.get(0.62)).wait(105));
+	this.timeline.addTween(cjs.Tween.get(this.instance_23).wait(173).to({_off:false},0).to({y:125},6).to({y:115},3).to({y:125},3).wait(15).to({x:160},0).to({x:91},9,cjs.Ease.get(0.62)).wait(117));
 
 	// pied
 	this.instance_24 = new lib.discs_foot();
 	this.instance_24.setTransform(200.1,-63.3,1,1,0,0,0,58,52.2);
 	this.instance_24._off = true;
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_24).wait(152).to({_off:false},0).wait(17).to({y:97.7},4).to({y:87.7},3).to({y:97.7},3).wait(21).to({x:160.1},0).to({x:91},9,cjs.Ease.get(0.62)).wait(105));
+	this.timeline.addTween(cjs.Tween.get(this.instance_24).wait(152).to({_off:false},0).wait(17).to({y:97.7},4).to({y:87.7},3).to({y:97.7},3).wait(21).to({x:160.1},0).to({x:91},9,cjs.Ease.get(0.62)).wait(117));
 
 	// Calque 18
 	this.shape_33 = new cjs.Shape();
@@ -719,7 +731,7 @@ p.nominalBounds = new cjs.Rectangle(-10,-10,136,124.5);
 	this.shape_33.setTransform(199.6,98);
 	this.shape_33._off = true;
 
-	this.timeline.addTween(cjs.Tween.get(this.shape_33).wait(150).to({_off:false},0).wait(164));
+	this.timeline.addTween(cjs.Tween.get(this.shape_33).wait(150).to({_off:false},0).wait(176));
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(185.5,-25.5,448.1,324.1);

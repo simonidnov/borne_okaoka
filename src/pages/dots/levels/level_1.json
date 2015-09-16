@@ -1,4 +1,23 @@
 {
+    "0":{
+        "color":"yellow",
+        "legend":"Casser des briques",
+        "dot_size":20,
+        "grid_size":{"c":5, "l":5},
+        "_grid_size":100,
+        "hits":-1,
+        "time":60000,
+        "objectives":{
+            "purple":-1,
+            "green":-1,
+            "pink":-1
+        },
+        "colors":[
+            "purple",
+            "green",
+            "pink"
+        ]
+    },
     "1":{
         "color":"yellow",
         "legend":"Casser des briques",
@@ -6,6 +25,7 @@
         "grid_size":{"c":4, "l":4},
         "_grid_size":130,
         "hits":6,
+        "time":-1,
         "objectives":{
             "purple":2,
             "green":2,
@@ -24,6 +44,7 @@
         "grid_size":{"c":8, "l":4},
         "_grid_size":80,
         "hits":10,
+        "time":-1,
         "objectives":{
             "purple":20,
             "green":10,
@@ -42,6 +63,7 @@
         "grid_size":{"c":9, "l":3},
         "_grid_size":80,
         "hits":40,
+        "time":-1,
         "objectives":{
             "yellow":200,
             "green":100,
@@ -61,6 +83,7 @@
         "grid_size":{"c":5, "l":5},
         "_grid_size":80,
         "hits":40,
+        "time":-1,
         "objectives":{
             "purple":200,
             "yellow":100,
@@ -79,6 +102,7 @@
         "grid_size":{"c":5, "l":5},
         "_grid_size":80,
         "hits":40,
+        "time":-1,
         "objectives":{
             "purple":200,
             "yellow":100,
@@ -97,6 +121,7 @@
         "grid_size":{"c":5, "l":5},
         "_grid_size":80,
         "hits":40,
+        "time":-1,
         "objectives":{
             "purple":200,
             "yellow":100,
@@ -115,6 +140,7 @@
         "grid_size":{"c":5, "l":5},
         "_grid_size":80,
         "hits":40,
+        "time":-1,
         "objectives":{
             "purple":200,
             "yellow":100,
@@ -133,6 +159,7 @@
         "grid_size":{"c":5, "l":5},
         "_grid_size":80,
         "hits":40,
+        "time":-1,
         "objectives":{
             "purple":200,
             "yellow":100,
@@ -151,6 +178,7 @@
         "grid_size":{"c":5, "l":5},
         "_grid_size":80,
         "hits":40,
+        "time":-1,
         "objectives":{
             "purple":200,
             "yellow":100,
@@ -169,6 +197,7 @@
         "grid_size":{"c":5, "l":5},
         "_grid_size":80,
         "hits":40,
+        "time":-1,
         "objectives":{
             "purple":200,
             "yellow":100,

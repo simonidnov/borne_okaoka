@@ -4,6 +4,7 @@ var navigation = {
     _current_page_name : null,
     _page_script : null,
     _last_page_menu : 0,
+    _switcher_last_date : null,
     _current_interface_color : colors.blue,
     init : function(){
         //document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
@@ -48,6 +49,18 @@ var navigation = {
                 }
             });
         });
+        $('#switchbutton')
+            .off('mousedown')
+            .off('mouseup')
+            .on('mousedown', function(){
+                navigation._switcher_last_date = new Date().getTime();
+            })
+            .on('mouseup', function(){
+                var date = new Date().getTime();
+                if(date - navigation._switcher_last_date >= 3000){
+                    navigation.router.navigate('page/switcher', {trigger:true, replace:true});
+                }
+            });
     },
     remove_dependencies : function(){
         var self = navigation;

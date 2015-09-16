@@ -3,7 +3,10 @@
 /* --------------------------------------- */
 var utilities = {
     popstage : null,
+    pop_callBack :null,
+    pop_option:null,
     show_popup : function(params, callBack){
+        utilities.pop_callBack = callBack;
         navigation._page_script.pause();
         if($('.app_popup').length == 0){
             $('body').append('<div class="app_popup"></div>');
@@ -35,69 +38,98 @@ var utilities = {
                 $(this).find('svg *').attr('stroke', '#FFFFFF');
             });
         }
-        /*
-        $('#btn_yes').load('./images/assets/valid_button.svg', function(){
-            $('#btn_yes svg *').attr('stroke', '#FFFFFF');
-        });
-        */
-        
         $('.popup_btn').off('click').on('click', function(){
-            var btn_pos = $(this).position();
-            var btn_id = $(this).attr('id');
-            var selected_color = navigation._current_interface_color;
-            $(this).css({"position":"absolute", "left":btn_pos.left+"px", "top":btn_pos.top+"px"});
-            if($(this).attr('id') == 'btn_yes'){
-                selected_color = colors.green;
-            }else if($(this).attr('id') == 'btn_no'){
-                selected_color = colors.red;
-            }
-            $.each($('.popup_btn'), function(){
-                if($(this).attr('id') !== btn_id){
-                    $(this).remove();
-                }
-            });
-            $('.popup_motion').remove();
-            var value = $(this).attr('data-value');
+            $(this).css({"left":$(this).position().left, "display":"block"});
+            $('.popup_btn').css('display','none');
+            $(this).css({"position":"absolute", "display":"block"});
             TweenMax.to($(this), .2, {
-                css:{
-                    top:0,
-                    left:0,
-                    width:"100%",
-                    height:"100%"
-                }
+                css:{"width":"100%", "left":"0", "right":"0"}
             });
-            TweenMax.to($(".content_popup"), .4, {
-                css:{
-                    width:"220px",
-                    height:"220px",
-                    backgroundColor:selected_color
-                }
-            });
-            TweenMax.to($(this).find('svg'), .4, {
-                width:180,
-                height:180,
-                onComplete:function(){
-                    callBack(value);
-                    utilities.hide_popup();
-                },
-                ease:Power4.easeOut
-            });
+            utilities.current_pop_root.gotoAndPlay('choice_'+$(this).attr('data-value'));
+            utilities.pop_option = $(this);
         });
         TweenMax.to($('.content_popup'), .5, {css:{top:0}, ease:Back.easeOut});
     },
     play_motion : function(params, target){
-        var canvas, exportRoot;
+        var canvas;
         createjs.MotionGuidePlugin.install();
         canvas = document.getElementById(target);
-        exportRoot = new lib[params.motion+"_motion"]();
+        this.current_pop_root = new lib[params.motion+"_motion"]();
         this.popstage = new createjs.Stage(canvas);
-        this.popstage.addChild(exportRoot);
+        this.popstage.addChild(this.current_pop_root);
         this.popstage.update();
         createjs.Ticker.setFPS(lib.properties.fps);
         createjs.Ticker.addEventListener("tick", this.popstage);
     },
-    pop_up_motion_callback : function(){
-        createjs.Ticker.removeEventListener("tick", this.popstage);
+    select_pop_option : function(){
+        var btn_pos = this.pop_option.position();
+        var btn_id = this.pop_option.attr('id');
+        var selected_color = navigation._current_interface_color;
+        var value = this.pop_option.attr('data-value');
+        utilities.pop_callBack(value);
+        utilities.hide_popup();
+    },
+    select_pop_option_old : function(){
+        var btn_pos = this.pop_option.position();
+        var btn_id = this.pop_option.attr('id');
+        var selected_color = navigation._current_interface_color;
+        this.pop_option.css(
+            {
+                "position":"absolute", 
+                "left":btn_pos.left+"px", 
+                "top":btn_pos.top+"px"
+            }
+        );
+        if(this.pop_option.attr('id') == 'btn_yes'){
+            selected_color = colors.green;
+        }else if(this.pop_option.attr('id') == 'btn_no'){
+            selected_color = colors.red;
+        }
+        $.each($('.popup_btn'), function(){
+            if($(this).attr('id') !== btn_id){
+                $(this).remove();
+            }
+        });
+        $('.popup_motion').remove();
+        var value = this.pop_option.attr('data-value');
+        TweenMax.to(this.pop_option, .2, {
+            css:{
+                top:0,
+                left:0,
+                width:"100%",
+                height:"100%"
+            }
+        });
+        TweenMax.to($(".content_popup"), .4, {
+            css:{
+                width:"220px",
+                height:"220px",
+                backgroundColor:selected_color
+            }
+        });
+        TweenMax.to(this.pop_option.find('svg'), .4, {
+            width:180,
+            height:180,
+            onComplete:function(){
+                utilities.pop_callBack(value);
+                utilities.hide_popup();
+            },
+            ease:Power4.easeOut
+        });
+    },
+    pop_up_motion_callback : function(event){
+        switch(event){
+            case'pause':
+                break;
+            case'end':
+                utilities.select_pop_option();
+                createjs.Ticker.removeEventListener("tick", this.popstage);
+                break;
+            default:
+                utilities.select_pop_option();
+                createjs.Ticker.removeEventListener("tick", this.popstage);
+                break;
+        }
     },
     hide_popup : function(hitted){
         if(hitted == 0){

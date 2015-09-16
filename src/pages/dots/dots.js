@@ -4,6 +4,9 @@ function dots(){
     this._levels = null;
     this._navigation = {container:null, buttons:null, line:null};
     
+    this.okaokarun = new Image();
+    this.okaokarun.src = "pages/simplediscs/images/simple_run.png";
+    
     this.angle = 0;
     this.particles_container;
     this.particles=[];
@@ -26,7 +29,7 @@ function dots(){
     this._selected_dots = [];
     this._full_selected_dots = [];
     this.total_dots = 0;
-    
+    this.gameInfo = {start_date:0, started:false};
     this._objectives_container = null;
     this._objectives_texts = {};
     this._objectives_dots = null;
@@ -53,50 +56,73 @@ dots.prototype.create_interface = function(){
 }
 dots.prototype.create_objectives = function(){
     self._objectives_container = self.stage.addChild(new createjs.Container());
-    
-    self._objectives_hits.icon = new createjs.Bitmap("./pages/dots/assets/hit_icon_small.png");
-    self._objectives_hits.icon.x = 70;
-    self._objectives_container.addChild(self._objectives_hits.icon);
-    
-    self._objectives_hits.text = new createjs.Text();
-    self._objectives_hits.text.font = "100 25px Roboto";
-    self._objectives_hits.text.color = "#FFFFFF";
-    self._objectives_hits.text.text = self._total_hits;
-    self._objectives_hits.text.x = 90;
-    self._objectives_hits.text.y = 35;
-    self._objectives_hits.text.width = 100;
-    self._objectives_hits.text.textAlign = "center"; 
-    self._objectives_container.addChild(self._objectives_hits.text);
-    
+    if(self._total_hits !== -1){
+        self._objectives_hits.icon = new createjs.Bitmap("./pages/dots/assets/hit_icon_small.png");
+        self._objectives_hits.icon.x = 70;
+        self._objectives_container.addChild(self._objectives_hits.icon);
+
+        self._objectives_hits.text = new createjs.Text();
+        self._objectives_hits.text.font = "100 25px Roboto";
+        self._objectives_hits.text.color = "#FFFFFF";
+        self._objectives_hits.text.text = self._total_hits;
+        self._objectives_hits.text.x = 90;
+        self._objectives_hits.text.y = 35;
+        self._objectives_hits.text.width = 100;
+        self._objectives_hits.text.textAlign = "center"; 
+        self._objectives_container.addChild(self._objectives_hits.text);
+    }
+    if(self._time_lap !== -1){
+        self._objectives_hits.icon = new createjs.Bitmap("./pages/dots/assets/chronos_icon_small.png");
+        self._objectives_hits.icon.x = 0;
+        self._objectives_container.addChild(self._objectives_hits.icon);
+
+        self._objectives_hits.text = new createjs.Text();
+        self._objectives_hits.text.font = "100 35px Roboto";
+        self._objectives_hits.text.color = "#FFFFFF";
+        self._objectives_hits.text.text = self._time_lap/1000;
+        self._objectives_hits.text.x = 25;
+        self._objectives_hits.text.y = 50;
+        self._objectives_hits.text.width = 100;
+        self._objectives_hits.text.textAlign = "center"; 
+        self._objectives_container.addChild(self._objectives_hits.text);
+        self.build_chronos_line();
+        /* ------ CREATE RUNNER FOR TIME LAP GAME --------- */
+    }
     $.each(_.keys(self._objectives), function(i, obk){
         self._objectives_texts[obk] = {dot:null, text:null, percent:null};
         self._objectives_texts[obk].dot = new createjs.Shape();
-        self._objectives_texts[obk].dot.graphics.beginFill(colors[obk]).drawCircle(0, 0, 10);
-        self._objectives_texts[obk].dot.y = 15;
-        self._objectives_texts[obk].dot.x = 100 + (80 * (i+1));
+        self._objectives_texts[obk].dot.graphics.beginFill(colors[obk]);
+        self.drawShape(self._objectives_texts[obk].dot, obk);
+        //.drawCircle(0, 0, 15);
+        self._objectives_texts[obk].dot.y = 25;
+        self._objectives_texts[obk].dot.x = 100 + (80 * (i));
         self._objectives_container.addChild(self._objectives_texts[obk].dot);
         
         self._objectives_texts[obk].percent = new createjs.Shape();
         self._objectives_texts[obk].percent.graphics.setStrokeStyle(3);
         self._objectives_texts[obk].percent.graphics.beginStroke(colors[obk]);
-        self._objectives_texts[obk].percent.graphics.arc(0,0,16,0,0);
-        self._objectives_texts[obk].percent.y = 15;
-        self._objectives_texts[obk].percent.x = 100 + (80 * (i+1));
+        self._objectives_texts[obk].percent.graphics.arc(0,0,18,0,0);
+        self._objectives_texts[obk].percent.y = 25;
+        self._objectives_texts[obk].percent.x = 100 + (80 * (i));
         self._objectives_container.addChild(self._objectives_texts[obk].percent);
         
         self._objectives_texts[obk].check = new createjs.Bitmap("./pages/dots/assets/check_small.png");
-        self._objectives_texts[obk].check.y = 0;
-        self._objectives_texts[obk].check.x = 100 + (80 * (i+1)) - 15;
+        self._objectives_texts[obk].check.y = 10;
+        self._objectives_texts[obk].check.x = 100 + (80 * (i)) - 15;
         self._objectives_texts[obk].check.scaleX = 0;
         self._objectives_texts[obk].check.scaleY = 0;
         self._objectives_container.addChild(self._objectives_texts[obk].check);
         
         self._objectives_texts[obk].text = new createjs.Text();
-        self._objectives_texts[obk].text.font = "100 15px Roboto";
+        self._objectives_texts[obk].text.font = "100 35px Roboto";
         self._objectives_texts[obk].text.color = "#FFFFFF";
-        self._objectives_texts[obk].text.text = "0/"+self._objectives[obk];
-        self._objectives_texts[obk].text.x = 100 + (80 * (i+1));
-        self._objectives_texts[obk].text.y = 45;
+        if(self._objectives[obk] === -1){
+            self._objectives_texts[obk].text.text = "0";
+        }else{
+            self._objectives_texts[obk].text.text = "0/"+self._objectives[obk];
+        }
+        self._objectives_texts[obk].text.x = 100 + (80 * (i));
+        self._objectives_texts[obk].text.y = 50;
         self._objectives_texts[obk].text.width = 100;
         self._objectives_texts[obk].text.textAlign = "center"; 
         self._objectives_container.addChild(self._objectives_texts[obk].text);
@@ -112,9 +138,44 @@ dots.prototype.create_objectives = function(){
     };
     var spriteSheet = new createjs.SpriteSheet(data);
     self.fivehits = new createjs.Sprite(spriteSheet, "stop");
-    self.fivehits.x = 40;
+    self.fivehits.x = 45;
+    self.fivehits.y = 20;
     
     self._objectives_container.addChild(self.fivehits);
+}
+dots.prototype.build_chronos_line = function(){
+    self.chronos_line = self.stage.addChild(new createjs.Container());
+    self.chronos_line.regY = 25;
+    self.chronos_line.y = window.innerHeight;
+    self.chronos_line_ground = new createjs.Shape();
+    self.chronos_line_ground.graphics.beginFill('rgba(0,0,0,.3)');
+    self.chronos_line_ground.graphics.drawRect(0,0,window.innerWidth, 25);
+    self.chronos_line.addChild(self.chronos_line_ground);
+    
+    self.chronos_line_progress = new createjs.Shape();
+    self.chronos_line_progress.graphics.beginFill('#FFFFFF');
+    self.chronos_line_progress.graphics.drawRect(0,0,window.innerWidth, 25);
+    self.chronos_line_progress.scaleX = 0;
+    self.chronos_line.addChild(self.chronos_line_progress);
+    
+    var data = {
+        images: [self.okaokarun],
+        frames: {width:80, height:80},
+        animations: {
+            stand:{frames:[0]},
+            run:{frames:[0,0,1,1,2,2,3,3,4,4,5,5,6,6], frequency:50},
+            great:{frames:[7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16], next:"run"},
+            wrong:{frames:[17,17,18,18,19,19,20,20,21,21,22,22,23,23,24], next:"wrongslide"},
+            wrongslide:{frames:[21,21,22,22,23,23,21,21,22,22,23,23,21,21,22,22,23,23,21,21,22,22,23,23], next:"run"}
+        },
+        framerate: 5
+    };
+    var spriteSheet = new createjs.SpriteSheet(data);
+    self.okaokasprite = new createjs.Sprite(spriteSheet, "run");
+    self.okaokasprite.scaleX = self.okaokasprite.scaleY = .7;
+    self.okaokasprite.y = -55;
+    self.okaokasprite.gotoAndStop('stand');
+    self.chronos_line.addChild(self.okaokasprite);   
 }
 dots.prototype.init_stage = function(){
     $('#dots_canvas').css({"width":window.innerWidth, "height":window.innerHeight});
@@ -134,10 +195,12 @@ dots.prototype.stage_down = function(e){
 }
 dots.prototype.stage_up = function(e){
     self._is_down = false;
-    if(self._is_shape){
-        self.destroy_all_color(_.findWhere(self.dots, {id:self._selected_dots[0]}).color);
-    }else{
-        self.check_selected_dots();
+    if(self.gameInfo.started){
+        if(self._is_shape){
+            self.destroy_all_color(_.findWhere(self.dots, {id:self._selected_dots[0]}).color);
+        }else{
+            self.check_selected_dots();
+        }
     }
 }
 dots.prototype.create_grid = function(){
@@ -145,29 +208,33 @@ dots.prototype.create_grid = function(){
     self.stage.addEventListener("stagemouseup", self.stage_up);
     
     self.create_objectives();
-    self._objectives_container.x = window.innerWidth;
     
     self._line = new createjs.Shape();
     self.stage.addChild(self._line);
     
     self.grid = self.stage.addChild(new createjs.Container());
-    self.grid.x = window.innerWidth;
-    TweenMax.to(self._objectives_container, 1, {
+    //self.grid.x = window.innerWidth;
+    /*TweenMax.to(self._objectives_container, 1, {
         x:(window.innerWidth/2) - ((self._grid_size * self.grid_size.c)/2) - (self._grid_size/2), 
         ease:Power4.easeInOut,
-        delay:.2
+        delay:.2,
+        onComplete:function(){
+            self.gameInfo.start_date = new Date().getTime();
+            self.okaokasprite.gotoAndPlay('run');
+            self.gameInfo.started = true;
+        }
     });
     TweenMax.to(self.grid, 1, {
         x:(window.innerWidth/2) - ((self._grid_size * self.grid_size.c)/2) - (self._grid_size/2), 
         ease:Power4.easeInOut
-    });
+    });*/
     //self.grid.y = -window.innerHeight;
     //TweenMax.to(self.grid, 1, {y:0});
     
     self._line.x = (window.innerWidth/2) - ((self._grid_size * self.grid_size.c)/2) - (self._grid_size/2);
     self.grid.y = self._line.y = (window.innerHeight/2) - ((self._grid_size * self.grid_size.l)/2) - (self._grid_size/2);
     
-    self._objectives_container.y = (window.innerHeight/2) - ((self._grid_size * self.grid_size.l)/2) - (self._grid_size/2) -50;
+    self._objectives_container.y = (window.innerHeight/2) - ((self._grid_size * self.grid_size.l)/2) - (self._grid_size/2) - 60;
 
     
     var curr = 1;
@@ -180,7 +247,9 @@ dots.prototype.create_grid = function(){
         }
         var cur_color = _.keys(self.colors)[num_color];
         this.dots[cur] = new createjs.Shape();
-        this.dots[cur].graphics.beginFill(colors[cur_color]).drawCircle(0, 0, self._dot_size);
+        this.dots[cur].graphics.beginFill(colors[cur_color]);
+        self.drawShape( this.dots[cur], cur_color);
+        
         //Set position of Shape instance.
         this.dots[cur].x = self._grid_size * (curr);
         this.dots[cur].y = self._grid_size * (line);
@@ -201,6 +270,21 @@ dots.prototype.create_grid = function(){
         //Add Shape instance to stage display list.
         self.grid.addChild(this.dots[cur]);
     }
+    self.grid.x = (window.innerWidth/2) - ((self._grid_size * self.grid_size.c)/2) - (self._grid_size/2);
+    self._objectives_container.x = (window.innerWidth/2) - (self._objectives_container.getBounds().width/2);
+    
+    utilities.show_popup(
+        {color:navigation._current_interface_color, motion:"dots_tuto_popup", buttons:["play"]}, 
+        function(e){
+            /* have to init gameplay */
+            setTimeout(function(){
+                self.gameInfo.start_date = new Date().getTime();
+                self.okaokasprite.gotoAndPlay('run');
+                self.gameInfo.started = true;
+            },800);
+        }
+    );
+    
 }
 dots.prototype.hit_dot = function(e){
     console.log("hit_dot position : ", e.target.grid_position, " color : ", e.target.color);
@@ -286,9 +370,113 @@ dots.prototype.tick = function(){
         delete l;
         self.redraw_line_selection();
     }
+    /* on check si le jeu est basé sur du temps */
+    if(self.gameInfo.started){
+        if(self._time_lap !== -1){
+            /* on met à jour le temps de la partie */
+            var now = new Date().getTime();
+            var elapsed = now - self.gameInfo.start_date;
+            var rest = (self._time_lap - elapsed);
+            self._objectives_hits.text.text = Math.ceil(rest/1000);
+            /* CHECKING TIME AND RENDER BAR + CHRONOS self.party.start */
+            var percent_progress = 100 - ((rest * 100 ) / self._time_lap);
+            self.chronos_line_progress.scaleX = percent_progress / 100;
+            self.okaokasprite.x = (window.innerWidth) * (percent_progress/ 100) - 50;
+            /* on check si il reste du temps */
+            if(rest <= 0){
+                /* si le temps est écoulé c'est la fin de la partie */
+                self.gameInfo.started = false;
+                self.okaokasprite.gotoAndStop('stand');
+                self.fivehits.gotoAndStop('stop');
+                self.end_game();
+            }
+        }
+    }
     self.update_particles();
     self.stage.update();
 }
+dots.prototype.end_game = function(){
+    self.gameInfo.started = false;
+    self.okaokasprite.gotoAndStop("stop");
+    self._line.graphics.clear();
+    TweenMax.to(self.chronos_line, .5, {
+        y:window.innerHeight + 100,
+        ease:Power4.easeIn
+    });
+    if(!self.winning_dance){
+        var data = {
+            images: ["../../motions/okaoka/winning_dance_8.png"],
+            frames: {width:146, height:230},
+            animations: {
+                dance:[0,24]
+            }
+        };
+        var spriteSheet = new createjs.SpriteSheet(data);
+        self.winning_dance = new createjs.Sprite(spriteSheet, "dance");
+    }else{
+        self.stage.removeChild(self.winning_dance);
+    }
+    for(var i=0; i<self.grid.getNumChildren(); i++){
+        var xpos = -(self.grid.x) + Math.random()*window.innerWidth;
+        var ypos = self.grid.getChildAt(i).y;
+        TweenMax.to(self.grid.getChildAt(i), .5, {
+            //bezier:[{y:(ypos-100)},{y:(ypos+window.innerHeight)}],
+            y:ypos+window.innerHeight,
+            delay:0.02*(self.grid.getNumChildren()-i),
+            ease:Power4.easeIn
+            //bezier:[{x:xpos/2, y:ypos},{x:xpos, y:(window.innerHeight+300)}],
+            //delay:(.01*i)
+        });
+    }
+    TweenMax.to(self._objectives_container, .5, {
+        y       : window.innerHeight/2 - (self._objectives_container.getBounds().height/2),
+        x       : (window.innerWidth/2) - (self._objectives_container.getBounds().width/2),
+        delay   : (0.02 * self.dots.length),
+        ease    : Power4.easeIn,
+        onComplete : function(){
+            self.stage.removeChild(self.grid);
+            self.winning_dance.x = window.innerWidth/2 - (146/2);
+            self.winning_dance.y = self._objectives_container.y - self.winning_dance.getBounds().height - 20;
+            self.stage.addChild(self.winning_dance);
+            
+            self.total_score_text = new createjs.Text();
+            self.total_score_text.font = "700 100px Roboto";
+            self.total_score_text.color = "#FFFFFF";
+            self.total_score_text.text = "00000";
+            self.total_score_text.textAlign = "center";
+            self.total_score_text.x = window.innerWidth/2;
+            self.total_score_text.y = self._objectives_container.y + self._objectives_container.getBounds().height;
+            self.stage.addChild(self.total_score_text);
+            var score = 0;
+            $.each(_.keys(self._completed_objectives), function(i, key){
+                score+= parseInt(self._completed_objectives[key].count);
+            });
+            var bonus = score * self._hits;
+            var total_score = score + bonus;
+            var scored = {total:0};
+            TweenMax.to(scored, 3.5, {
+                total : total_score,
+                delay:.6,
+                onUpdate : function(){
+                    var score = "";
+                    var num = Math.ceil(scored.total);
+                    if(num.toString().length < 5){
+                        var dif = 5 - num.toString().length;
+                        for(var i=0; i<dif; i++){
+                            score+="0";
+                        }
+                    }
+                    score+= num.toString();
+                    self.total_score_text.text = score;
+                },
+                ease:Power4.easeInOut,
+                onComplete:function(){
+                    console.log('total completed');
+                }
+            });
+        }
+    });
+}   
 dots.prototype.is_a_shape = function(id){
     for(var i=0; i<self._selected_dots.length-3; i++){
         if(self._selected_dots[i] === id){
@@ -332,14 +520,14 @@ dots.prototype.check_selected_dots = function(){
             /* ---- Si on a une suite on joue une anim puis on detruit les dots ---- */
             TweenMax.set($('#colorer'), {backgroundColor:self.colors[first_dot.color]});
             var border = {size:self._dot_size};
-            TweenMax.to(border, .3, {size:(self._dot_size * 2.5), onUpdate:function(){
+            TweenMax.to(border, .3, {size:1, onUpdate:function(){
                 self.redraw_line_selection(border.size, $('#colorer').css('background-color'));
             }, onComplete:function(){
                 TweenMax.to($('#colorer'), .3, {backgroundColor:'#FFFFFF', onUpdate:function(){
                     for(var i=0; i<to_remove.length; i++){
                         var dot = _.findWhere(self.dots, {id:to_remove[i]});
                         if(typeof dot!=="undefined"){
-                            self.set_dot_color(dot, $('#colorer').css('background-color'));
+                            self.set_dot_color(dot, $('#colorer').css('background-color'), first_dot.color);
                             self.redraw_line_selection(border.size, $('#colorer').css('background-color'));
                         }
                     }
@@ -422,50 +610,69 @@ dots.prototype.replace_dots = function(num){
     }
 }
 dots.prototype.check_game_state = function(callBack){
-    var status = {label:"continu", objectifs:false, hits:true};
-    var _objectives_infos = {total:_.keys(self._objectives).length, completed:0};
-    /* --- On check si les objectifs sont remplis et on met à jour la partie objectifs ----- */
-    $.each(_.keys(self._objectives), function(i, obk){
-        if(self._completed_objectives[obk].count >= self._objectives[obk]){
-            self._objectives_texts[obk].percent.graphics.clear();
-            self._objectives_texts[obk].percent.graphics.setStrokeStyle(3);
-            self._objectives_texts[obk].percent.graphics.beginStroke(colors[obk]);
-            self._objectives_texts[obk].percent.graphics.arc(0,0,16,0,6);
-            
-            self._objectives_texts[obk].text.text = self._objectives[obk];
-            
-            TweenMax.to(self._objectives_texts[obk].dot, .2, {scaleX:2, scaleY:2, ease:Back.easeOut});
-            TweenMax.to(self._objectives_texts[obk].check, .2, {scaleX:1, scaleY:1, delay:.1, ease:Back.easeOut});
-            
-            _objectives_infos.completed++;
+    var status = {label:"continu", objectifs:false, hits:true, time:true};
+    /* on check si le jeu est basé sur des objectifs */
+    if(self._total_hits !== -1){
+        var _objectives_infos = {total:_.keys(self._objectives).length, completed:0};
+        /* --- On check si les objectifs sont remplis et on met à jour la partie objectifs ----- */
+        self._objectives_hits.text.text = self._total_hits - self._hits;
+        /* on check les objectivfs un par un */
+        $.each(_.keys(self._objectives), function(i, obk){
+            if(self._completed_objectives[obk].count >= self._objectives[obk]){
+                self._objectives_texts[obk].percent.graphics.clear();
+                self._objectives_texts[obk].percent.graphics.setStrokeStyle(3);
+                self._objectives_texts[obk].percent.graphics.beginStroke(colors[obk]);
+                self._objectives_texts[obk].percent.graphics.arc(0,0,16,0,6);
+
+                self._objectives_texts[obk].text.text = self._objectives[obk];
+
+                TweenMax.to(self._objectives_texts[obk].dot, .2, {scaleX:2, scaleY:2, ease:Back.easeOut});
+                TweenMax.to(self._objectives_texts[obk].check, .2, {scaleX:1, scaleY:1, delay:.1, ease:Back.easeOut});
+
+                _objectives_infos.completed++;
+            }else{
+                self._objectives_texts[obk].percent.graphics.clear();
+                self._objectives_texts[obk].percent.graphics.setStrokeStyle(3);
+                self._objectives_texts[obk].percent.graphics.beginStroke(colors[obk]);
+                var angle = (6 * self._completed_objectives[obk].percent)/100;
+                self._objectives_texts[obk].percent.graphics.arc(0,0,16,0,angle);
+
+                self._objectives_texts[obk].text.text = self._completed_objectives[obk].count+"/"+self._objectives[obk];
+            }
+        });
+        /* --- si les objectifs sont remplis on gagne ---- */
+        if(_objectives_infos.total === _objectives_infos.completed){
+            /* --- on a rempli tous les objectifs du level on gagne ---- */
+            status.label = "win";
+            status.objectifs = true;
+        }
+        /* --- On check s'il reste des hits et on met à jour les hits ------- */
+        if(self._total_hits - self._hits <= 5 && self._total_hits - self._hits > 0){
+            self.fivehits.gotoAndPlay('hit');
         }else{
-            self._objectives_texts[obk].percent.graphics.clear();
-            self._objectives_texts[obk].percent.graphics.setStrokeStyle(3);
-            self._objectives_texts[obk].percent.graphics.beginStroke(colors[obk]);
-            var angle = (6 * self._completed_objectives[obk].percent)/100;
-            self._objectives_texts[obk].percent.graphics.arc(0,0,16,0,angle);
-            
-            self._objectives_texts[obk].text.text = self._completed_objectives[obk].count+"/"+self._objectives[obk];
+            self.fivehits.gotoAndStop('stop');
         }
-    });
-    /* --- si les objectifs sont remplis on gagne ---- */
-    if(_objectives_infos.total === _objectives_infos.completed){
-        /* --- on a rempli tous les objectifs du level on gagne ---- */
-        status.label = "win";
-        status.objectifs = true;
-    }
-    /* --- On check s'il reste des hits et on met à jour les hits ------- */
-    self._objectives_hits.text.text = self._total_hits - self._hits;
-    if(self._total_hits - self._hits <= 5 && self._total_hits - self._hits > 0){
-        self.fivehits.gotoAndPlay('hit');
-    }else{
-        self.fivehits.gotoAndStop('stop');
-    }
-    if(self._total_hits - self._hits <= 0){
-        if(status.objectifs === false){
-            status.label = "lose";
+        if(self._total_hits - self._hits <= 0){
+            if(status.objectifs === false){
+                status.label = "lose";
+            }
+            status.hits = false;
         }
-        status.hits = false;
+    }
+    /* on check si le jeu est basé sur du temps */
+    if(self.gameInfo.started){
+        if(self._time_lap !== -1){
+            $.each(_.keys(self._objectives), function(i, obk){
+                self._objectives_texts[obk].text.text = self._completed_objectives[obk].count;
+            });
+            /* on met à jour le temps de la partie */
+            var elapsed = new Date().getTime() - self.gameInfo.start_date;
+            var time = Math.ceil((self._time_lap - elapsed)/1000);
+            /* si le temps restant est inférieur à 10 sec on affiche le fivehits */
+            if(time < 10){
+                self.fivehits.gotoAndPlay('hit');
+            }
+        }
     }
     
     /* --- S'il n'y à plus de hits on perd ---- */
@@ -478,13 +685,16 @@ dots.prototype.complete_grid = function(){
     for(var i=0; i<(self.grid_size.c * self.grid_size.l); i++){
         if(typeof _.findWhere(self.dots, {column:curr, line:line}) === "undefined"){
             var cur = this.dots.length;
-            var num_color = Math.round(Math.random()*_.keys(self.colors).length-1);
+            var num_color = Math.ceil(Math.random()*_.keys(self.colors).length-1);
             if(num_color < 0){
                 num_color = 0;
             }
             var cur_color = _.keys(self.colors)[num_color];
             this.dots[cur] = new createjs.Shape();
-            this.dots[cur].graphics.beginFill(colors[cur_color]).drawCircle(0, 0, self._dot_size);
+            this.dots[cur].graphics.beginFill(colors[cur_color]);
+            self.drawShape( this.dots[cur], cur_color);
+        
+            //this.dots[cur].graphics.beginFill(colors[cur_color]).drawCircle(0, 0, self._dot_size);
             //Set position of Shape instance.
             this.dots[cur].x = self._grid_size * (curr);
             this.dots[cur].y = self._grid_size * (line);
@@ -512,6 +722,9 @@ dots.prototype.complete_grid = function(){
 dots.prototype.redraw_line_selection = function(size, color){
     if(!size){
         size = self._dot_size*1.2;
+    }
+    if(!self.gameInfo.started){
+        return false;
     }
     if(!color){
         var obj_color = _.findWhere(self.dots, {id:self._selected_dots[0]});
@@ -544,9 +757,12 @@ dots.prototype.redraw_line_selection = function(size, color){
         }
     }
 }
-dots.prototype.set_dot_color = function(target, color){
+dots.prototype.set_dot_color = function(target, color, original_color){
     target.graphics.clear();
-    target.graphics.beginFill(color).drawCircle(0, 0, self._dot_size);
+    target.graphics.beginFill(color);
+    console.log(color);
+    self.drawShape(target, original_color);
+    //.drawCircle(0, 0, self._dot_size)
 }
 dots.prototype.load_level = function(lvl){
     self.init_stage();
@@ -566,7 +782,8 @@ dots.prototype.load_level = function(lvl){
             self._levels = datas;
             self.build_decors();
             self.create_particles();
-            self.build_navigation();
+            self.select_level(0);
+            //self.build_navigation();
         }
     });
 }
@@ -577,11 +794,12 @@ dots.prototype.select_level = function(id){
     $.each(datas.colors, function(i,cl){
         self.colors[datas.colors[i]] = colors[datas.colors[i]];
     });
-    self._dot_size       = datas.dot_size;
+    self._dot_size      = datas.dot_size;
     self.grid_size      = datas.grid_size;
     self._total_hits    = datas.hits;
+    self._time_lap      = datas.time;
     self._hits          = 0;
-    self._objectives     = datas.objectives;
+    self._objectives    = datas.objectives;
     self._completed_objectives     = {};
     $.each(_.keys(datas.objectives), function(o, obk){
         self._completed_objectives[obk] = {count:0, percent:0};
@@ -845,8 +1063,8 @@ dots.prototype.update_particles = function(){
 }
 dots.prototype.replace_decors = function(){
     // set self.decors.container relative to self._navigation.container.y
-    self.decors.container.y = self._navigation.container.y / 2;
-    self.decors.bottom_center.y = -(self.decors.container.y) / 2 + window.innerHeight + 300;
+    //self.decors.container.y = self._navigation.container.y / 2;
+    //self.decors.bottom_center.y = -(self.decors.container.y) / 2 + window.innerHeight + 300;
     /*for(var i=0; i<_.keys(self.decors.elements).length; i++){
         console.log(self.decors.elements[_.keys(self.decors.elements)[i]].y);
         self.decors.elements[_.keys(self.decors.elements)[i]].y = -(self.decors.container.y) / self.decors.elements[_.keys(self.decors.elements)[i]].level;
@@ -985,6 +1203,26 @@ dots.prototype.intro_hand = function(){
             });
         }
     });
+}
+dots.prototype.drawShape = function(target, color){
+    switch(color){
+        case("purple"):
+            target.graphics.drawCircle(0, 0, self._dot_size);  
+            break;
+        case("green"):
+            target.graphics.drawRect(-(self._dot_size-5), -(self._dot_size-5), ((self._dot_size-5)*2), ((self._dot_size-5)*2));  
+            target.rotation = 45;
+            break;
+        case("pink"):
+            target.graphics.moveTo(0, -self._dot_size);
+            target.graphics.lineTo(self._dot_size+3, self._dot_size);
+            target.graphics.lineTo(-self._dot_size-3, self._dot_size);
+            //this.dots[cur].graphics.drawCircle(0, 0, self._dot_size);  
+            break;
+        default:
+            target.graphics.drawCircle(0, 0, self._dot_size);  
+            break;
+    }
 }
 dots.prototype.pause = function(){
 }

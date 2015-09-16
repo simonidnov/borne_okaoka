@@ -9,7 +9,7 @@
     "height": 600,
     "title": "Borne Okaidi",
     "icon": "icons/icon.png",
-    "toolbar": true,
+    "toolbar": false,
     "show": true,
     "fullscreen": true
   },

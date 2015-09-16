@@ -2,7 +2,7 @@
     "label":"dots",
     "version":"0.0.0",
     "color":"yellow",
-    "dependencies":["dots.js", "motion/dots_motion.js"],
+    "dependencies":["dots.js", "motion/dots_motion.js", "motion/dots_tuto_popup_motion.js"],
     "styles":["dots.css"],
     "content":"dots.html",
     "script_name":"dots",

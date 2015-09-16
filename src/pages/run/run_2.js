@@ -183,7 +183,7 @@ run.prototype.create = function(){
     //self.hero = self.game.add.sprite(-3800, -1100, 'hero');
     /* -------- SAMPLE SPRITE ---------- */
     
-    /*self.hero = self.game.add.sprite(-2800, -1200, 'okaoka');
+    self.hero = self.game.add.sprite(200, -2200, 'okaoka');
     self.hero.scale.set(1);
     self.hero.smoothed = true;
     self.hero.animations.add('run', [0,1,2,3,4,5,6,7,8], 25, true);
@@ -200,9 +200,9 @@ run.prototype.create = function(){
     self.hero.animations.add('picots', [70], 25, false);
     self.hero.animations.add('slide', [80], 1, false);
     self.hero.animations.add('died', [85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100], 25, true);
-    self.hero.play('oka');*/
+    self.hero.play('oka');
     
-    
+    /*
     self.hero = self.game.add.sprite(200, -2200, 'bear');
     self.hero.scale.set(1);
     self.hero.smoothed = true;
@@ -219,6 +219,7 @@ run.prototype.create = function(){
     self.hero.animations.add('picots', [58], 25, false);
     self.hero.animations.add('died', [59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74], 25, true);
     self.hero.play('oka');
+    */
     
     self.hero_boomer = self.game.add.sprite(-3380, -800, 'boomer');
     self.hero_powers = self.game.add.sprite(-3420, -800, 'boomer');

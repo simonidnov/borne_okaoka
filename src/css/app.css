@@ -27,6 +27,12 @@ html, body, iframe {
     position: absolute;
 }
 
+.left_nav{
+    position: absolute;
+    z-index: 999999;
+    left:0;
+    top:0;
+}
 .right_nav{
     position: absolute;
     z-index: 999999;
@@ -42,6 +48,10 @@ html, body, iframe {
     text-align: center;
     cursor:pointer;
     overflow: hidden;
+}
+#switchbutton{
+    width:30px;
+    height:30px;
 }
 .dot_pos{
     width:200px;

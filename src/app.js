@@ -1,5 +1,4 @@
 /* ---------------- NODE JS EXPRESS LISTENERS APP AT LOCALHOST 3000 ----------------- */
-    
     var express = require('express');
     var app = express();
 
@@ -25,6 +24,13 @@
         console.log('Example app listening at http://%s:%s', host, port);
     });
 
+
+	//var prettyBytes = require('pretty-bytes');
+
+	//$('.stats').append('Number of cpu cores: <span>' + os.cpus().length + '</span>');
+	//$('.stats').append('Free memory: <span>' + prettyBytes(os.freemem())+ '</span>');
+
+	
 //window.location.href = "http://localhost:3000";
 
 /* ------------------- NW GUI LISTENERS ADD DEBUG MODE AND MORE --------------- */
