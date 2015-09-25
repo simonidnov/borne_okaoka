@@ -17,6 +17,7 @@ switcher.prototype.init_stage = function(){
     createjs.Touch.enable(self.stage);
     createjs.Ticker.addEventListener("tick", self.tick);
     
+    $('#backbutton').css('display','none');
     self.create_grid();
 }
 switcher.prototype.create_grid = function(){
@@ -24,13 +25,14 @@ switcher.prototype.create_grid = function(){
     self.stage.addEventListener("stagemouseup", self.stage_up);
     
     self._line = new createjs.Shape();
-    self._line.x = (window.innerWidth/2) - 150;
-    self._line.y = (window.innerHeight/2) - 150;
+    self._line.x = (window.innerWidth/2) - 100;
+    self._line.y = (window.innerHeight/2) - 100;
     self.stage.addChild(self._line);
     
     self.grid = self.stage.addChild(new createjs.Container());
-    self.grid.x = (window.innerWidth/2) - 150;
-    self.grid.y = (window.innerHeight/2) - 150;
+    self.grid.x = (window.innerWidth/2) - 100;
+    self.grid.y = (window.innerHeight/2) - 100;
+    self.grid.setBounds();
     var c = 0;
     var l = 0;
     for(var i=0; i<9; i++){
@@ -64,24 +66,28 @@ switcher.prototype.check_selected_dots = function(){
             switch(key){
                 case 'games':
                     navigation.router.navigate('page/screensaver', {trigger:true, replace:true});
-                    window.location.reload();
+                    //window.location.reload();
                     break;
                 case 'video':
+                    console.log("video");
                     navigation.router.navigate('page/video', {trigger:true, replace:true});
-                    window.location.reload();
+                    //window.location.reload();
                     break;
                 case 'settings':
                     navigation.router.navigate('page/settings', {trigger:true, replace:true});
-                    window.location.reload();
+                    //window.location.reload();
                     break;
                 case 'quit':
                     /* TODO SEARCH SCRIPT TO CLOSE AND KILL THE APP */
-                    window.close();
-                    if(gui){
-                        gui.App.quit()
+                    if(typeof require !== "undefined"){
+                        if(gui){
+                            gui.App.quit();
+                        }else{
+                            gui = requireNode('nw.gui');
+                            win = gui.Window.get();
+                        }
                     }else{
-                        gui = requireNode('nw.gui');
-                        win = gui.Window.get();
+                        window.close();
                     }
                     break;
                 default :
@@ -207,9 +213,11 @@ switcher.prototype.play = function(){
 switcher.prototype.pause = function(){
     
 }
-switcher.prototype.destroy = function(){
+switcher.prototype.destroy = function(callBack){
+    createjs.Ticker.removeEventListener("tick", self.tick);
     /* DESTRUCTION DE TOUS LES OBJETS ET VARIABLES */
     /* TODO DETRUIRE EVENT TICKER ET STAGE */
+    callBack();
 }
 
 

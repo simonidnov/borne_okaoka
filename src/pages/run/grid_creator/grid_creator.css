@@ -12,8 +12,8 @@ html,body{
     position: relative;
 }
 .brick{
-    width:160px;
-    height:60px;
+    width:320px;
+    height:120px;
     box-sizing: border-box;
     border-collapse: collapse;
     position: absolute;
@@ -21,6 +21,18 @@ html,body{
     background-size: cover;
 }
 .brick:hover{
+    border:2px solid #FFFF00;
+}
+.element{
+    width:60px;
+    height:60px;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    position: absolute;
+    border:1px solid rgba(0,0,0,.3);
+    background-size: cover;
+}
+.element:hover{
     border:2px solid #FFFF00;
 }
 .draggable.setted{
@@ -60,6 +72,17 @@ html,body{
 .draggable.selected{
     border: 2px solid #FF0000;
 }
+.draggable_element{
+    width:60px;
+    height:60px;
+    float:left;
+    margin:10px;
+    box-sizing: border-box;
+    background-size: cover;
+}
+.draggable_element.selected{
+    border: 2px solid #FF0000;
+}
 .onglets{
     height:50px;
     width:100%;
@@ -94,8 +117,17 @@ html,body{
     overflow: scroll;
     display: none;
 }
-
-
+.elements{
+    width:100%;
+    height:100%;
+    overflow: scroll;
+}
+.level.elements{
+    display: none;
+}
+.level{
+    margin-bottom:200px;
+}
 
 .levels{
     position: fixed;

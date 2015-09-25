@@ -21,7 +21,7 @@ slider.prototype.init_slides = function(){
 }
 slider.prototype.init_draggable = function(){
     var slid = this;
-    if(('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0)){
+    if(utilities.is_touch_screen()){
         slid.scroller.on('touchstart', function(evt){
             slid._is_dragging = true;
             slid.start_point.x = evt.originalEvent.touches[0].pageX;
@@ -32,7 +32,7 @@ slider.prototype.init_draggable = function(){
         slid.scroller.on('touchend', function(evt){
             slid.callBacks.stop_drag();
             slid._is_dragging = false;
-            slid.replace_scroller();
+            slid.check_current_screen();
         });
         slid.scroller.on('touchmove', function(evt){
             if(slid._is_dragging){
@@ -49,6 +49,14 @@ slider.prototype.init_draggable = function(){
             }
             evt.preventDefault();
         });
+        $('.left_arrow').on('touchstart', function(){
+            slid.current_screen-=1;
+            slid.check_current_screen();
+        });
+        $('.right_arrow').on('touchstart', function(){
+            slid.current_screen++;
+            slid.check_current_screen();
+        });
     }else{
         slid.scroller.on('mousedown', function(evt){
             slid._is_dragging = true;
@@ -61,7 +69,7 @@ slider.prototype.init_draggable = function(){
             slid._is_dragging = false;
             slid.end_point.x = evt.pageX;
             slid.end_point.y = evt.pageY;
-            slid.replace_scroller();
+            slid.check_current_screen();
         });
         slid.scroller.on('mousemove', function(evt){
             slid.callBacks.dragging();
@@ -77,20 +85,37 @@ slider.prototype.init_draggable = function(){
                 });
             }
         });
+        $('.left_arrow').on('click', function(){
+            slid.current_screen-=1;
+            slid.check_current_screen();
+        });
+        $('.right_arrow').on('click', function(){
+            slid.current_screen++;
+            slid.check_current_screen();
+        });
     }
-    $('.left_arrow').on('click', function(){
-        //slid.current_slide--;
-        //slid.replace_scroller();
-    });
-    $('.right_arrow').on('click', function(){
-        //slid.current_slide++;
-        //slid.replace_scroller();
-    });
+}
+slider.prototype.check_current_screen = function(){
+    var slid = this;
+    var distance = this.start_point.x - this.end_point.x;
+    if(distance < -this.wrapper.width() / 6){
+        slid.current_screen--;
+        if(slid.current_screen <= 0){
+            slid.current_screen = 0;
+        }
+    }else if(distance > this.wrapper.width() / 6){
+        slid.current_screen++;
+        if(slid.current_screen >= slid.slides.length-1){
+            slid.current_screen = slid.slides.length-1;
+        }
+    }
+    slid.replace_scroller();
 }
 slider.prototype.replace_scroller = function(){
     var slid = this;
     var p = this.scroller.position();
-    if(p.left > 0){
+    
+    /*if(p.left > 0){
         TweenLite.to(this.scroller, .7, {left:0, ease:Power2.easeOut, onComplete:function(){
             slid.callBacks.end_drag();
         }});
@@ -101,18 +126,8 @@ slider.prototype.replace_scroller = function(){
             slid.callBacks.end_drag();
         }});
         return false;
-    }
-    var distance = this.start_point.x - this.end_point.x;
-    if(distance < -this.wrapper.width() / 6){
-        slid.current_screen--;
-    }else if(distance > this.wrapper.width() / 6){
-        slid.current_screen++;
-    }
-    if(slid.current_screen > slid.slides.length-1){
-        self.current_screen = slid.slides.length-1;
-    }else if(self.current_screen < 0){
-        self.current_screen = 0;
-    }
+    }*/
+    
     TweenLite.to(slid.scroller, .7, {left:-(slid.slides.eq(0).width() * slid.current_screen), ease:Power2.easeOut, onComplete:function(){
         slid.callBacks.end_drag();
     }});

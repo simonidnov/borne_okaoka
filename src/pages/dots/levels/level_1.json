@@ -6,7 +6,7 @@
         "grid_size":{"c":5, "l":5},
         "_grid_size":100,
         "hits":-1,
-        "time":600,
+        "time":60000,
         "objectives":{
             "purple":-1,
             "green":-1,

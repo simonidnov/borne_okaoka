@@ -50,6 +50,8 @@ if (platform.isWindows) {
 windowBehaviour.set(win);
 windowBehaviour.setNewWinPolicy(win);
 
+
+var _node = new node_utilities();
 // Reload the app periodically until it loads
 /*var reloadIntervalId = setInterval(function() {
     if (win.window.navigator.onLine) {

@@ -33,7 +33,7 @@
             "luminence":"0.08"
         },
         "03":{
-            "name":"build",
+            "name":"build_2",
             "color":"green",
             "description":"this is a memory game",
             "luminence":"0.10"

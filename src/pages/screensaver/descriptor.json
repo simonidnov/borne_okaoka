@@ -1,7 +1,16 @@
 {
     "label":"screensaver",
     "version":"0.0.0",
-    "dependencies":["screensaver.js"],
+    "dependencies":[
+        "screensaver.js", 
+        "motions/game_values/drawing.js", 
+        "motions/game_values/play.js", 
+        "motions/game_values/diversity.js", 
+        "motions/game_values/balance.js", 
+        "motions/game_values/energy.js", 
+        "motions/game_values/objectives.js", 
+        "motions/game_values/win.js"
+    ],
     "styles":["screensaver.css"],
     "content":"screensaver.html",
     "script_name":"screensaver"

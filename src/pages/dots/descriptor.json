@@ -2,9 +2,9 @@
     "label":"dots",
     "version":"0.0.0",
     "color":"yellow",
-    "dependencies":["dots.js", "motion/dots_motion.js", "motion/dots_tuto_popup_motion.js"],
+    "dependencies":["dots.js", "motion/dots_motion_2.js", "motion/dots_tuto_popup_motion.js", "../../motions/assets/count_3.js"],
     "styles":["dots.css"],
     "content":"dots.html",
     "script_name":"dots",
-    "motion":"dots_motion"
+    "motion":"dots_motion_2"
 }

@@ -1,5 +1,5 @@
 {
-    "label":"page test",
+    "label":"switcher page",
     "version":"0.0.0",
     "color":"blue",
     "dependencies":["switcher.js"],

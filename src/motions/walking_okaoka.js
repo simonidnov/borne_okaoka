@@ -1530,7 +1530,7 @@ p.nominalBounds = new cjs.Rectangle(-45.9,-94.4,104.4,193.5);
 	this.instance_7.setTransform(98,193.8,1,1,0,0,0,-10.5,-29.7);
 
 	this.shape = new cjs.Shape();
-	this.shape.graphics.f().s("#FFFFFF").ss(3,1).p("Eh2OgZTMDsdAAAEh2OAZUMDsdAAA");
+	this.shape.graphics.f().s("#FFFFFF").ss(3,1).p("Eh2OAZUMDsdAAAEh2OgZTMDsdAAA");
 	this.shape.setTransform(753.7,483.2);
 
 	this.addChild(this.shape,this.instance_7,this.instance_6,this.instance_5,this.instance_4,this.instance_3,this.instance_2,this.instance_1,this.instance);

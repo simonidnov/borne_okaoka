@@ -1,0 +1,10 @@
+{
+    "label":"build",
+    "version":"0.0.0",
+    "color":"green",
+    "dependencies":["build_2.js", "motion/build_motion.js", "js/phaser-2.4.4.min.js"],
+    "styles":["build_2.css"],
+    "content":"build_2.html",
+    "script_name":"build",
+    "motion":"build_motion"
+}

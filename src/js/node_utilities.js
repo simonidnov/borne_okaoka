@@ -48,7 +48,10 @@ node_utilities.prototype.init_fileSystem = function(){
     this.path = require('path');
 }
 node_utilities.prototype.create_folder = function(directory, callBack){
-    this.fs.mkdir(this.get_user_home+'/'+directory, 0777, true, function (err) {
+    if(typeof this.fs === 'undefined'){
+        this.init_fileSystem();
+    }
+    this.fs.mkdir(this.get_user_home()+'/'+directory, 0777, true, function (err) {
         if (err) {
             console.log(err);
             callBack(err);
@@ -59,8 +62,18 @@ node_utilities.prototype.create_folder = function(directory, callBack){
     });
 }
 node_utilities.prototype.save_picture = function(bitmapData, base_filname, datas, callBack){
-    var filename = new Date().getTime()+'_'+base_filname+'_'+Math.raqndom()*1000+'.png';
-    this.write_file(this.get_user_home+'/okaoka/pictures', filename, bitmapData, 'binary', function(e){
+    if(typeof require === "undefined"){
+        return {"error":"require is not defined"};
+    }
+    if(typeof this.fs === 'undefined'){
+        this.init_fileSystem();
+    }
+    this.create_folder('okaoka', function(){
+    });
+    this.create_folder('okaoka/pictures', function(){
+    });
+    var filename = new Date().getTime()+'_'+base_filname+'_'+Math.random()*1000+'.png';
+    this.write_file(this.get_user_home()+'/okaoka/pictures', filename, bitmapData, 'binary', function(e){
         console.log(e);
     });
     this.insert_datas(
@@ -72,7 +85,7 @@ node_utilities.prototype.save_picture = function(bitmapData, base_filname, datas
                 "value":filename
             }, 
             "votes":{
-                "type":"INT",
+                "type":"TEXT",
                 "value":0
             }, 
         },
@@ -81,16 +94,36 @@ node_utilities.prototype.save_picture = function(bitmapData, base_filname, datas
         }
     );
 }
-node_utilities.prototype.write_file = function(folder, filename, datas, type, callBack){
+node_utilities.prototype.write_file = function(folder, filename, imageData, type, callBack){
     if(typeof type === "undefined"){
         type = 'binary';
     }
-    fs.writeFile(folder+'/'+filename, imagedata, 'binary', function(err){
+    if(typeof this.fs === 'undefined'){
+        this.init_fileSystem();
+    }
+    //console.log(imageData);
+    //imageData.replace('data:image/png;base64,', '');
+    var base64Data = imageData.replace(/^data:image\/png;base64,/, "");
+    this.fs.writeFile(folder+'/'+filename, base64Data, 'base64', function(err){
         callBack(err);
         if (err) throw err
         console.log('File saved.');
     })
 }
+node_utilities.prototype.read_file = function(filename, callBack){
+    if(typeof this.fs === 'undefined'){
+        this.init_fileSystem();
+    }
+    this.fs.readFile(this.get_user_home()+filename, 'utf8', function(err, data){
+        if (err) {
+            callBack(err, data);
+            throw err;
+        }
+        console.log(err," ::: ", data);
+        callBack(err, data);
+    });
+}
+
 
 /* ---------------- SQLITE UTILS INSERT AND SELECT FUNCTION --------------- */
 node_utilities.prototype.open_database = function(){
@@ -122,16 +155,20 @@ node_utilities.prototype.insert_datas = function(table, datas, callBack){
     var keys = "";
     var vals = "";
     $.each(_.keys(datas), function(i, key){
-        keys += key+" "+datas[key].type;
-        vals += datas[key].value;
+        keys += key;
+        vals += '"'+datas[key].value+'"';
         if(i < _.keys(datas).length-1){
             keys += ", ";
             vals += ", ";
         }
     });
+    console.log('keys :: ', keys);
+    console.log('vals :: ', vals);
     this.db.transaction(function (tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS '+table+' (id INTEGER PRIMARY KEY, '+keys+')');
+        console.log('tx ::: ', tx);
+        tx.executeSql('CREATE TABLE IF NOT EXISTS '+table+' (id unique, '+keys+')');
         tx.executeSql('INSERT INTO '+table+' ('+keys+') VALUES ('+vals+')');
+        console.log(' ::::::: CREATE AND INSERT EXECUTED :::::: ');
     });
     this.close_database();
     
@@ -149,31 +186,64 @@ node_utilities.prototype.insert_datas = function(table, datas, callBack){
                 var_2   : 'a sample text to insert', 
                 var_3   : 'limited sample char 50 max'
             }
-        }
+        },
+        function(){}
     );
 */
 /* ------------------------------------------------------------------------- */
 node_utilities.prototype.get_datas = function(table, datas, callBack){
+    var call = false;
     this.open_database();
     var where = "";
     if(typeof datas.where !== "undefined"){
         $.each(_.keys(datas.where), function(i, key){
             if(where === ""){
-                where = " WHERE "+key+"="+datas.where[key].value;
+                where = " WHERE "+key+"="+datas.where[key];
             }else{
-                where+= " AND "+key+"="+datas.where[key].value;
+                where+= " AND "+key+"="+datas.where[key];
             }
         });
     }
     this.db.transaction(function (tx) {
         tx.executeSql("SELECT * FROM "+table+""+where, [], function (tx, results) {
             var len = results.rows.length, i;
-            console.log("len ::::::: ", len);
-            console.log("results ::: ", results);
-            console.log("rows :::::: ", results.rows);
+            var datas = [];
+            for (i = 0; i < len; i++) {
+                datas.push(results.rows.item(i));
+            }
+            callBack({"code":200, "status":"success", "datas":datas});
+            call = true;
         });
     });
     this.close_database();
+    setTimeout(function(){
+        if(!call){
+            callBack({"code":300, "status":"error", "message":"La base de donnée ne répond pas."});
+        }
+    }, 5000);
+}
+node_utilities.prototype.execute = function(request, callBack){
+    var call = false;
+    this.open_database();
+    this.db.transaction(function (tx) {
+        tx.executeSql(request, [], function (tx, results) {
+            var len = results.rows.length, i;
+            var datas = [];
+            for (i = 0; i < len; i++) {
+                datas.push(results.rows.item(i));
+            }
+            callBack({"code":200, "status":"success", "datas":datas});
+            call = true;
+        });
+    });
+    this.close_database();
+    setTimeout(function(){
+        if(!call){
+            callBack({"code":300, "status":"error", "message":"La base de donnée ne répond pas."});
+        }
+    }, 5000);
+}
+
+node_utilities.prototype.close_database = function(){
     
-    callBack({"code":200, "status":"success"});
 }

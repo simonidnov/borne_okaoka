@@ -7,6 +7,7 @@ function run(){
     this._total_levels = 1;
     this.levels = [];
     this.brick = {};
+    this.elements = {};
     this._is_down = false;
     this.levels_enemy = [];
     this.levels_picots = [];
@@ -29,17 +30,27 @@ function run(){
         distance:0, 
         tilemap:{
             size:{
-                width:4800, 
+                width:5120, 
                 height:1600
             }, 
             def:6515
         }, 
+        score:{
+            distance:0,
+            circles:0,
+            triangles:0,
+            squares:0
+        },
         width:window.innerWidth,
         height:window.innerHeight,
         speed:0, 
         state:"", 
         motion_state:"",
-        rotation:0
+        rotation:0,
+        invicible:false,
+        parachute:false,
+        double_jump:false,
+        jumping:false
     };
     
     this.lifes = {count:5, date:0};
@@ -59,9 +70,9 @@ run.prototype.preload = function(){
     self.game.load.image('bck_2', 'pages/run/maps/backgrounds/background_2-01.png');
     self.game.load.image('bck_3', 'pages/run/maps/backgrounds/background_3-01.png');
     
-    self.game.load.image('invicible', 'pages/run/maps/special_mutation/invicible.png');
-    self.game.load.image('double_jump', 'pages/run/maps/special_mutation/double_jump.png');
-    self.game.load.image('parachute', 'pages/run/maps/special_mutation/parachute.png');
+    //self.game.load.image('invicible', 'pages/run/maps/special_mutation/invicible.png');
+    //self.game.load.image('double_jump', 'pages/run/maps/special_mutation/double_jump.png');
+    //self.game.load.image('parachute', 'pages/run/maps/special_mutation/parachute.png');
     
     self.game.load.image('invicible_icon', 'pages/run/maps/special_mutation/invicible_icon.png');
     self.game.load.image('double_jump_icon', 'pages/run/maps/special_mutation/double_jump_icon.png');
@@ -73,8 +84,64 @@ run.prototype.preload = function(){
     self.game.load.image('house', 'pages/run/maps/house.png');
     self.game.load.image('info_bul', 'pages/run/maps/info_bul.png');
     
+    self.game.load.image("floor_collider", "pages/run/maps_new/decors/run_decors_floor.png");
+    self.game.load.image("floor_start_collider", "pages/run/maps_new/decors/run_decors_floor_start.png");
+    self.game.load.image("floor_end_collider", "pages/run/maps_new/decors/run_decors_floor_end.png");
+    self.game.load.image("tremplin_left_collider", "pages/run/maps_new/decors/run_decors_tremplin_left.png");
+    self.game.load.image("tremplin_left_start_collider", "pages/run/maps_new/decors/run_decors_tremplin_left_start.png");
+    self.game.load.image("tremplin_left_end_collider", "pages/run/maps_new/decors/run_decors_tremplin_left_end.png");
+    self.game.load.image("tremplin_right_collider", "pages/run/maps_new/decors/run_decors_tremplin_right.png");
+    self.game.load.image("tremplin_right_start_collider", "pages/run/maps_new/decors/run_decors_tremplin_right_start.png");
+    self.game.load.image("tremplin_right_end_collider", "pages/run/maps_new/decors/run_decors_tremplin_right_end.png");
+    self.game.load.image("tremplin_bottom_left_collider", "pages/run/maps_new/decors/run_decors_tremplin_bottom_left.png");
+    self.game.load.image("tremplin_bottom_left_start_collider", "pages/run/maps_new/decors/run_decors_tremplin_bottom_left_start.png");
+    self.game.load.image("tremplin_bottom_left_end_collider", "pages/run/maps_new/decors/run_decors_tremplin_bottom_left_end.png");
+    self.game.load.image("tremplin_bottom_right_collider", "pages/run/maps_new/decors/run_decors_tremplin_bottom_right.png");
+    self.game.load.image("tremplin_bottom_right_start_collider", "pages/run/maps_new/decors/run_decors_tremplin_bottom_right_start.png");
+    self.game.load.image("tremplin_bottom_right_end_collider", "pages/run/maps_new/decors/run_decors_tremplin_bottom_right_end.png");
+    self.game.load.image("picots_collider", "pages/run/maps_new/decors/run_decors_picots.png");
+    self.game.load.image("picots_start_collider", "pages/run/maps_new/decors/run_decors_picots_start.png");
+    self.game.load.image("picots_end_collider", "pages/run/maps_new/decors/run_decors_picots_end.png");
+    self.game.load.image("watter_collider", "pages/run/maps_new/decors/run_decors_watter.png");
+    self.game.load.image("watter_start_collider", "pages/run/maps_new/decors/run_decors_watter_start.png");
+    self.game.load.image("watter_end_collider", "pages/run/maps_new/decors/run_decors_watter_end.png");
+    self.game.load.image("watter_next_collider", "pages/run/maps_new/decors/run_decors_watter_next.png");
+    self.game.load.image("floor", "pages/run/maps_new/decors/run_decors_floor.png");
+    self.game.load.image("floor_start", "pages/run/maps_new/decors/run_decors_floor_start.png");
+    self.game.load.image("floor_end", "pages/run/maps_new/decors/run_decors_floor_end.png");
+    self.game.load.image("tremplin_left", "pages/run/maps_new/decors/run_decors_tremplin_left.png");
+    self.game.load.image("tremplin_left_start", "pages/run/maps_new/decors/run_decors_tremplin_left_start.png");
+    self.game.load.image("tremplin_left_end", "pages/run/maps_new/decors/run_decors_tremplin_left_end.png");
+    self.game.load.image("tremplin_right", "pages/run/maps_new/decors/run_decors_tremplin_right.png");
+    self.game.load.image("tremplin_right_start", "pages/run/maps_new/decors/run_decors_tremplin_right_start.png");
+    self.game.load.image("tremplin_right_end", "pages/run/maps_new/decors/run_decors_tremplin_right_end.png");
+    self.game.load.image("tremplin_bottom_left", "pages/run/maps_new/decors/run_decors_tremplin_bottom_left.png");
+    self.game.load.image("tremplin_bottom_left_start", "pages/run/maps_new/decors/run_decors_tremplin_bottom_left_start.png");
+    self.game.load.image("tremplin_bottom_left_end", "pages/run/maps_new/decors/run_decors_tremplin_bottom_left_end.png");
+    self.game.load.image("tremplin_bottom_right", "pages/run/maps_new/decors/run_decors_tremplin_bottom_right.png");
+    self.game.load.image("tremplin_bottom_right_start", "pages/run/maps_new/decors/run_decors_tremplin_bottom_right_start.png");
+    self.game.load.image("tremplin_bottom_right_end", "pages/run/maps_new/decors/run_decors_tremplin_bottom_right_end.png");
+    self.game.load.image("picots", "pages/run/maps_new/decors/run_decors_picots.png");
+    self.game.load.image("picots_start", "pages/run/maps_new/decors/run_decors_picots_start.png");
+    self.game.load.image("picots_end", "pages/run/maps_new/decors/run_decors_picots_end.png");
+    self.game.load.image("watter", "pages/run/maps_new/decors/run_decors_watter.png");
+    self.game.load.image("watter_start", "pages/run/maps_new/decors/run_decors_watter_start.png");
+    self.game.load.image("watter_end", "pages/run/maps_new/decors/run_decors_watter_end.png");
+    self.game.load.image("watter_next", "pages/run/maps_new/decors/run_decors_watter_next.png");
     
-    self.game.load.image('fl', 'pages/run/maps/small_maps/fl.png');
+    self.game.load.image("circle", "pages/run/maps_new/elements/run_decors_element_circle.png");
+    self.game.load.image("triangle", "pages/run/maps_new/elements/run_decors_element_triangle.png");
+    self.game.load.image("square", "pages/run/maps_new/elements/run_decors_element_square.png");
+    self.game.load.image("distance", "pages/run/maps_new/decors/run_decors_element_distance.png");
+    
+    self.game.load.image("parachute", "pages/run/maps_new/decors/run_decors_parachute.png");
+    self.game.load.image("double_jump", "pages/run/maps_new/decors/run_decors_double_jump.png");
+    self.game.load.image("invicible", "pages/run/maps_new/decors/run_decors_invicible.png");
+    
+    
+    self.game.load.image("replay_btn", "./images/assets/btn_replay.png");
+    self.game.load.image("stats_btn", "./images/assets/btn_stats.png");
+    /*self.game.load.image('fl', 'pages/run/maps/small_maps/fl.png');
     self.game.load.image('fl_f', 'pages/run/maps/small_maps/fl_f.png');
     self.game.load.image('fl_l', 'pages/run/maps/small_maps/fl_l.png');
     self.game.load.image('fl_n', 'pages/run/maps/small_maps/fl.png');
@@ -123,7 +190,7 @@ run.prototype.preload = function(){
     self.game.load.image('wt_ph', 'pages/run/maps/small_maps/wt.png');
     self.game.load.image('wt_ph_n', 'pages/run/maps/small_maps/wt_n.png');
     self.game.load.image('wt_ph_f', 'pages/run/maps/small_maps/wt_f.png');
-    self.game.load.image('wt_ph_l', 'pages/run/maps/small_maps/wt_l.png');
+    self.game.load.image('wt_ph_l', 'pages/run/maps/small_maps/wt_l.png');*/
     
     /*for(var i=1; i<26; i++){
         self.game.load.image('map_'+i, 'pages/run/maps/1250/decors/map_1250_map_'+i+'.png');
@@ -135,13 +202,33 @@ run.prototype.preload = function(){
     //self.game.load.physics('watter_map', 'pages/run/maps/1250/maps_1250_watter.json');
     //self.game.load.physics('picots_map', 'pages/run/maps/1250/maps_1250_picots.json');
     
-    self.game.load.physics('small_maps', 'pages/run/maps/small_maps/small_maps.json');
+    self.game.load.physics('small_maps', 'pages/run/maps_new/maps_new.json');
     
-    self.game.load.spritesheet('bear', 'pages/run/maps/character/bear.png', 75, 150);
-    self.game.load.spritesheet('okaoka2', 'pages/run/maps/character/okaoka.png', 75, 150);
-    self.game.load.spritesheet('okaoka', 'pages/run/maps/character/okaoka.png', 75, 150);
+    //self.game.load.spritesheet('bear', 'pages/run/maps/character/bear.png', 75, 150);
+    //self.game.load.spritesheet('enemy_circle', 'pages/run/maps_new/enemies/enemy_circle.png', 100, 100);
+    //self.game.load.spritesheet('enemy_square', 'pages/run/maps_new/enemies/enemy_square.png', 100, 150);
+    //self.game.load.spritesheet('enemy_triangle', 'pages/run/maps_new/enemies/enemy_triangle.png', 100, 150);
     
-    self.game.load.image('hero', 'pages/run/maps/hero.png');
+    self.game.load.atlas('enemy_circle', 'pages/run/maps_new/enemies/enemy_circle.png', 'pages/run/maps_new/enemies/enemy_circle.json');
+    self.game.load.atlas('enemy_square', 'pages/run/maps_new/enemies/enemy_square.png', 'pages/run/maps_new/enemies/enemy_square.json');
+    self.game.load.atlas('enemy_triangle', 'pages/run/maps_new/enemies/enemy_triangle.png', 'pages/run/maps_new/enemies/enemy_triangle.json');
+    
+    self.game.load.image("ball_1", "pages/run/maps_new/decors/run_decors_element_ball_1.png");
+    self.game.load.image("ball_2", "pages/run/maps_new/decors/run_decors_element_ball_2.png");
+    self.game.load.image("ball_3", "pages/run/maps_new/decors/run_decors_element_ball_3.png");
+    self.game.load.image("ball_4", "pages/run/maps_new/decors/run_decors_element_ball_4.png");
+    self.game.load.image("ball_5", "pages/run/maps_new/decors/run_decors_element_ball_5.png");
+    self.game.load.image("ball_6", "pages/run/maps_new/decors/run_decors_element_ball_6.png");
+    self.game.load.image("ball_7", "pages/run/maps_new/decors/run_decors_element_ball_7.png");
+    self.game.load.image("ball_8", "pages/run/maps_new/decors/run_decors_element_ball_8.png");
+    self.game.load.image("ball_9", "pages/run/maps_new/decors/run_decors_element_ball_9.png");
+    self.game.load.image("ball_10", "pages/run/maps_new/decors/run_decors_element_ball_10.png");
+    
+    self.game.load.spritesheet('okaoka3', 'pages/run/maps_new/hero/run.png', 100, 150);
+    //self.game.load.spritesheet('okaoka2', 'pages/run/maps/character/okaoka.png', 75, 150);
+    //self.game.load.spritesheet('okaoka', 'pages/run/maps/character/okaoka.png', 75, 150);
+    
+    //self.game.load.image('hero', 'pages/run/maps/hero.png');
     self.game.load.image('boomer', 'pages/run/maps/boomer.png');
     self.game.load.image('puff', 'pages/run/maps/puff.png');
     self.game.load.image('invicible_emitter', 'pages/run/maps/invicible_emitter.png');
@@ -160,13 +247,12 @@ run.prototype.create = function(){
     
     self.game.physics.startSystem(Phaser.Physics.P2JS);
     
-    self.game.time.desiredFps = 30;
+    self.game.time.desiredFps = 60;
     
-    self.game.physics.p2.restitution = 0;
-    self.game.physics.p2.friction = 0;
+    self.game.physics.p2.restitution = -1;
+    self.game.physics.p2.friction = -1;
     //game.physics.p2.world.defaultContactMaterial.friction = 0.3;
     self.game.physics.p2.gravity.y = 1500;
-    
     
     /*self.mountain_3 = self.game.add.tileSprite(-self.gameInfo.width/2, -400, self.gameInfo.width*2, self.gameInfo.height*2, 'bck_3');
     self.mountain_2 = self.game.add.tileSprite(-self.gameInfo.width/2, -400, self.gameInfo.width*2, self.gameInfo.height*2, 'bck_2');
@@ -183,24 +269,27 @@ run.prototype.create = function(){
     //self.hero = self.game.add.sprite(-3800, -1100, 'hero');
     /* -------- SAMPLE SPRITE ---------- */
     
-    self.hero = self.game.add.sprite(200, -2200, 'okaoka');
+    self.hero = self.game.add.sprite(200, -1000, 'okaoka3');
     self.hero.scale.set(1);
     self.hero.smoothed = true;
-    self.hero.animations.add('run', [0,1,2,3,4,5,6,7,8], 25, true);
-    self.hero.animations.add('small_jump', [9,10,11,12,13,14], 25, false);
-    self.hero.animations.add('jump', [15,16,17,18], 25, false);
-    self.hero.animations.add('after_jump', [19,20,21,22,23,24], 25, false);
-    self.hero.animations.add('oka', [25,26,27,28,29], 25, false);
-    self.hero.animations.add('wall', [30,31,32,33], 25, false);
-    self.hero.animations.add('wall_end', [34,35,36,37,38], 25, false);
-    self.hero.animations.add('parachute', [39,40,41,42,43,44,45,46,47,48], 25, false);
-    self.hero.animations.add('speed', [49,50,51,52,53], 25, true);
-    self.hero.animations.add('invicible', [54,55,56,57,58], 25, true);
-    self.hero.animations.add('watter', [59,60,61,62,63,64,65,66,67,68,69], 12, true);
-    self.hero.animations.add('picots', [70], 25, false);
+    self.hero.animations.add('walk', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23], 20, true);
+    self.hero.animations.add('run', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23], 45, true);
+    self.hero.animations.add('small_jump', [24], 1, false);
+    self.hero.animations.add('jump', [25], 1, false);
+    self.hero.animations.add('after_jump', [26], 1, false);
+    self.hero.animations.add('oka', [1], 1, false);
+    self.hero.animations.add('wall', [27], 1, false);
+    self.hero.animations.add('wall_end', [27], 1, false);
+    self.hero.animations.add('parachute', [29], 25, false);
+    self.hero.animations.add('speed', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24], 60, true);
+    self.hero.animations.add('invicible', [28], 1, false);
+    self.hero.animations.add('watter', [27], 12, true);
+    self.hero.animations.add('picots', [27], 25, false);
     self.hero.animations.add('slide', [80], 1, false);
-    self.hero.animations.add('died', [85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100], 25, true);
+    self.hero.animations.add('died', [27], 25, true);
     self.hero.play('oka');
+    
+    self.elements_layer = self.game.add.group();
     
     /*
     self.hero = self.game.add.sprite(200, -2200, 'bear');
@@ -245,23 +334,25 @@ run.prototype.create = function(){
     
     self.faster();
     self.puff();
-    //self.particle();
+    self.particle();
     
-    self.house = self.game.add.sprite(-2850, -1200, 'house');
+    self.house = self.game.add.sprite(120, -1075, 'house');
     
     self.fast_emitter.on = false;
     //self.game.camera.follow(self.hero);
     /* replace element hero on left */
-    self.game.camera.setSize(900,self.gameInfo.height);
+    self.game.camera.setSize(self.gameInfo.width,self.gameInfo.height);
     /* ------ SET HERO PROPERTIES ------ */
     self.hero.body.mass = 1000;
     
-    self.hero.body.setRectangle(75,150);
+    self.hero.body.setRectangle(100,150);
     //self.hero.body.y = 75;
     //self.hero.body.setCircle(37);
     self.hero.body.fixedRotation = true;
     
     self.hero.body.sensor = true;
+    //self.hero.body.collides(self.elements_layer, self.destroyElement, this);
+    //self.hero.body.collides(self.decors, self.collision, this);
     self.hero.body.onBeginContact.add(self.collision, this);
     self.hero.body.onEndContact.add(self.endcollision, this);
     
@@ -283,8 +374,48 @@ run.prototype.create = function(){
     //self.game.input.onUp.add(self.on_up, this);
     
     self.gameInfo.start_date = new Date().getTime();
-    
+    self.create_task_bar();
     self.intro_game();
+}
+run.prototype.updates_scores = function(){
+    self.triangles_text.text = (self.gameInfo.score.triangles > 1000)? (self.gameInfo.score.triangles/1000).toFixed(2)+'K' : self.gameInfo.score.triangles;
+    self.circles_text.text = (self.gameInfo.score.circles > 1000)? (self.gameInfo.score.circles/1000).toFixed(2)+'K' : self.gameInfo.score.circles;
+    self.squares_text.text = (self.gameInfo.score.squares > 1000)? (self.gameInfo.score.squares/1000).toFixed(2)+'K' : self.gameInfo.score.squares;
+    
+    self.distances_text.x = self.distances.getBounds().x + (self.distances.getBounds().width/2) - (self.distances_text.getBounds().width/2);
+    self.triangles_text.x = self.triangles.getBounds().x + (self.triangles.getBounds().width/2) - (self.triangles_text.getBounds().width/2);
+    self.squares_text.x = self.squares.getBounds().x + (self.squares.getBounds().width/2) - (self.squares_text.getBounds().width/2);
+    self.circles_text.x = self.circles.getBounds().x + (self.circles.getBounds().width/2) - (self.circles_text.getBounds().width/2);
+}
+run.prototype.create_task_bar = function(){
+    self.task_bar = self.game.add.group();
+    self.task_bar.fixedToCamera = true;
+    self.task_bar.alpha = 0;
+    self.distances = self.task_bar.create(0, 0, 'distance');
+    self.distances.x = (window.innerWidth/2) - 160;
+    self.triangles = self.task_bar.create(0, 0, 'triangle');   
+    self.triangles.x = (window.innerWidth/2) - 80;
+    self.squares = self.task_bar.create(0, 0, 'square');
+    self.squares.x = (window.innerWidth/2);
+    self.circles = self.task_bar.create(0, 0, 'circle');   
+    self.circles.x = (window.innerWidth/2) + 80;
+    
+    self.circles.y = self.squares.y = self.triangles.y = self.distances.y = 20;
+    
+    self.distances.scale.x = self.distances.scale.y = self.triangles.scale.x = self.triangles.scale.y = self.squares.scale.x = self.squares.scale.y = self.circles.scale.x = self.circles.scale.y = .8;
+    
+    self.distances_text = self.task_bar.add(self.game.make.text(0, 0, '0',  { font: "100 35px Roboto", fill: '#FFFFFF', align:"center"}));
+    self.triangles_text = self.task_bar.add(self.game.make.text(0, 0, '0',  { font: "100 35px Roboto", fill: '#FFFFFF', align:"center"}));
+    self.squares_text = self.task_bar.add(self.game.make.text(0, 0, '0',  { font: "100 35px Roboto", fill: '#FFFFFF' }));
+    self.circles_text = self.task_bar.add(self.game.make.text(0, 0, '0',  { font: "100 35px Roboto", fill: '#FFFFFF' }));
+    setTimeout(function(){
+        self.distances_text.x = self.distances.getBounds().x + (self.distances.getBounds().width/2) - (self.distances_text.getBounds().width/2);
+        self.triangles_text.x = self.triangles.getBounds().x + (self.triangles.getBounds().width/2) - (self.triangles_text.getBounds().width/2);
+        self.squares_text.x = self.squares.getBounds().x + (self.squares.getBounds().width/2) - (self.squares_text.getBounds().width/2);
+        self.circles_text.x = self.circles.getBounds().x + (self.circles.getBounds().width/2) - (self.circles_text.getBounds().width/2);
+        self.distances_text.y = self.squares_text.y = self.triangles_text.y = self.circles_text.y = 70;
+    }, 2500);
+    //self.task_bar.x = (window.innerWidth/2) - (self.task_bar.getBounds().width/2);
     
 }
 run.prototype.intro_game = function(){
@@ -292,7 +423,7 @@ run.prototype.intro_game = function(){
     
     TweenMax.to($('#phaser-run'), 1, {opacity:1, onComplete:function(){
         TweenMax.to(self.gameInfo, 1.5, {
-            speed:250,
+            speed:550,
             onComplete:function(){
                 self.bubble = self.game.add.sprite(self.hero.position.x + 30, self.hero.position.y - 50, 'info_bul');
                 utilities.show_popup(
@@ -302,7 +433,8 @@ run.prototype.intro_game = function(){
                         self.bubble.destroy();
                         setTimeout(function(){
                             self.hero.play('run');
-                            self.gameInfo.speed = 600;
+                            self.gameInfo.speed = 800;
+                            self.task_bar.alpha = 1;
                         }, 500);
                     }
                 );
@@ -310,7 +442,7 @@ run.prototype.intro_game = function(){
                 self.hero.play('oka');
             }
         });
-        self.hero.play('run');
+        self.hero.play('walk');
     }, delay:1});
 }
 run.prototype.set_listeners = function(){
@@ -326,6 +458,11 @@ run.prototype.endcollision = function(body, bodyB, shapeA, shapeB, equation){
     //self.hero.body.fixedRotation = true;
 }
 run.prototype.add_power = function(power){
+    if(typeof self.last_power !== "undefined"){
+        if(new Date().getTime() - self.last_power < 200){
+            return false;
+        }
+    }
     var current_power = self.hero_power.length;
     self.hero_power[current_power] = {
         "type":power,
@@ -335,6 +472,10 @@ run.prototype.add_power = function(power){
             power+"_icon"
         )
     }
+    if(self.hero_power.length > 3){
+        self.hero_power.shift();   
+    }
+    self.last_power = new Date().getTime();
     /*self.game.physics.p2.enable([ self.hero_power[current_power].obj ], self._debug);
     
     self.hero_power[current_power].obj.body.sensor = true;
@@ -352,120 +493,200 @@ run.prototype.add_power = function(power){
     _constraint.upperLimit = 0;
     _constraint.lowerLimit = 0;*/
 }
+var test_log;
+run.prototype.destroyElement = function(body1, body2){
+    body2.removeFromWorld();
+}
+
+run.prototype.event_enemy = function(event, type, count, enemy){
+    switch(type){
+        case 'triangle':
+            break;
+        case 'circle':
+            break;
+        case 'square':
+            break;
+    }
+    for(var i=0; i<count; i++){
+        var element_id = Math.ceil(Math.random()*10000)+""+i;
+        self.elements[element_id] = self.elements_layer.create(
+            self.hero.position.x + 100 + (10*i),
+            self.hero.position.y + 100, 
+            type
+        );
+        self.game.physics.p2.enable([ self.elements[element_id] ], self._debug);
+        self.elements[element_id].body.setCollisionGroup(self.elements_layer);
+        self.elements[element_id].body.clearShapes();
+        self.elements[element_id].body.loadPolygon('small_maps', 'run_decors_element_'+type);
+        self.elements[element_id].body.mass = 1;
+        self.elements[element_id].body.velocity.y = -800;
+        //self.elements[element_id].body.velocity.x = 700;
+        //self.elements[element_id].body.sensor = false;
+        //self.elements[element_id].body.static = true;
+    }
+    if(event === 'lose'){
+        TweenMax.to(self.hero, .1, {alpha:.5, repeat:10, yoyo:true, onComplete:function(){
+            TweenMax.to(self.hero, .1, {alpha:1});
+        }});
+        self.hero.body.velocity.y = -800;
+    }else{
+        TweenMax.to(enemy.sprite.scale, .5, {y:0, x:0});
+        self.hero.body.velocity.y = -350;
+    }
+}
+
 run.prototype.collision = function(body, bodyB, shapeA, shapeB, equation){
     if(body === null){
         return false;
     }
-    if(self.gameInfo.state === "parachute"){
-        self.gameInfo.state = "";
-        self.game.physics.p2.gravity.y = 1500;
-        self.hero.body.mass = 1000;
-    }
-    if(body.sprite.key.indexOf('double_jump') !== -1){
-        self.add_power('double_jump');
-        body.sprite.destroy();
-        return;
-    }
-    if(body.sprite.key.indexOf('invicible') !== -1){
-        self.add_power('invicible');
-        body.sprite.destroy();
-        return;
-    }
-    if(body.sprite.key.indexOf('parachute') !== -1){
-        self.add_power('parachute');
-        body.sprite.destroy();
-        return;
-    }
-    if(self.gameInfo.state !== "invicible"){
-        if(body.sprite.key.indexOf('wt_') !== -1 && self.gameInfo.state !== "died"){
-            self.gameInfo.state = "died";
-            self.gameInfo.motion_state = "watter";
-            self.hero.play('watter');
-            self.hero.body.velocity.x = 0;
-            self.hero.body.velocity.y = 0;
-            self.gameInfo.speed = 0;
-            self.died();
-        }
-        if(body.sprite.key.indexOf('pc_') !== -1 && self.gameInfo.state !== "died"){
-            self.gameInfo.state = "died";
-            self.gameInfo.motion_state = "picots";
-            self.hero.play('picots');
-            self.hero.body.velocity.y = -800;
-            self.hero.body.velocity.x = 500;
-            
-            TweenMax.to(self.hero.body.velocity, 1, {
-                x:0, 
-                delay:1
-            });
-            self.gameInfo.speed = 0;
-            self.died();
-        }
-    }
     if(self.gameInfo.state !== "died"){
-        if(self.gameInfo.state == "sliding"){
-             self.hero.play('sliding');
-        }else if(self.gameInfo.state === "invicible"){
-            self.hero.play('invicible');
+        if(body.sprite.key === "triangle" || body.sprite.key === "circle" || body.sprite.key === "square" || body.sprite.key === "invicible" || body.sprite.key === "parachute" || body.sprite.key === "double_jump" || body.sprite.key.indexOf('enemy') !== -1){
+            if(typeof self.last_collision !== "undefined"){
+                if(new Date().getTime() - self.last_collision > 10){
+                    switch(body.sprite.key){
+                        case"triangle":
+                            self.gameInfo.score.triangles++;
+                            self.updates_scores();
+                            break; 
+                        case"circle":
+                            self.gameInfo.score.circles++;
+                            self.updates_scores();
+                            break; 
+                        case"square":
+                            self.gameInfo.score.squares++;
+                            self.updates_scores();
+                            break; 
+                        case"double_jump":
+                            self.add_power('double_jump');
+                            break;
+                        case"parachute":
+                            self.add_power('parachute');
+                            break;
+                        case"invicible":
+                            self.add_power('invicible');
+                            break;
+                    }
+                }
+            }
+            if(body.sprite.key.indexOf('enemy') !== -1){
+                /* le hero arrive d'en haut */
+                /* on check si la position y est supérieur de la hauteur de l'enemy */
+                if(self.hero.position.y <= body.y-50 || self.gameInfo.state === "invicible"){
+                    /* on lui tape sur la tête on gagne 20 jetons de la couleur */
+                    switch(body.sprite.key){
+                        case'enemy_triangle':
+                            self.event_enemy('win', 'triangle', 20, body);
+                            //self.gameInfo.score.triangles+=20;
+                            break;
+                        case'enemy_square':
+                            self.event_enemy('win', 'square', 20, body);
+                            //self.gameInfo.score.squares+=20;
+                            break;
+                        case'enemy_circle':
+                            self.event_enemy('win', 'circle', 20, body);
+                            //self.gameInfo.score.circles+=20;
+                            break;
+                    }
+                    //body.sprite.scale.y = .5;
+                    //self.hero.body.velocity.y = -350;
+                }else{
+                    /* on perd 20 jetons de la couleur */
+                    switch(body.sprite.key){
+                        case'enemy_triangle':
+                            self.event_enemy('lose', 'triangle', 20, body);
+                            self.gameInfo.score.triangles-=20;
+                            break;
+                        case'enemy_square':
+                            self.event_enemy('lose', 'square', 20, body);
+                            self.gameInfo.score.squares-=20;
+                            break;
+                        case'enemy_circle':
+                            self.event_enemy('lose', 'circle', 20, body);
+                            self.gameInfo.score.circles-=20;
+                            break;
+                    }
+                }
+                body.sprite.body.onBeginContact.removeAll();
+                self.updates_scores();
+                body.removeFromWorld();
+            }else{
+                self.ramasse(body);
+                body.removeFromWorld();
+            }
         }else{
-            self.hero.play('run');
-        }
-        self.last_collision = new Date().getTime();
-        if(self.jumping_infos.rotate && self.jumping_infos.is_jumping){
-            self.hero.body.velocity.x = self.hero.body.velocity.x + (self.jumping_infos.rotate*100);
-        }else{
-            //self.puff();
-        }
-        if(body){
-            //self.hero.body.fixedRotation = false;
             self.jumping_infos.is_jumping = false;
-        }
-        self.emitter.on = true;
-        if(self.gameInfo.state !== "sliding" || self.gameInfo.state !== "invicible"){
+            self.gameInfo.parachute = false;
+            if(self.hero.body.velocity.y > 100){
+                self.emitter.on = true;
+                setTimeout(function(){
+                   self.emitter.on = false;
+                }, self.hero.body.velocity.y/2);
+            }
+            if(!self.gameInfo.invicible){
+                self.hero.play('run');
+            }
+            /*self.emitter.on = true;
             setTimeout(function(){
                self.emitter.on = false;
-            }, 100);
+            }, 10);*/
         }
+
+
+        /* looking for picots and watter elements */
+        if(self.gameInfo.state !== "invicible"){
+            if(body.sprite.key.indexOf('watter') !== -1 && self.gameInfo.state !== "died"){
+                self.gameInfo.state = "died";
+                self.gameInfo.motion_state = "watter";
+                self.hero.play('watter');
+                self.hero.body.velocity.x = 0;
+                self.hero.body.velocity.y = 0;
+                self.gameInfo.speed = 0;
+                self.died();
+            }
+            if(body.sprite.key.indexOf('picot') !== -1 && self.gameInfo.state !== "died"){
+                self.gameInfo.state = "died";
+                self.gameInfo.motion_state = "picots";
+                self.hero.play('picots');
+                self.hero.body.velocity.y = -800;
+                self.hero.body.velocity.x = 500;
+
+                TweenMax.to(self.hero.body.velocity, 1, {
+                    x:0, 
+                    delay:1
+                });
+                self.gameInfo.speed = 0;
+                self.died();
+            }
+        }
+        self.last_collision = new Date().getTime();
     }else{
-        if(self.gameInfo.motion_state == "wall"){
-            self.hero.play('wall_end');
-            setTimeout(function(){
-                utilities.show_popup(
-                    {color:navigation._current_interface_color, motion:"wall_run", buttons:["quit", "refresh"]}, 
-                    function(e){
-                        if(e == 0){
-                            navigation.router.navigate('page/menu', {trigger:true, replace:true});
-                        }else{
-                            self.replay_game();
-                        }
-                    }
-                );
-            }, 500);
+        if(self.gameInfo.motion_state === "wall"){
+            self.gameInfo.state = "died";
+            self.died();
         }
     }
+    test_log = body;
+}
+run.prototype.ramasse = function(body){
+    body.velocity.x = -1000;
+    TweenMax.to(body, .5, {y:body.y-300, onComplete:function(){
+        body.y = 4000;        
+    }});
 }
 run.prototype.head_collision = function(body, bodyB, shapeA, shapeB, equation){
     if(body === null){
         return false;
     }
-    if(self.gameInfo.state === "invicible"){
+    if(self.gameInfo.oka_state === "invicible"){
         return false;
     }
     /* ADD EXEPT ON POWER COLLIDER */
-    if(body.sprite.key.indexOf('map_') !== -1){
-        self.hero_boomer.body.onBeginContact.removeAll();
-        self.hero_boomer.body.onEndContact.removeAll();
-        self.hero_boomer.destroy();
-        delete self.hero_boomer;
+    if(body.sprite.key.indexOf('floor_') !== -1 || body.sprite.key.indexOf('tremplin_') !== -1){
         self.gameInfo.state = "died";
         self.gameInfo.motion_state = "wall";
         self.hero.play('wall');
         self.gameInfo.speed = 0;
-        self.hero.body.velocity.x = -250;
-        self.hero.body.velocity.y = -800;
-        TweenMax.to(self.hero.body.velocity, 1, {
-            x:0, 
-            delay:.2
-        });
+        self.died();
     }
 }
 run.prototype.head_endcollision = function(body, bodyB, shapeA, shapeB, equation){
@@ -500,15 +721,16 @@ run.prototype.puff = function(){
     self.emitter.start(false, 150, 0);
 }
 run.prototype.particle = function(){
-    self.particles = self.game.add.emitter(self.game.world.centerX, self.game.world.centerY, 400);
+    self.particles = self.game.add.emitter(self.game.world.centerX, self.game.world.centerY, window.innerWidth);
     self.particles.makeParticles( [ 'particles', 'particles5', 'particles2' ] );
     //self.emitter.color = ["#FFF"];
     self.particles.gravity = 0;
     self.particles.width = self.gameInfo.width;
-    self.particles.height = self.gameInfo.height/2;
+    self.particles.height = self.gameInfo.height;
     self.particles.minParticleSpeed.set(0, 50);
-    self.particles.maxParticleSpeed.set(0, 200);
+    self.particles.maxParticleSpeed.set(0, 400);
 
+    self.fast_emitter.setXSpeed(0, -800);
     self.particles.setRotation(0, 0);
     self.particles.setAlpha(0.3, 0.6);
     self.particles.setScale(1, 1, 0, 0);
@@ -546,15 +768,100 @@ run.prototype.create_ground_level = function(){
             self.brick[brick_id].body.setCollisionGroup(self.decors);
             self.brick[brick_id].body.clearShapes();
             //self.brick[brick_id].body.setRectangle(160,60);
-            self.brick[brick_id].body.loadPolygon('small_maps', brick.name);
+            //self.game.load.image('fl', 'pages/run/maps/small_maps/fl.png');
+            self.brick[brick_id].body.loadPolygon('small_maps', 'run_decors_'+brick.name);
             self.brick[brick_id].body.mass = 1000;
             /* addchild on self.levels[cur_level] */
             self.brick[brick_id].body.kinematic = true;
         }else{
             self.brick[brick_id] = self.decors.create(
-                x_pos+brick.position.x-80,
-                y_pos+brick.position.y-30, 
+                x_pos+brick.position.x-160,
+                y_pos+brick.position.y-60, 
                 brick.name
+            );
+            
+        }
+    });
+    $.each(level_grid['level_'+self._current_decors].elements, function(i, element){
+        var element_id = element.id+'_'+self._current_level;
+        if(typeof self.elements[element_id] !== "undefined"){
+            self.elements[element_id].body.destroy();
+            delete self.elements[element_id];
+        }
+        if(element.type === "elements"){
+            if(typeof self.elements[element_id] !== "undefined"){
+                
+            }else{
+                if(element.name.indexOf('enemy_circle') != -1 || element.name.indexOf('enemy_square') != -1 || element.name.indexOf('enemy_triangle') != -1){
+                    var frame = "";
+                    switch(element.name){
+                        case 'enemy_circle':
+                            frame = 'circle0000';
+                            break;
+                        case 'enemy_square':
+                            frame = 'rectangle0000';
+                            break;
+                        case 'enemy_triangle':
+                            frame = 'triangle0000';
+                            break;
+                    }
+                    self.elements[element_id] = self.elements_layer.create(
+                        x_pos+element.position.x-100,
+                        y_pos+element.position.y-80, 
+                        element.name,
+                        frame
+                    );
+                    self.elements[element_id].animations.add('walk', 0, 4, 30, true, true);
+
+                    // play animation
+                    self.elements[element_id].animations.play('walk');
+                }else{
+                    self.elements[element_id] = self.elements_layer.create(
+                        x_pos+element.position.x-100,
+                        y_pos+element.position.y-80, 
+                        element.name
+                    );
+                }
+                self.game.physics.p2.enable([ self.elements[element_id] ], self._debug);
+                self.elements[element_id].body.setCollisionGroup(self.elements_layer);
+                self.elements[element_id].body.clearShapes();
+                    //self.elements[element_id].body.setRectangle(60,60);
+                //self.game.load.image('fl', 'pages/run/maps/small_maps/fl.png');
+                if(element.name.indexOf('ball') != -1){
+                    self.elements[element_id].body.setCircle(10);
+                    self.elements[element_id].body.mass = 1;
+                }else if(element.name.indexOf('enemy_circle') != -1){
+                    self.elements[element_id].body.setRectangle(100,100);
+                    self.elements[element_id].body.mass = 1000;
+                    self.elements[element_id].body.fixedRotation = true;
+                    self.elements[element_id].body.velocity.x = -500;
+                    self.listen_enemy(self.elements[element_id]);
+                }else if(element.name.indexOf('enemy_square') != -1){
+                    self.elements[element_id].body.setRectangle(60,60);
+                    self.elements[element_id].body.mass = 1000;
+                    self.elements[element_id].body.fixedRotation = true;
+                    self.elements[element_id].body.velocity.x = -500;
+                    self.listen_enemy(self.elements[element_id]);
+                }else if(element.name.indexOf('enemy_triangle') != -1){
+                    self.elements[element_id].body.setRectangle(160,100);
+                    self.elements[element_id].body.mass = 1000;
+                    self.elements[element_id].body.fixedRotation = true;
+                    self.elements[element_id].body.velocity.x = -500;
+                    self.listen_enemy(self.elements[element_id]);
+                }else{
+                    self.elements[element_id].body.loadPolygon('small_maps', 'run_decors_element_'+element.name);
+                    self.elements[element_id].body.mass = 1;
+                    //self.elements[element_id].body.x = x_pos+element.position.x-100;
+                    //self.elements[element_id].body.y = y_pos+element.position.y-100;
+                    self.elements[element_id].body.sensor = false;
+                    self.elements[element_id].body.static = true;
+                }
+            }
+        }else{
+            self.elements[element_id] = self.elements_layer.create(
+                x_pos+element.position.x-100,
+                y_pos+element.position.y-30, 
+                element.name
             );
         }
     });
@@ -566,41 +873,72 @@ run.prototype.create_ground_level = function(){
     }
     self.gameInfo.last_created_ground = new Date().getTime();
 }
+run.prototype.listen_enemy = function(enemy){
+    //self.elements[element_id]
+    enemy.body.onBeginContact.add(function(body){
+        if(body){
+           if(body.sprite){
+               if(body.sprite.position.y <= enemy.position.y){
+                   if(enemy.scale.x === 1){
+                       enemy.scale.x = -1;
+                       enemy.body.velocity.x = 500;
+                   }else{
+                       enemy.scale.x = 1;
+                       enemy.body.velocity.x = -500;
+                   }
+               }
+           }
+        }
+    }, this);
+}
 run.prototype.dbl_jump = function(){
     self.hero.body.velocity.y = -800;
     self.jump_tween.y = 0;
+    self.gameInfo.double_jump = true;
     TweenMax.to(self.jump_tween, 1, {y:20, onUpdate:function(){
         self.hero.body.velocity.y = self.hero.body.velocity.y - 15;
+    },onComplete:function(){
+        self.gameInfo.double_jump = false;
     }});
 }
 run.prototype.invicible = function(){
+    self.gameInfo.oka_state = "invicible";
     self.gameInfo.state = "invicible";
-    self.hero.play('invicible');
+    self.gameInfo.invicible = true;
+    //self.hero.play('invicible');
     self.hero.body.velocity.y = -800;
     self.fast_emitter.on = true;
     
-    //self.hero.body.setCircle(37);
+    self.hero.body.fixedRotation = false;
+    self.hero.body.setCircle(50);
     //self.gameInfo.rotation = -0.2;
-    //self.hero.body.fixedRotation = false;
+    
     setTimeout(function(){
+        self.gameInfo.invicible = false;
         //self.gameInfo.rotation = 0;
-        //self.hero.body.setRectangle(75,75);
+        self.hero.body.setRectangle(100,150);
         self.hero.body.fixedRotation = true;
         self.hero.rotation = 0;
         self.hero.body.rotation = 0;
         self.fast_emitter.on = false;
-        self.gameInfo.state = "";
+        if(self.gameInfo.state !== "died"){
+            self.gameInfo.state = "";
+        }
+        self.gameInfo.oka_state = null;
         //self.hero.play('run');
     },8000);
 }
 run.prototype.parachute = function(){
     self.gameInfo.state = "parachute";
+    self.gameInfo.parachute = true;
     self.game.physics.p2.gravity.y = 60;
     self.hero.body.velocity.y = 0;
     self.hero.body.mass = 100;
-    self.hero.play('parachute');
     setTimeout(function(){
-        self.gameInfo.state = "";
+        self.gameInfo.parachute = false;
+        if(self.gameInfo.state !== "died"){
+            self.gameInfo.state = "";
+        }
         self.game.physics.p2.gravity.y = 1500;
         self.hero.body.mass = 1000;
     },5000);
@@ -611,16 +949,20 @@ run.prototype.on_down = function(evt){
         return false;
     }else{
         if(self.gameInfo.speed === 0){
-            self.gameInfo.speed = 500;
+            self.gameInfo.speed = 800;
             self.hero.play('run');
         }
     }
     self.gameInfo.state="jumping";
+    self.gameInfo.jumping = true;
+    self.fast_emitter.on = false;
     self.emitter.on = false;
     if(!self.jumping_infos.is_jumping){
-        self.hero.body.velocity.y = -600;
+        self.hero.body.velocity.y = -700;
         TweenMax.to(self.jump_tween, .5, {y:20, onUpdate:function(){
             self.hero.body.velocity.y = self.hero.body.velocity.y - 20;
+        },onComplete:function(){
+            self.gameInfo.jumping = false;
         }});
         //self.hero.body.velocity.x = self.hero.body.velocity.x+250;
     }else{
@@ -655,7 +997,9 @@ run.prototype.on_down = function(evt){
 run.prototype.on_up = function(evt){
     if(self.gameInfo.state !== "died"){
         if(self.gameInfo.state === "parachute"){
-            self.gameInfo.state = "";
+            if(self.gameInfo.state !== "died"){
+                self.gameInfo.state = "";
+            }
             self.game.physics.p2.gravity.y = 1500;
             self.hero.body.mass = 1000;
         }
@@ -684,8 +1028,15 @@ run.prototype.render = function(){
     if(self.game.paused){
         return false;
     }
-    if(self.gameInfo.state !== "died"){
-        self.hero.body.velocity.x = self.gameInfo.speed;
+    if(self.gameInfo.invicible){
+        self.hero.body.fixedRotation = false;
+        self.hero.body.rotation += .15;
+        self.hero.play('invicible');
+    }else{
+        self.hero.body.rotation = 0;
+        if(self.gameInfo.parachute){
+            self.hero.play('parachute');
+        }
     }
     self.game.world.wrap(self.hero, 64);
     /* ------- REPLACE HERO POWER ICONS ------- */
@@ -693,34 +1044,62 @@ run.prototype.render = function(){
         self.hero_power[i].obj.position.x = self.hero_powers.body.x - (30 * (i+1));
         self.hero_power[i].obj.position.y = self.hero_powers.body.y - ((self.hero.body.velocity.y / 10)*(i+1));
     });
-    /* REPLACE CAMERA ON HERO */
-    var np = {
-        x:self.hero.position.x * self.scale - 300,
-        y:self.hero.position.y * self.scale - self.gameInfo.height/2
+    /*var ps = Math.abs(self.hero.body.velocity.y) / 2500;
+    if(ps > 0.6){
+        ps = 0.6;
     }
-    self.game.camera.setPosition(np.x, np.y);
+    if(ps < 0){
+        ps = 0;
+    }
+    var s = {v:self.scale};
+    
+    TweenMax.to(s, 1, {v:(1-ps), onUpdate:function(){
+        self.scale = s.v;
+    }});*/
+    if(self.gameInfo.state !== "died"){
+        self.hero.body.velocity.x = self.gameInfo.speed + self.gameInfo.distance;
+        
+        self.gameInfo.distance = Math.round(self.game.camera.position.x/200);
+        self.distances_text.text = self.gameInfo.distance;
+        self.distances_text.x = self.distances.getBounds().x + (self.distances.getBounds().width/2) - (self.distances_text.getBounds().width/2);
+        self.game.world.scale.setTo(self.scale, self.scale);
+        //self.task_bar.scale(1+self.scale, 1+self.scale);
+        /* REPLACE CAMERA ON HERO */
+        var np = {
+            x:self.hero.position.x * self.scale - 300,
+            y:self.hero.position.y * self.scale - self.gameInfo.height/2
+        }
+        self.game.camera.setPosition(np.x, np.y);
+    }
 }
 run.prototype.moveBody = function(){
     if(self.game.paused){
         return false;
     }
     if(self.gameInfo.state !== "died"){
-        if(self.jumping_infos.is_jumping && self.gameInfo.state === "jumping"){
-            if(self.hero.body.velocity.y > 0){
-                if(self.gameInfo.motion_state !== "after_jump"){
-                    self.hero.play('after_jump');
-                    self.gameInfo.motion_state = "after_jump";
-                }
-            }else{
-                if(self.hero.body.velocity.y < -500){
-                    if(self.gameInfo.motion_state !== "jump"){
-                        self.hero.play('jump');
-                        self.gameInfo.motion_state = "jump";
-                    }
+        if(!self.gameInfo.invicible && !self.gameInfo.parachute){
+            if(self.hero.body.velocity.y > 100){
+                //if(self.gameInfo.motion_state !== "after_jump"){
+                self.hero.play('after_jump');
+                self.gameInfo.motion_state = "after_jump";
+            }
+            if(self.jumping_infos.is_jumping){
+                if(self.hero.body.velocity.y > 20){
+                    //if(self.gameInfo.motion_state !== "after_jump"){
+                        self.hero.play('after_jump');
+                        self.gameInfo.motion_state = "after_jump";
+                    //}
                 }else{
-                    if(self.gameInfo.motion_state !== "small_jump"){
-                        self.hero.play('small_jump');
-                        self.gameInfo.motion_state = "small_jump";
+                    if(self.hero.body.velocity.y < -500){
+                        if(self.gameInfo.motion_state !== "jump"){
+                            self.hero.play('jump');
+                            self.gameInfo.motion_state = "jump";
+                        }
+                    }else{
+                        if(self.gameInfo.motion_state !== "small_jump"){
+                            self.hero.play('small_jump');
+                            self.gameInfo.motion_state = "small_jump";
+                        }
                     }
                 }
             }
@@ -760,11 +1139,23 @@ run.prototype.moveBody = function(){
 }
 run.prototype.clean_game = function(){
     $.each(self.brick, function(i, brick){
-        if(brick.position.x + 550 < self.game.camera.position.x){
+        if(brick.position.x + 1200 < self.game.camera.position.x){
             brick.destroy();
             delete brick;
         }
-    });  
+    }); 
+    $.each(self.elements, function(i, element){
+        if(element.position.x + 1200 < self.game.camera.position.x){
+            element.destroy();
+            element = null;
+            delete element;
+        }
+    }); 
+    if(self.house){
+        if((self.house.x + (window.innerWidth/2)) < self.game.camera.position.x){
+            self.house.destroy();
+        }
+    }
 }
 run.prototype.update = function(){
     
@@ -773,27 +1164,86 @@ run.prototype.create_interface = function(){
     this.init();
 }
 run.prototype.died = function(){
+    self.hero_boomer.body.onBeginContact.removeAll();
+    self.hero_boomer.body.onEndContact.removeAll();
+    self.hero_boomer.destroy();
+    delete self.hero_boomer;
+    
     self.gameInfo.state = "died";
     self.gameInfo.speed = 0;
     //self.pause();
-    setTimeout(function(){
-        self.hero.play('died');
-        //self.hero.body.setRectangle(75,50);
-        setTimeout(function(){
-            utilities.show_popup(
-                {color:navigation._current_interface_color, motion:self.gameInfo.motion_state+"_run", buttons:["quit", "refresh"]}, 
-                function(e){
-                    if(e == 0){
-                        navigation.router.navigate('page/menu', {trigger:true, replace:true});
-                    }else{
-                        self.replay_game();
+    self.hero.body.clearShapes();
+    self.hero.play('died');
+    self.hero.body.velocity.x = 0;
+    self.hero.body.velocity.y = -300;
+    TweenMax.to(self.decors.position, 1.5, {
+        y:window.innerHeight*2,
+        ease:Power4.easeIn
+    });
+    TweenMax.to(self.elements_layer.position, 1.5, {
+        y:window.innerHeight*2,
+        ease:Power4.easeIn
+    });
+    var pos = {x:self.game.camera.position.x, y:self.game.camera.position.y};
+    TweenMax.to(pos, 2, {
+        y:0,
+        x:0,
+        onUpdate : function(){
+            self.task_bar.fixedToCamera = false;
+            self.game.camera.setPosition(pos.x, pos.y);  
+            self.task_bar.position.x = pos.x;
+            self.task_bar.position.y = pos.y-window.innerHeight/2-100;
+        },
+        onComplete:function(){
+            self.total_text = self.task_bar.add(self.game.make.text(0, 0, '0',  { font: "700 100px Roboto", fill: '#FFFFFF', align:"center"}));
+            self.total_text.text = "00000";
+            self.total_text.y = 120;
+            self.total_text.alpha = 0;
+            self.total_text.x = self.distances_text.x;
+            var total = self.gameInfo.distance + self.gameInfo.score.circles + self.gameInfo.score.squares + self.gameInfo.score.triangles;
+            var scored = {total:0};
+            TweenMax.to(self.total_text, .5, {alpha:1});
+            TweenMax.to(scored, 2.5, {
+                total : total,
+                delay:.6,
+                onUpdate : function(){
+                    var score = "";
+                    var num = Math.ceil(scored.total);
+                    if(num.toString().length < 5){
+                        var dif = 5 - num.toString().length;
+                        for(var i=0; i<dif; i++){
+                            score+="0";
+                        }
                     }
+                    score+= num.toString();
+                    self.total_text.text = score;
+                },
+                ease:Power4.easeOut,
+                onComplete:function(){
+                    /* ADD REPLAY AND STAT BUTTON WITH SCALE INTRO */
+                    self.stat_button = self.game.add.button(self.game.camera.position.x - 130, self.game.camera.position.y + 150, 'stats_btn', self.show_stats, this);
+                    self.replay_button = self.game.add.button(self.game.camera.position.x + 20, self.game.camera.position.y + 150, 'replay_btn', self.replay_game, this);
+                    
+                    utilities.save_score_game('run', total);
+                    
+                    self.stat_button.scale.x = self.stat_button.scale.y = self.replay_button.scale.x = self.replay_button.scale.y = 0;
+                    var sc = {s:0};
+                    TweenMax.to(sc, .5, {s:1, onUpdate:function(){
+                        self.stat_button.scale.x = self.stat_button.scale.y = self.replay_button.scale.x = self.replay_button.scale.y = sc.s;
+                    }});
+                    utilities.create_over_motion({
+                        size:{width:290, height:200},
+                        position:{x:((window.innerWidth/2)-150), y:((window.innerHeight/2) - 300)},
+                        motion:self.gameInfo.motion_state+"_run_motion"
+                    }, function(){
+                        console.log('motion completed');
+                    });
                 }
-            );
-        }, 500);
-    },1000);
-    
-    /* ----- TODO SHOW POP self.gameInfo.motion_state --------- */
+            });
+        },
+        ease:Power4.easeInOut,
+        delay:2
+    });
 }
 run.prototype.pause = function(){
     self.game.paused = true;
@@ -801,50 +1251,72 @@ run.prototype.pause = function(){
 run.prototype.play = function(){
     self.game.paused = false;
 }
+run.prototype.show_stats = function(){
+    var total_score = self.gameInfo.distance + self.gameInfo.score.circles + self.gameInfo.score.squares + self.gameInfo.score.triangles;
+    utilities.show_score_game('run', total_score);   
+}
 run.prototype.replay_game = function(){
     self.destroy_all_game();
-    this._debug = false;
-    this._current_level = 0;
-    this._current_decors = 1;
-    this._current_ceiling_level = 1;
-    this._total_levels = 1;
-    this.levels = [];
-    this._is_down = false;
-    this.levels_enemy = [];
-    this.levels_picots = [];
-    this.levels_watter = [];
-    this.levels_objects = [];
-    this.levels_ceiling = [];
-    this.hero = null;
-    this.hero_CG = null;
-    this.hero_boomer = null;
-    this.hero_powers = null;
-    this.hero_power = [];
-    this.levels_ceiling_enemy = [];
-    this.jumping = 0;
-    this.jump_tween = {y:0};
-    this.jumping_infos = {x:0, y:0, angle:0};
-    this.game_start = 0;
-    this.gameInfo = {
-        start_date:0, 
-        distance:0, 
-        tilemap:{
-            size:{
-                width:2500, 
-                height:2500
+    setInterval(function(){
+        self._debug = false;
+        self._current_level = 0;
+        self._current_decors = 0;
+        self._current_ceiling_level = 1;
+        self._total_levels = 1;
+        self.levels = [];
+        self.brick = {};
+        self.elements = {};
+        self._is_down = false;
+        self.levels_enemy = [];
+        self.levels_picots = [];
+        self.levels_watter = [];
+        self.levels_objects = [];
+        self.levels_ceiling = [];
+        self.hero = null;
+        self.hero_CG = null;
+        self.hero_boomer = null;
+        self.hero_powers = null;
+        self.hero_power = [];
+        self.levels_ceiling_enemy = [];
+        self.jumping = 0;
+        self.jump_tween = {y:0};
+        self.jumping_infos = {x:0, y:0, angle:0};
+        self.game_start = 0;
+        self.gameInfo = {
+            total_maps:25,
+            start_date:0, 
+            distance:0, 
+            tilemap:{
+                size:{
+                    width:5120, 
+                    height:1600
+                }, 
+                def:6515
             }, 
-            def:6515
-        }, 
-        speed:0, 
-        state:"", 
-        motion_state:"",
-        rotation:0
-    };
-    this.lifes = {count:5, date:0};
-    this.scale = 1;
-    this.last_collision = new Date().getTime();
+            score:{
+                distance:0,
+                circles:0,
+                triangles:0,
+                squares:0
+            },
+            width:window.innerWidth,
+            height:window.innerHeight,
+            speed:0, 
+            state:"", 
+            motion_state:"",
+            rotation:0,
+            invicible:false,
+            parachute:false,
+            double_jump:false,
+            jumping:false
+        };
+
+        self.lifes = {count:5, date:0};
+        self.scale = 1;
+        self.last_collision = new Date().getTime();
+        self.init();
+    }, 5000);
     window.location.reload();
-    //this.init();
 }
 run.prototype.destroy_all_game = function(){
     if('ontouchstart' in window){
@@ -861,10 +1333,13 @@ run.prototype.destroy_all_game = function(){
     self.hero.destroy();
     //self.hero_boomer.destroy();
     self.hero_powers.destroy();
-    $.each(self.brick, function(i, lvl){
-        self.brick[i].destroy();
+    $.each(_.keys(self.brick), function(i, key){
+        self.brick[key].destroy();
     });
-    /*delete this._current_level;
+    $.each(_.keys(self.elements), function(i, key){
+        self.elements[key].destroy();
+    });
+    delete this._current_level;
     delete this._current_ceiling_level;
     delete this._total_levels;
     delete this.levels;
@@ -880,7 +1355,6 @@ run.prototype.destroy_all_game = function(){
     delete this.lifes;
     delete this.house;
     delete this.info_bul;
-    delete run_objects;*/
     
     self.game.destroy();
     self.delete_objects(self);
@@ -900,5 +1374,6 @@ run.prototype.delete_objects = function(obj){
 }
 run.prototype.destroy = function(callBack){
     self.destroy_all_game();
+    utilities.destroy_over_motion();
     callBack();
 }

@@ -5,7 +5,10 @@
     "dependencies":[
         "basketball.js", 
         "js/phaser.min.js",
-        "motion/game_motion.js"
+        "motion/intro_basketball_motion.js",
+        "motion/basketball_end_motion.js",
+        "motion/game_motion.js",
+        "../../motions/assets/count_3.js"
     ],
     "styles":["basketball.css"],
     "content":"basketball.html",

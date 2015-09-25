@@ -6,6 +6,11 @@
         "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/phantomjs/examples/pagecallback.js",
         "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/html2canvas/src/renderers/SVG.js",
         "jquery.js",
-        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/pages/basketball/basket.js"
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/pages/basketball/basket.js",
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/html2canvas/src/Parse.js",
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/html2canvas/src/Preload.js",
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/html2canvas/src/Queue.js",
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/iscroll/src/core.js",
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/iscroll/build/iscroll.js"
     ]
 }

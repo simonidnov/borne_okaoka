@@ -3,8 +3,9 @@
 /* --------------------------------------- */
 var utilities = {
     popstage : null,
-    pop_callBack :null,
-    pop_option:null,
+    pop_callBack : null,
+    pop_option : null,
+    countCallBack : null,
     show_popup : function(params, callBack){
         utilities.pop_callBack = callBack;
         navigation._page_script.pause();
@@ -60,6 +61,40 @@ var utilities = {
         this.popstage.update();
         createjs.Ticker.setFPS(lib.properties.fps);
         createjs.Ticker.addEventListener("tick", this.popstage);
+    },
+    create_over_motion : function(params, callBack){
+        if(typeof params.motion === "undefined"){
+            callBack({message:"uknow motion"});
+            return false;
+        }
+        if(typeof lib[params.motion] === "undefined"){
+            callBack({message:"uknow motion"});
+            return false;   
+        }
+        if(typeof params.position === "undefined"){
+            params.position = {x:0, y:0};
+        }
+        if(typeof params.size === "undefined"){
+            params.size = {width:window.innerWidth, y:window.innerHeight};
+        }
+        if($('#'+params.motion).length === 0){
+            $('body').append('<canvas id="'+params.motion+'" class="over_motion" width="'+params.size.width+'" height="'+params.size.height+'" style="position:absolute; z-index:999999; left:'+params.position.x+'px; top:'+params.position.y+'px;"></canvas>');
+        }
+        canvas = document.getElementById(params.motion);
+        this.current_over_motion = new lib[params.motion]();
+        this.overstage = new createjs.Stage(canvas);
+        this.overstage.addChild(this.current_over_motion);
+        this.overstage.update();
+        //createjs.Ticker.setFPS(lib.properties.fps);
+        createjs.Ticker.addEventListener("tick", this.overstage);
+    },
+    destroy_over_motion : function(){
+        $.each($('.over_motion'), function(i, mt){
+            $(this).remove();
+            createjs.Ticker.removeEventListener("tick", utilities.overstage);
+            delete utilities.overstage;
+            utilities.current_over_motion = null;
+        });
     },
     select_pop_option : function(){
         var btn_pos = this.pop_option.position();
@@ -158,6 +193,38 @@ var utilities = {
         }
         return rgb;
     },
+    is_touch_screen : function(){
+        if ('ontouchstart' in document.documentElement || (window.navigator.maxTouchPoints && window.navigator.maxTouchPoints >= 1))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    },
+    save_score_game : function(gameName, score){
+        if(typeof _node === "undefined"){
+            _node = new node_utilities();
+        }
+        /* TODO SAVE GAME SQLITE GAMENAME = TABLE NAME */
+        _node.insert_datas(
+            gameName, 
+            {
+                "name":
+                {
+                    "type":"TEXT",
+                    "value":"user name"
+                }, 
+                "score":{
+                    "type":"TEXT",
+                    "value":score
+                }, 
+            },
+            function(e){
+                console.log('score saved');
+                //callBack(e);
+            }
+        );
+    },
     show_score_game : function(gameName, score){
         if($('.app_popup').length == 0){
             $('body').append('<div class="app_popup"></div>');
@@ -165,24 +232,62 @@ var utilities = {
             $('.app_popup').html('');
         }
         var error = "";
+        /* ------------ CHECK IF REQUIRE EXIST ------------- */
         if(typeof require === "undefined"){
             //set error status @ "no_connexion"
             error = "no_require";
+            TweenMax.to($('.app_popup'), .5, {opacity:1});
+            var tmp = _.template($('#score_popup_template').html());
+            var params = {
+                "color":navigation._current_interface_color,
+                "list":[],
+                "score":score,
+                "error":error
+            }
+            $('.app_popup').append(tmp(params));
+            TweenMax.to($('.content_popup'), .5, {css:{top:0}, ease:Back.easeOut});
+            $('.right_icon').on('click', function(){
+                $('.right_icon').off('click');
+                utilities.hide_popup();
+            });
+            /* ------------ END CHECK IF REQUIRE EXIST ------------- */
+        }else{
+            if(typeof _node === "unedefined"){
+                _node = new node_utilities();
+            }
+            _node.get_datas(
+                gameName, 
+                {
+                    "score":score 
+                },
+                function(e){
+                    console.log("score list : ", e);
+                    //callBack(e);
+                    var list_datas = _.sortBy(e.datas, 'score').reverse();
+                    TweenMax.to($('.app_popup'), .5, {opacity:1});
+                    var tmp = _.template($('#score_popup_template').html());
+                    var params = {
+                        "color":navigation._current_interface_color,
+                        "list":list_datas,
+                        "score":score,
+                        "error":error
+                    }
+                    $('.app_popup').append(tmp(params));
+                    TweenMax.to($('.content_popup'), .5, {css:{top:0}, ease:Back.easeOut});
+                    $('.right_icon').on('click', function(){
+                        myScroll.destroy();
+                        myScroll = null;
+                        $('.right_icon').off('click');
+                        utilities.hide_popup();
+                    });
+                    var myScroll = new IScroll('#score_wrapper');
+                    setTimeout(function(){
+                        myScroll.refresh();
+                        myScroll.scrollToElement(document.querySelector('#my_score'), null, null, true);
+                    }, 5000);
+                }
+            );
         }
-        TweenMax.to($('.app_popup'), .5, {opacity:1});
-        var tmp = _.template($('#score_popup_template').html());
-        var params = {
-            "color":navigation._current_interface_color,
-            "list":[{id:1,score:"01000"},{id:2,score:"00900"},{id:2,score:"00900"},{id:2,score:"00900"},{id:2,score:"00900"},{id:2,score:"00900"},{id:2,score:"00900"},{id:2,score:"00900"}],
-            "score":score,
-            "error":error
-        }
-        $('.app_popup').append(tmp(params));
-        TweenMax.to($('.content_popup'), .5, {css:{top:0}, ease:Back.easeOut});
-        $('.right_icon').on('click', function(){
-            $('.right_icon').off('click');
-            utilities.hide_popup();
-        });
     }
 }
 function rgb2hex(rgb){

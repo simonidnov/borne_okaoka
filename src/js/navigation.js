@@ -6,9 +6,64 @@ var navigation = {
     _last_page_menu : 0,
     _switcher_last_date : null,
     _current_interface_color : colors.blue,
+    _last_event : new Date().getTime(),
+    settings : {
+        "time_off":60000,
+        "audio":{
+            "effects":{
+                "state":"on",
+                "volume":100
+            },
+            "music":{
+                "state":"on",
+                "volume":100
+            },
+            "video":{
+                "state":"on",
+                "volume":100
+            }
+        },
+        "data_storage":{
+            "ws_uri":"http://okaoka.landscape-viewer.com/",
+            "get":{
+                "playlist":"playlist",
+                "scores":"scores",
+                "stats":"stats"
+            },
+            "post":{
+                "pictures":"pictures",
+                "scores":"scores",
+                "stats":"stats"
+            }
+        }
+    },
     init : function(){
+        if(window.localStorage.getItem('okaoka_settings') === null){
+            window.localStorage.setItem('okaoka_settings', JSON.stringify(navigation.settings));   
+        }else{
+            navigation.settings = JSON.parse(window.localStorage.getItem('okaoka_settings'));
+        }
         //document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
+        if(utilities.is_touch_screen()){
+            $('body').on('touchstart', navigation.update_event);
+        }else{
+            $('body').on('mousedown', navigation.update_event);
+        }
+        this.check_activity();
         this.create_routes();
+    },
+    update_event : function(){
+        navigation._last_event = new Date().getTime();  
+    },
+    check_activity : function(){
+        if(navigation._current_page_name !== "screensaver" && navigation._current_page_name !== "video"  && navigation._current_page_name !== "switcher"){
+            if(new Date().getTime() - navigation._last_event > 30000){
+                //navigation.router.navigate('page/screensaver', {trigger:true, replace:true});
+            }
+        }
+        setTimeout(function(){
+            navigation.check_activity();
+        }, 30000);
     },
     create_routes : function(){
         var Router = Backbone.Router.extend({
@@ -17,12 +72,18 @@ var navigation = {
                 'page/:name':'changepage'
             },
             changepage : function(name){
-                if(typeof name != "undeinfed"){
+                console.log('change page ', name);
+                if(typeof name !== "undefined"){
+                    console.log('name is defined');
                     if(navigation._page_script === null || typeof navigation._page_script == "undefined"){
+                        console.log('load');
                         navigation.load_page(name);
                     }else{
+                        console.log('destroy');
                         navigation._page_script.destroy(function(){
+                            console.log('remove_dependencies');
                             navigation.remove_dependencies();
+                            console.log('load_page ', name);
                             navigation.load_page(name);
                         });
                     }
@@ -33,10 +94,10 @@ var navigation = {
         });
         Backbone.emulateHTTP = true;
         this.router = new Router();
-        Backbone.history.start();
+        Backbone.history.start({ pushState: false });
         var hash = window.location.hash;
         if(hash == ""){
-            hash = 'page/screensaver';
+            hash = 'page/switcher';
         }else{
             hash.replace('#', '');
         }
@@ -49,18 +110,33 @@ var navigation = {
                 }
             });
         });
-        $('#switchbutton')
-            .off('mousedown')
-            .off('mouseup')
-            .on('mousedown', function(){
-                navigation._switcher_last_date = new Date().getTime();
-            })
-            .on('mouseup', function(){
-                var date = new Date().getTime();
-                if(date - navigation._switcher_last_date >= 3000){
-                    navigation.router.navigate('page/switcher', {trigger:true, replace:true});
-                }
-            });
+        if(utilities.is_touch_screen()){
+            $('#switchbutton')
+                .off('touchstart')
+                .off('touchend')
+                .on('touchstart', function(){
+                    navigation._switcher_last_date = new Date().getTime();
+                })
+                .on('touchend', function(){
+                    var date = new Date().getTime();
+                    if(date - navigation._switcher_last_date >= 3000){
+                        navigation.router.navigate('page/switcher', {trigger:true, replace:true});
+                    }
+                });
+        }else{
+            $('#switchbutton')
+                .off('mousedown')
+                .off('mouseup')
+                .on('mousedown', function(){
+                    navigation._switcher_last_date = new Date().getTime();
+                })
+                .on('mouseup', function(){
+                    var date = new Date().getTime();
+                    if(date - navigation._switcher_last_date >= 3000){
+                        navigation.router.navigate('page/switcher', {trigger:true, replace:true});
+                    }
+                });
+        }
     },
     remove_dependencies : function(){
         var self = navigation;
@@ -79,6 +155,7 @@ var navigation = {
         self.page_properties = null;
     },
     load_page : function(page){
+        console.log('load page :: ', page );
         if(page === null){
             return false;
         }
@@ -136,10 +213,11 @@ var navigation = {
         });
     },
     init_current_page : function(callBack){
+        console.log('init_current_page');
         if(typeof this.page_properties.motion !== "undefined"){
-            $('.app_content').append('<div class="intro_motion" id="motion_draw"><canvas id="motion_canvas" width="'+window.innerWidth+'" height="'+window.innerHeight+'" style="background-color:rgba(0,0,0,0);"></canvas></div>');
+            $('.app_content').append('<div class="intro_motion" id="motion_draw" style="width:'+window.innerWidth+'px; height:'+window.innerHeight+'px;"><canvas id="motion_canvas" width="'+window.innerWidth+'" height="'+window.innerHeight+'" style="background-color:rgba(0,0,0,0);"></canvas></div>');
             var self = this;
-            
+            $('#backbutton').css('display','none');
             TweenMax.set($('.intro_motion'), {scaleX:0, scaleY:0});
             TweenMax.to($('.intro_motion'), .5, {scaleX:1, scaleY:1, onComplete:function(){
 
@@ -149,6 +227,10 @@ var navigation = {
             canvas = document.getElementById("motion_canvas");
             this.exportRoot = new lib[this.page_properties.motion]();
             this.stage = new createjs.Stage(canvas);
+            this.exportRoot.regX = 450;
+            this.exportRoot.regY = 200;
+            this.exportRoot.x = window.innerWidth/2;
+            this.exportRoot.y = window.innerHeight/2;
             this.stage.addChild(this.exportRoot);
             this.stage.update();
             //lib.properties.fps

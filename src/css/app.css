@@ -20,6 +20,9 @@ html, body, iframe {
     -o-transform: translate3d(0,0,0);
     -ms-transform: translate3d(0,0,0);
 }
+.scroller{
+    width:100% !important;   
+}
 .draggable{
     width:200px;
     height:200px;

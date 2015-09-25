@@ -233,6 +233,16 @@ drawing.prototype.pause = function(){
 drawing.prototype.play = function(){
 }
 drawing.prototype.destroy = function(callBack){
+    if(self.currentShape.length > 10){
+        //node_utilities.save_picture(bitmapData, base_filname, datas, callBack); 
+        var bitmapData = document.getElementById('drawing_canvas').toDataURL('image/png');
+        if(typeof _node === "undefined"){
+            _node = new node_utilities();   
+        }
+        _node.save_picture(bitmapData, "drawing", {}, function(e){
+            console.log(e);
+        });
+    }
     createjs.Ticker.removeEventListener('tick', self.tick);
     //createjs.Ticker.removeAllEventListeners();
     self.base = null;

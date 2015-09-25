@@ -17,6 +17,7 @@
         </div>
         <div class="app_content">
         </div>
+        <script src="../bower_components/socket.io-client/socket.io.js"></script>
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <!--<script src="bower_components/html2canvas/build/html2canvas.min.js"></script>-->
         <script src="bower_components/jquery-ui-draggable/jquery-ui-draggable.js"></script>
@@ -32,6 +33,7 @@
         <script src="bower_components/PreloadJS/lib/preloadjs-0.6.1.combined.js"></script>
         <script src="bower_components/EaselJS/lib/easeljs-0.8.1.combined.js"></script>
         <script src="bower_components/EaselJS/lib/movieclip-0.8.1.combined.js"></script>
+        <script src="bower_components/iscroll/build/iscroll-infinite.js"></script>
         <!--<script src="bower_components/EaselJS/lib/webgl-0.8.1.combined.js"></script>
         <script src="bower_components/SoundJS/lib/soundjs-0.6.1.combined.js"></script>-->
         <script src="bower_components/TweenJS/lib/tweenjs-0.6.1.combined.js"></script>
@@ -76,25 +78,27 @@
                     <div class="left_icon"></div>
                     <div class="right_icon"></div>
                 </div>
-                <div class="popup_list">
+                <div class="popup_list" id="score_wrapper">
                     <% if(error !== ""){ %>
                         <div class="connexion_error">
                             <img src="./images/assets/no_connexion.png" width="100%;"/>
                         </div>
                     <% }else{ %>
-                        <% for(var i=0; i<list.length; i++){ %>
-                            <% if(list[i].score != score){ %>
-                                <div class="popup_line" style="background-color:<%= utilities.colorLuminance(color, .1) %>; border-bottom:1px solid <%= utilities.colorLuminance(color, -.1) %>;">
-                                    <div class="line_position"><%= i %></div>
-                                    <div class="line_score"><%= list[i].score %></div>
-                                </div>
-                            <% }else{ %>
-                                <div class="popup_line" style="background-color:<%= color %>; border-bottom:1px solid <%= utilities.colorLuminance(color, -.1) %>;" data-value="<%= i %>">
-                                    <div class="line_position"><%= i %></div>
-                                    <div class="line_score"><%= list[i].score %></div>
-                                </div>
+                        <div class="scroller" id="score_scroller">
+                            <% for(var i=0; i<list.length; i++){ %>
+                                <% if(list[i].score != score){ %>
+                                    <div class="popup_line" style="background-color:<%= utilities.colorLuminance(color, .1) %>; border-bottom:1px solid <%= utilities.colorLuminance(color, -.1) %>;">
+                                        <div class="line_position"><%= (i+1) %></div>
+                                        <div class="line_score"><%= list[i].score %></div>
+                                    </div>
+                                <% }else{ %>
+                                    <div class="popup_line my_score" id="my_score" style="background-color:<%= color %>; border-bottom:1px solid <%= utilities.colorLuminance(color, -.1) %>;" data-value="<%= i %>">
+                                        <div class="line_position"><%= (i+1) %></div>
+                                        <div class="line_score"><%= list[i].score %></div>
+                                    </div>
+                                <% } %>
                             <% } %>
-                        <% } %>
+                        </div>
                     <% } %>
                 </div>
             </div>

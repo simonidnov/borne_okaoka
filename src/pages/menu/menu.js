@@ -80,7 +80,8 @@ menu.prototype.display_bricks = function(){
         $('.menu_content'), 
         $('.menu_screen'), 
         0, 
-        self.slider, {
+        self.slider, 
+        {
             "start_drag":function(evt){
                 self._is_on_drag = true;
                 self.replace_request = window.requestAnimationFrame(self.check_bricks);

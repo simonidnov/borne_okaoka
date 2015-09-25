@@ -62,7 +62,7 @@ dots.prototype.create_objectives = function(){
         self._objectives_container.addChild(self._objectives_hits.icon);
 
         self._objectives_hits.text = new createjs.Text();
-        self._objectives_hits.text.font = "100 25px Roboto";
+        self._objectives_hits.text.font = "100 35px Roboto";
         self._objectives_hits.text.color = "#FFFFFF";
         self._objectives_hits.text.text = self._total_hits;
         self._objectives_hits.text.x = 90;
@@ -138,8 +138,9 @@ dots.prototype.create_objectives = function(){
     };
     var spriteSheet = new createjs.SpriteSheet(data);
     self.fivehits = new createjs.Sprite(spriteSheet, "stop");
-    self.fivehits.x = 45;
-    self.fivehits.y = 20;
+    self.fivehits.regX = self.fivehits.regY = 25;
+    self.fivehits.x = 0;
+    self.fivehits.y = 45;
     
     self._objectives_container.addChild(self.fivehits);
 }
@@ -278,16 +279,39 @@ dots.prototype.create_grid = function(){
         function(e){
             /* have to init gameplay */
             setTimeout(function(){
-                self.gameInfo.start_date = new Date().getTime();
-                self.okaokasprite.gotoAndPlay('run');
-                self.gameInfo.started = true;
+                self.countGround = new createjs.Shape();
+                self.countGround.graphics.beginFill(navigation._current_interface_color);
+                self.countGround.graphics.drawCircle(0,0,70);
+                self.countGround.scaleX = self.countGround.scaleY = 0;
+                self.countGround.x = window.innerWidth/2;
+                self.countGround.y = window.innerHeight/2;
+                TweenMax.to(self.countGround, .5, {scaleX:1, scaleY:1});
+                
+                self.stage.addChild(self.countGround);
+                //self.drawShape( this.dots[cur], cur_color); 
+                
+                self.countMotion = new lib["count_3"]();
+                self.countMotion.regX = 275;
+                self.countMotion.regY = 200;
+                self.countMotion.x = window.innerWidth/2;
+                self.countMotion.y = window.innerHeight/2;
+                self.countMotion.shadow = new createjs.Shadow(utilities.colorLuminance(navigation._current_interface_color, -.2), 3, 3, 0);
+                self.stage.addChild(self.countMotion);
+                utilities.countCallBack = function(){
+                    TweenMax.to(self.countGround, .5, {scaleX:0, scaleY:0});
+                    self.stage.removeChild(self.countMotion);
+                    self.stage.removeChild(self.countGround);
+                    self.gameInfo.start_date = new Date().getTime();
+                    self.okaokasprite.gotoAndPlay('run');
+                    self.gameInfo.started = true;
+                }
             },800);
         }
     );
     
 }
 dots.prototype.hit_dot = function(e){
-    console.log("hit_dot position : ", e.target.grid_position, " color : ", e.target.color);
+    //console.log("hit_dot position : ", e.target.grid_position, " color : ", e.target.color);
 }
 dots.prototype.tick = function(){
     if(self._is_down){
@@ -357,7 +381,7 @@ dots.prototype.tick = function(){
                         /* --- on check si un rectangle est dessiné _selected_dots > 3 && child === first selected dot --- */
                         if(child.id !== self._selected_dots[self._selected_dots.length-1]){
                             if(self._selected_dots.length >= 4 && self.is_a_shape(child.id) && distance <= self._grid_size){
-                                console.log('tu as fait une forme fermée on détruit tout les dots de la couleur');
+                                //console.log('tu as fait une forme fermée on détruit tout les dots de la couleur');
                                 //self._is_down = false;
                                 self._is_shape = true;
                                 self._selected_dots.push(child.id);
@@ -454,7 +478,7 @@ dots.prototype.end_game = function(){
             var bonus = score * self._hits;
             var total_score = score + bonus;
             var scored = {total:0};
-            TweenMax.to(scored, 3.5, {
+            TweenMax.to(scored, 2.5, {
                 total : total_score,
                 delay:.6,
                 onUpdate : function(){
@@ -466,13 +490,35 @@ dots.prototype.end_game = function(){
                             score+="0";
                         }
                     }
+                    score+= num.toString();
+                    self.total_score_text.text = score;
+                },
+                ease:Power4.easeOut,
+                onComplete:function(){
                     self.replay_button = new createjs.Bitmap("./images/assets/btn_replay.png");
-                    self.replay_button.x = window.innerWidth/2 + 20;
-                    self.replay_button.y = self.total_score_text.y + self.total_score_text.getBounds().height + 20;
+                    self.replay_button.x = window.innerWidth/2 + 70;
+                    self.replay_button.y = self.total_score_text.y + self.total_score_text.getBounds().height + 70;
+                    self.replay_button.regX = self.replay_button.regY = 50;
+                    self.replay_button.scaleX = self.replay_button.scaleY = 0;
                     
                     self.stats_button = new createjs.Bitmap("./images/assets/btn_stats.png");
-                    self.stats_button.x = window.innerWidth/2 - 120;
-                    self.stats_button.y = self.total_score_text.y + self.total_score_text.getBounds().height + 20;
+                    self.stats_button.x = window.innerWidth/2 - 70;
+                    self.stats_button.y = self.total_score_text.y + self.total_score_text.getBounds().height + 70;
+                    self.stats_button.regX = self.stats_button.regY = 50;
+                    self.stats_button.scaleX = self.stats_button.scaleY = 0;
+                    
+                    if(typeof _node === "undefined"){
+                        _node = new node_utilities();   
+                    }
+                    
+                    var hitAreaG = new createjs.Graphics();
+                    hitAreaG.beginFill(navigation._current_interface_color);
+                    hitAreaG.drawCircle(50, 50, 50);
+                    hitAreaG.endFill();
+                    self.replay_button.hitArea = new createjs.Shape(hitAreaG);
+                    self.stats_button.hitArea = new createjs.Shape(hitAreaG);
+                    
+                    utilities.save_score_game('dots', total_score);
                     
                     self.replay_button.addEventListener("click", function(event) { 
                         window.location.reload();
@@ -480,16 +526,17 @@ dots.prototype.end_game = function(){
                     self.stats_button.addEventListener("click", function(event) { 
                         utilities.show_score_game('dots', total_score);
                     });
-                    
+                    TweenMax.to(self.replay_button, .5, {
+                        scaleX:1,
+                        scaleY:1
+                    });
+                    TweenMax.to(self.stats_button, .5, {
+                        scaleX:1,
+                        scaleY:1,
+                        delay:.2
+                    });
                     self.stage.addChild(self.replay_button);
                     self.stage.addChild(self.stats_button);
-                    
-                    score+= num.toString();
-                    self.total_score_text.text = score;
-                },
-                ease:Power4.easeInOut,
-                onComplete:function(){
-                    console.log('total completed');
                 }
             });
         }
@@ -582,9 +629,7 @@ dots.prototype.replace_dots = function(num){
     for (var i=l-1; i>=0; i--) {
         var child = self.grid.getChildAt(i);
         if(child.line < self.grid_size.l){
-            //console.log(i, ' ::: ', child.line);
             var next_exist = _.findWhere(self.dots, {line:child.line+1, column:child.column});
-            //console.log(next_exist);
             if(typeof next_exist === "undefined"){
                 child.line += 1;
                 child.setBounds(self._grid_size * child.column, self._grid_size * child.line, self._grid_size, self._grid_size);
@@ -603,7 +648,6 @@ dots.prototype.replace_dots = function(num){
         }
         setTimeout(function(){
             self.check_game_state(function(status){
-                console.log(status);
                 switch(status.label){
                     case "continu":
                         self.complete_grid();
@@ -778,7 +822,6 @@ dots.prototype.redraw_line_selection = function(size, color){
 dots.prototype.set_dot_color = function(target, color, original_color){
     target.graphics.clear();
     target.graphics.beginFill(color);
-    console.log(color);
     self.drawShape(target, original_color);
     //.drawCircle(0, 0, self._dot_size)
 }
@@ -1051,8 +1094,7 @@ dots.prototype.update_particles = function(){
 		var p = self.particles[i];
 		p.y += Math.cos(self.angle) + 1;
 		p.x += Math.sin(self.angle) * 2;
-        //console.log(p.x);
-		if(p.x > W+5 || p.x < -5 || p.y > H)
+        if(p.x > W+5 || p.x < -5 || p.y > H)
 		{
 			if(i%3 > 0) //66.67% of the flakes
 			{
@@ -1084,7 +1126,6 @@ dots.prototype.replace_decors = function(){
     //self.decors.container.y = self._navigation.container.y / 2;
     //self.decors.bottom_center.y = -(self.decors.container.y) / 2 + window.innerHeight + 300;
     /*for(var i=0; i<_.keys(self.decors.elements).length; i++){
-        console.log(self.decors.elements[_.keys(self.decors.elements)[i]].y);
         self.decors.elements[_.keys(self.decors.elements)[i]].y = -(self.decors.container.y) / self.decors.elements[_.keys(self.decors.elements)[i]].level;
     }*/
 }
@@ -1243,13 +1284,13 @@ dots.prototype.drawShape = function(target, color){
     }
 }
 dots.prototype.pause = function(){
+    createjs.Ticker.removeEventListener('tick', self.tick);
 }
 dots.prototype.play = function(){
+    createjs.Ticker.addEventListener('tick', self.tick);
 }
 dots.prototype.destroy = function(callBack){
-    if(self.tick){
-        createjs.Ticker.removeEventListener('tick', self.tick);
-    }
+    createjs.Ticker.removeEventListener('tick', self.tick);
     callBack();
 }
 Array.prototype.clean = function(deleteValue) {
