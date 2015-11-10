@@ -20,6 +20,9 @@ html, body, iframe {
     -o-transform: translate3d(0,0,0);
     -ms-transform: translate3d(0,0,0);
 }
+.scroller{
+    width:100% !important;   
+}
 .draggable{
     width:200px;
     height:200px;
@@ -27,6 +30,12 @@ html, body, iframe {
     position: absolute;
 }
 
+.left_nav{
+    position: absolute;
+    z-index: 999999;
+    left:0;
+    top:0;
+}
 .right_nav{
     position: absolute;
     z-index: 999999;
@@ -42,6 +51,10 @@ html, body, iframe {
     text-align: center;
     cursor:pointer;
     overflow: hidden;
+}
+#switchbutton{
+    width:50px;
+    height:50px;
 }
 .dot_pos{
     width:200px;

@@ -1,0 +1,20 @@
+{
+    "label":"number",
+    "version":"0.0.0",
+    "color":"yellow",
+    "dependencies":["number.js", "../../motions/winning_dance_top_motion.js", "motion/number_motion.js", "motion/number_tuto_popup_motion.js", "../../motions/assets/count_3.js"],
+    "styles":["number.css"],
+    "content":"number.html",
+    "script_name":"number",
+    "motion":"number_motion",
+    "sounds":[
+        {"label":"number_level", "file":"./sounds/number_level.ogg"},
+        {"label":"number_hit", "file":"./sounds/number_hit.ogg"},
+        {"label":"number_win", "file":"./sounds/number_win.ogg"},
+        {"label":"number_fail", "file":"./sounds/number_fail.ogg"},
+        {"label":"chronos_count", "file":"./sounds/chronos_count.ogg"},
+        {"label":"chronos_start", "file":"./sounds/chronos_start.ogg"},
+        {"label":"chronos_five_seconds", "file":"./sounds/chronos_five_seconds.ogg"},
+        {"label":"chronos_end", "file":"./sounds/chronos_end.ogg"}
+    ]
+}

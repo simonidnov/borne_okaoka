@@ -1,8 +1,15 @@
 {
     "label":"menu",
     "version":"0.0.0",
-    "dependencies":["menu.js"],
+    "dependencies":["menu.js", "slider.js"],
     "styles":["menu.css"],
     "content":"menu.html",
-    "script_name":"menu"
+    "script_name":"menu",
+    "sounds":[
+        {"label":"menu_create", "file":"./sounds/menu_create.ogg"},
+        {"label":"menu_hit", "file":"./sounds/menu_hit.ogg"},
+        {"label":"menu_swipe_left", "file":"./sounds/menu_swipe_left.ogg"},
+        {"label":"menu_swipe_right", "file":"./sounds/menu_swipe_right.ogg"},
+        {"label":"menu_ambiance", "file":"./sounds/menu_ambiance.ogg"}
+    ]
 }

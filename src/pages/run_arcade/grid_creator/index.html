@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="grid_creator.css">
+    </head>
+    <body>
+        <div class="levels">
+            <div class="open_level">
+                <input type="file" id="fileinput"/>
+            </div>
+            <div class="add_level">+</div>
+            <!--<div class="level_tab selected" data-name="level_0" data-id="0">
+                <div class="label">Level 0</div>
+                <div class="destroy">X</div>
+            </div>-->
+        </div>
+        <div class="content_grid">
+            <div class="level bricks" id="level_0"><div class="middle_line"></div></div>
+            <div class="level elements" id="level_elements_0"></div>
+        </div>
+        <div class="draggables">
+            <div class="onglets">
+                <div class="onglet" id="expand">expand</div>
+                <div class="onglet selected" id="physics">physics</div>
+                <div class="onglet" id="decors">decors</div>
+                <div class="onglet" id="elements">elements</div>
+                <div class="onglet right" id="save">save</div>
+            </div>
+            <div class="physics"></div>
+            <div class="decors"></div>
+            <div class="elements"></div>
+        </div>
+        <script src="../../../bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="../../../bower_components/FileSaver.js/FileSaver.min.js"></script>
+        <script src="../../../bower_components/jquery-ui-draggable/jquery-ui-draggable.js"></script>
+        <script src="../../../bower_components/underscore/underscore-min.js"></script>
+        <script src="grid_creator.js"></script>
+        <script>
+            $(document).ready(function(){
+                grid_creator.init(); 
+            });
+        </script>
+    </body>
+</html>

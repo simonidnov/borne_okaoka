@@ -1,0 +1,17 @@
+{
+    "label":"build_2",
+    "version":"0.0.0",
+    "color":"green",
+    "dependencies":["build_2.js", "motion/build_motion.js", "js/phaser-2.4.4.min.js", "motion/build_intro_popup_motion.js", "motion/build_end_motion.js"],
+    "styles":["build_2.css"],
+    "content":"build_2.html",
+    "script_name":"build",
+    "motion":"build_motion",
+    "sounds":[
+        {"label":"build_2_ambiance", "file":"./sounds/build_2_ambiance.ogg"},
+        {"label":"build_2_drop", "file":"./sounds/build_2_drop.ogg"},
+        {"label":"build_2_explode", "file":"./sounds/build_2_explode.ogg"},
+        {"label":"build_2_end_game ", "file":"./sounds/build_2_end_game.ogg"},
+        {"label":"total_count", "file":"./sounds/total_count.ogg"}
+    ]
+}

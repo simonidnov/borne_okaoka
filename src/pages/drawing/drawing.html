@@ -5,7 +5,7 @@
         <div class="tool brush" id="brush_3" data-size="10" data-stylingw="round" data-stylingh="round"></div>
         <div class="tool brush" id="brush_4" data-size="30" data-stylingw="round" data-stylingh="round"></div>
         <div class="tool brush" id="brush_5" data-size="50" data-stylingw="butt" data-stylingh="round"></div>
-        <div class="tool" id="gum"></div>
+        <div class="tool" id="gum" data-size="30" data-stylingw="round" data-stylingh="round"></div>
         <div class="tool" id="cancel"></div>
         <div class="tool" id="redraw"></div>
         <div class="tool" id="clear"></div>
@@ -15,10 +15,8 @@
     </div>
     <div id="drawing_colors">
         <% $.each(_.keys(colors), function(index, color){ %>
-            <% for(var i=2; i>0; i--){ %>
-                <div class="color_picker" style="background-color:<%= utilities.colorLuminance(colors[color], i/10) %>" data-color="<%= utilities.colorLuminance(colors[color], i/10) %>">
-                </div>    
-            <% } %>
+            <div class="color_picker" style="background-color:<%= utilities.colorLuminance(colors[color], .5) %>" data-color="<%= utilities.colorLuminance(colors[color], .5) %>"></div>
+            <div class="color_picker" style="background-color:<%= colors[color] %>" data-color="<%= colors[color] %>"></div>
         <% }); %>
     </div>
 </script>

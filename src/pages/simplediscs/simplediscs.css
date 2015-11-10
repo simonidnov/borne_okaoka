@@ -1,0 +1,50 @@
+#canvas_game { 
+    width:1200px;
+    height:600px;
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
+}
+.content_game{
+    width:1200px;
+    height:600px;
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
+    z-index: 999;
+}
+.choice{
+    position:absolute;
+    background:rgba(0,0,0,.1);
+    width:200px;
+    height:200px;
+    display:none;
+    border-left:1px solid #000;
+    border-bottom:1px solid #000;
+}
+.choice.bt{
+    border-bottom: none;
+}
+.event_pop{
+    width:200px;
+    height:200px;
+    background:rgba(0,0,0,.5);
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
+    display: none;
+    z-index: 9999;
+}
+#good{
+}
+#wrong{
+}

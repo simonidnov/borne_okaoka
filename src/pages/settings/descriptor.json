@@ -1,0 +1,14 @@
+{
+    "label":"settings",
+    "version":"0.0.0",
+    "color":"dgreen",
+    "dependencies":[
+        "settings.js", "js/formular/formular.js", "js/c3/c3.min.js", "js/d3/d3.min.js"
+    ],
+    "styles":["settings.css", "js/formular/formular.css", "js/c3/c3.min.css"],
+    "content":"settings.html",
+    "script_name":"settings",
+    "sounds":[
+        {"label":"bip", "file":"./sounds/beep9.ogg"}
+    ]
+}

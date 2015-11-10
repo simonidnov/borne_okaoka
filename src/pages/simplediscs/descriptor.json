@@ -1,0 +1,20 @@
+{
+    "label":"simplediscs",
+    "version":"0.0.0",
+    "color":"sblue",
+    "dependencies":["simplediscs.js", "motion/tuto_popup_3_motion.js", "motion/end_popup_motion.js", "levels.js", "motion/discs_motion.js", "../../motions/winning_dance_top_motion.js", "../../motions/assets/count_3.js"],
+    "styles":["simplediscs.css"],
+    "content":"simplediscs.html",
+    "script_name":"simplediscs",
+    "motion":"discs_motion",
+    "sounds":[
+        {"label":"disc_win", "file":"./sounds/disc_win.ogg"},
+        {"label":"disc_fail", "file":"./sounds/disc_fail.ogg"},
+        {"label":"simplediscs_ambiance", "file":"./sounds/disc_ambiance.ogg"},
+        {"label":"total_count", "file":"./sounds/total_count.ogg"},
+        {"label":"chronos_count", "file":"./sounds/chronos_count.ogg"},
+        {"label":"chronos_start", "file":"./sounds/chronos_start.ogg"},
+        {"label":"chronos_five_seconds", "file":"./sounds/chronos_five_seconds.ogg"},
+        {"label":"chronos_end", "file":"./sounds/chronos_end.ogg"}
+    ]
+}

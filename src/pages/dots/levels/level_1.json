@@ -1,11 +1,31 @@
 {
-    "1":{
+    "0":{
         "color":"yellow",
         "legend":"Casser des briques",
         "dot_size":20,
         "grid_size":{"c":5, "l":5},
-        "_grid_size":80,
-        "hits":40,
+        "_grid_size":100,
+        "hits":-1,
+        "time":60000,
+        "objectives":{
+            "purple":-1,
+            "green":-1,
+            "pink":-1
+        },
+        "colors":[
+            "purple",
+            "green",
+            "pink"
+        ]
+    },
+    "1":{
+        "color":"yellow",
+        "legend":"Casser des briques",
+        "dot_size":40,
+        "grid_size":{"c":4, "l":4},
+        "_grid_size":130,
+        "hits":6,
+        "time":-1,
         "objectives":{
             "purple":2,
             "green":2,
@@ -23,7 +43,8 @@
         "dot_size":20,
         "grid_size":{"c":8, "l":4},
         "_grid_size":80,
-        "hits":40,
+        "hits":10,
+        "time":-1,
         "objectives":{
             "purple":20,
             "green":10,
@@ -36,21 +57,23 @@
         ]
     },
     "3":{
-        "color":"purple",
+        "color":"yellow",
         "legend":"Casser des briques",
         "dot_size":20,
-        "grid_size":{"c":5, "l":5},
+        "grid_size":{"c":9, "l":3},
         "_grid_size":80,
         "hits":40,
+        "time":-1,
         "objectives":{
             "yellow":200,
             "green":100,
             "pink":50
         },
         "colors":[
-            "yellow",
+            "sblue",
             "green",
-            "pink"
+            "pink",
+            "purple"
         ]
     },
     "4":{
@@ -60,6 +83,121 @@
         "grid_size":{"c":5, "l":5},
         "_grid_size":80,
         "hits":40,
+        "time":-1,
+        "objectives":{
+            "purple":200,
+            "yellow":100,
+            "pink":50
+        },
+        "colors":[
+            "purple",
+            "yellow",
+            "pink"
+        ]
+    },
+    "5":{
+        "color":"green",
+        "legend":"Casser des briques",
+        "dot_size":20,
+        "grid_size":{"c":5, "l":5},
+        "_grid_size":80,
+        "hits":40,
+        "time":-1,
+        "objectives":{
+            "purple":200,
+            "yellow":100,
+            "pink":50
+        },
+        "colors":[
+            "purple",
+            "yellow",
+            "pink"
+        ]
+    },
+    "6":{
+        "color":"green",
+        "legend":"Casser des briques",
+        "dot_size":20,
+        "grid_size":{"c":5, "l":5},
+        "_grid_size":80,
+        "hits":40,
+        "time":-1,
+        "objectives":{
+            "purple":200,
+            "yellow":100,
+            "pink":50
+        },
+        "colors":[
+            "purple",
+            "yellow",
+            "pink"
+        ]
+    },
+    "7":{
+        "color":"green",
+        "legend":"Casser des briques",
+        "dot_size":20,
+        "grid_size":{"c":5, "l":5},
+        "_grid_size":80,
+        "hits":40,
+        "time":-1,
+        "objectives":{
+            "purple":200,
+            "yellow":100,
+            "pink":50
+        },
+        "colors":[
+            "purple",
+            "yellow",
+            "pink"
+        ]
+    },
+    "8":{
+        "color":"green",
+        "legend":"Casser des briques",
+        "dot_size":20,
+        "grid_size":{"c":5, "l":5},
+        "_grid_size":80,
+        "hits":40,
+        "time":-1,
+        "objectives":{
+            "purple":200,
+            "yellow":100,
+            "pink":50
+        },
+        "colors":[
+            "purple",
+            "yellow",
+            "pink"
+        ]
+    },
+    "9":{
+        "color":"green",
+        "legend":"Casser des briques",
+        "dot_size":20,
+        "grid_size":{"c":5, "l":5},
+        "_grid_size":80,
+        "hits":40,
+        "time":-1,
+        "objectives":{
+            "purple":200,
+            "yellow":100,
+            "pink":50
+        },
+        "colors":[
+            "purple",
+            "yellow",
+            "pink"
+        ]
+    },
+    "10":{
+        "color":"green",
+        "legend":"Casser des briques",
+        "dot_size":20,
+        "grid_size":{"c":5, "l":5},
+        "_grid_size":80,
+        "hits":40,
+        "time":-1,
         "objectives":{
             "purple":200,
             "yellow":100,

@@ -1,13 +1,28 @@
 {
-    "label":"ballbreaker",
+    "label":"basketball",
     "version":"0.0.0",
+    "color":"sblue",
     "dependencies":[
         "basketball.js", 
-        "js/phaser.min.js",
-        "motion/game_motion.js"
+        "../../phaser/phaser.min.js",
+        "motion/intro_basketball_motion.js",
+        "motion/basketball_end_motion.js",
+        "motion/basketball_game_motion.js",
+        "../../motions/assets/count_3.js"
     ],
     "styles":["basketball.css"],
     "content":"basketball.html",
     "script_name":"basketball",
-    "motion":"game_motion"
+    "motion":"basketball_game_motion",
+    "sounds":[
+        {"label":"basket_launch", "file":"./sounds/basket_launch.ogg"},
+        {"label":"basket_win", "file":"./sounds/basket_win.ogg"},
+        {"label":"basket_rebond", "file":"./sounds/basket_rebond.ogg"},
+        {"label":"basketball_ambiance", "file":"./sounds/basket_ambiance.ogg"},
+        {"label":"total_count", "file":"./sounds/total_count.ogg"},
+        {"label":"chronos_count", "file":"./sounds/chronos_count.ogg"},
+        {"label":"chronos_start", "file":"./sounds/chronos_start.ogg"},
+        {"label":"chronos_five_seconds", "file":"./sounds/chronos_five_seconds.ogg"},
+        {"label":"chronos_end", "file":"./sounds/chronos_end.ogg"}
+    ]
 }

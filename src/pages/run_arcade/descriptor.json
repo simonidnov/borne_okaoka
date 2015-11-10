@@ -1,0 +1,33 @@
+{
+    "label":"run",
+    "version":"0.0.0",
+    "color":"pink",
+    "dependencies":[
+        "levels.js",
+        "run_arcade.js", 
+        "js/phaser.js",
+        "motion/intro_run/intro_run_motion.js",
+        "motion/intro_run/wall_run_motion.js",
+        "motion/intro_run/watter_run_motion.js",
+        "motion/intro_run/picots_run_motion.js",
+        "motion/running_motion_3.js"
+    ],
+    "styles":["run.css"],
+    "content":"run.html",
+    "script_name":"run",
+    "motion":"running_motion_3",
+    "sounds":[
+        {"label":"run_jump", "file":"./sounds/run_jump.ogg"},
+        {"label":"run_run", "file":"./sounds/run_running.ogg"},
+        {"label":"run_died", "file":"./sounds/run_died.ogg"},
+        {"label":"run_piece", "file":"./sounds/run_piece.ogg"},
+        {"label":"total_count", "file":"./sounds/total_count.ogg"},
+        {"label":"run_add_power", "file":"./sounds/run_add_power.ogg"},
+        {"label":"run_invicible", "file":"./sounds/run_invicible.ogg"},
+        {"label":"run_parachute", "file":"./sounds/run_parachute.ogg"},
+        {"label":"run_win_enemy", "file":"./sounds/run_win_enemy.ogg"},
+        {"label":"run_lose_enemy", "file":"./sounds/run_lose_enemy.ogg"},
+        {"label":"run_ambiance", "file":"./sounds/run_ambiance.ogg"},
+        {"label":"total_count", "file":"./sounds/total_count.ogg"}
+    ]
+}

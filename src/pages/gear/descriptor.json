@@ -1,0 +1,9 @@
+{
+    "label":"gear",
+    "version":"0.0.0",
+    "color":"dgreen",
+    "dependencies":["gear.js","../../phaser/phaser.min.js"],
+    "styles":["gear.css"],
+    "content":"gear.html",
+    "script_name":"gear"
+}

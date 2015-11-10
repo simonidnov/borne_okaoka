@@ -1,9 +1,0 @@
-{
-    "label":"memory",
-    "version":"0.0.0",
-    "dependencies":["memory.js"],
-    "styles":["memory.css"],
-    "content":"memory.html",
-    "script_name":"memory",
-    "motion":"this is a memory game engine"
-}

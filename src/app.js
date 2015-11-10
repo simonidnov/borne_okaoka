@@ -1,5 +1,4 @@
 /* ---------------- NODE JS EXPRESS LISTENERS APP AT LOCALHOST 3000 ----------------- */
-    
     var express = require('express');
     var app = express();
 
@@ -8,7 +7,7 @@
         //require('js/app.js');
         res.render('index.html');
     });
-    app.get('/debug', function (req, res) {
+    /*app.get('/debug', function (req, res) {
         
         res.send('OPENING DEBUG TOOLS ! ', JSON.stringify(gui));
         gui.Window.get().showDevTools();
@@ -16,15 +15,22 @@
     });
     app.get('/*', function (req, res) {
       res.send('GET PAGE NAME !');
-    });
+    });*/
 
-    var server = app.listen(3000, function () {
+    /*var server = app.listen(3000, function () {
         var host = server.address().address;
         var port = server.address().port;
 
         console.log('Example app listening at http://%s:%s', host, port);
-    });
+    });*/
 
+
+	//var prettyBytes = require('pretty-bytes');
+
+	//$('.stats').append('Number of cpu cores: <span>' + os.cpus().length + '</span>');
+	//$('.stats').append('Free memory: <span>' + prettyBytes(os.freemem())+ '</span>');
+
+	
 //window.location.href = "http://localhost:3000";
 
 /* ------------------- NW GUI LISTENERS ADD DEBUG MODE AND MORE --------------- */

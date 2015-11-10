@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="500px" height="500px" viewBox="-999 1001 500 500" enable-background="new -999 1001 500 500" xml:space="preserve">
-<path id="shadow" fill="#FF831D" d="M-148.7,1646.7l-426.7-429.6l-3.6,3.5c8.4,7.5,13.6,18.3,13.6,30.4c0,11.7-4.9,22.3-12.8,29.7
-	V1251h-107.5l-33.6-33.9l-3.6,3.5c8.4,7.5,13.6,18.3,13.6,30.4c0,0,0,0,0,0h-118.3l-33.6-33.9l-3.6,3.5c8.4,7.5,13.6,18.3,13.6,30.4
-	c0,22.5-18.3,40.8-40.8,40.8c-12.8,0-24.2-5.9-31.7-15.1l-3.6,3.5l367,366.7L-148.7,1646.7z"/>
+	 width="500px" height="500px" viewBox="150 -150 500 500" enable-background="new 150 -150 500 500" xml:space="preserve">
+<path id="shadow" fill="#FF831D" d="M1299.7,673.9L610.9,9.4l6.5,68.6H490.9l-50.6-51.1L277.2,78l-97-77.1L103.1,78l576.7,596.3
+	L1299.7,673.9z"/>
 <g>
-	<circle fill="#FFFFFF" cx="-892" cy="1251" r="45.5"/>
-	<circle fill="#FFFFFF" cx="-749" cy="1251" r="45.5"/>
-	<circle fill="#FFFFFF" cx="-606" cy="1251" r="45.5"/>
 	
-		<line fill="none" stroke="#FFFFFF" stroke-width="25" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="-892" y1="1251" x2="-606" y2="1251"/>
+		<circle fill="#FFFFFF" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="395.6" cy="78" r="68.6"/>
+	
+		<line fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="180.2" y1="78" x2="610.9" y2="78"/>
+	
+		<rect x="125.7" y="23.5" transform="matrix(0.7071 0.7071 -0.7071 0.7071 107.939 -104.5699)" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="109.1" height="109.1"/>
+	
+		<polygon fill="#FFFFFF" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+		694.5,146.5 527.3,146.5 610.9,9.4 	"/>
 </g>
 </svg>

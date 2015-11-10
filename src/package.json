@@ -1,18 +1,23 @@
 {
   "main": "app://okaoka/index.html",
   "name": "BorneOkaidi",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "single-instance": true,
   "app-id": "com.okaidi.borne",
-  "chromium-args": "--disable-setuid-sandbox",
+  "saved_params" : "--child-clean-exit --disable-pinch --ignore-gpu-blacklist --media-mime-types='video/ogg;audio/ogg;application/ogg;' --enable-demuxer=mp3,mov --disable-setuid-sandbox",
   "window": {
-    "width": 800,
-    "height": 600,
+    "width": 1280,
+    "height": 768,
     "title": "Borne Okaidi",
     "icon": "icons/icon.png",
     "toolbar": false,
-    "show": true,
-    "fullscreen": false
+    "fullscreen": true,
+    "transparent": false,
+    "position" : "center",
+    "show" : false,
+    "kiosk": false
   },
+  "chromium-args": "--enable-webgl --child-clean-exit --disable-pinch --ignore-gpu-blacklist --media-mime-types='video/ogg;audio/ogg;application/ogg;' --enable-demuxer=mp3,mov --disable-setuid-sandbox --use-gl --use-angle --enable-webgl-image-chromium --enable-webgl-draft-extensions --force-gpu-mem-available-mb",
   "webkit": {
     "plugin": true
   },

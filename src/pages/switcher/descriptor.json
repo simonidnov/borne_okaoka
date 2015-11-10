@@ -1,0 +1,10 @@
+{
+    "label":"switcher page",
+    "version":"0.0.0",
+    "color":"blue",
+    "dependencies":["switcher.js"],
+    "styles":["switcher.css"],
+    "content":"index.html",
+    "script_name":"switcher",
+    "sounds":[]
+}

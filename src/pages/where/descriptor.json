@@ -1,0 +1,20 @@
+{
+    "label":"where",
+    "version":"0.0.0",
+    "color":"fblue",
+    "dependencies":["where.js", "../../motions/winning_dance_top_motion.js", "motion/where_motion.js", "motion/where_tuto_popup_motion.js", "../../motions/assets/count_3.js"],
+    "styles":["where.css"],
+    "content":"where.html",
+    "script_name":"where",
+    "motion":"where_motion",
+    "sounds":[
+        {"label":"where_hit", "file":"./sounds/where_hit.ogg"},
+        {"label":"where_move", "file":"./sounds/where_move.ogg"},
+        {"label":"where_win", "file":"./sounds/where_win.ogg"},
+        {"label":"where_fail", "file":"./sounds/where_fail.ogg"},
+        {"label":"chronos_count", "file":"./sounds/chronos_count.ogg"},
+        {"label":"chronos_start", "file":"./sounds/chronos_start.ogg"},
+        {"label":"chronos_five_seconds", "file":"./sounds/chronos_five_seconds.ogg"},
+        {"label":"chronos_end", "file":"./sounds/chronos_end.ogg"}
+    ]
+}

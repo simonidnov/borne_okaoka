@@ -353,22 +353,30 @@ p.nominalBounds = new cjs.Rectangle(-226.9,-83.5,421,123);
 
 
 (lib.paper_ball_motion = function(mode,startPosition,loop) {
-	this.initialize(mode,startPosition,loop,{});
+	this.initialize(mode,startPosition,loop,{choice_1:30,choice_0:80});
 
 	// timeline functions:
-	this.frame_110 = function() {
+	this.frame_29 = function() {
 		this.stop();
-		utilities.pop_up_motion_callback();
+		utilities.pop_up_motion_callback("pause");
+	}
+	this.frame_79 = function() {
+		this.stop();
+		utilities.pop_up_motion_callback("end");
+	}
+	this.frame_81 = function() {
+		this.stop();
+		utilities.pop_up_motion_callback("end");
 	}
 
 	// actions tween:
-	this.timeline.addTween(cjs.Tween.get(this).wait(110).call(this.frame_110).wait(4));
+	this.timeline.addTween(cjs.Tween.get(this).wait(29).call(this.frame_29).wait(50).call(this.frame_79).wait(2).call(this.frame_81).wait(2));
 
 	// Calque 4
 	this.instance = new lib.pop_motion("synched",6,false);
 	this.instance.setTransform(218.4,135.5,1,1,0,0,0,0,-24.5);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(114));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(80).to({startPosition:6},0).wait(3));
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(191.5,176.5,421,123);

@@ -1,0 +1,218 @@
+html,body{
+    padding:0;
+    margin:0;
+    font-family: sans-serif;
+}
+.grid_creator{
+    
+}
+.content_grid{
+    width:2500px;
+    height:2500px;
+    position: relative;
+}
+.brick{
+    width:320px;
+    height:120px;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    position: absolute;
+    border:1px solid rgba(0,0,0,.1);
+    background-size: cover;
+}
+.brick:hover{
+    border:2px solid #FFFF00;
+}
+.element{
+    width:60px;
+    height:60px;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    position: absolute;
+    border:1px solid rgba(0,0,0,.3);
+    background-size: cover;
+}
+.element:hover{
+    border:2px solid #FFFF00;
+}
+.draggable.setted{
+    border:none;
+}
+.brick.setted:hover{
+    border:2px solid #FFFF00;
+}
+.middle_line{
+    background:#FFF000;
+    position:absolute;
+    z-index: 9;
+    top:0;
+    bottom:0;
+    height:3px;
+    margin:auto;
+    width:100%;
+}
+.draggables{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:80px;
+    background-color:#FFF;
+    border-top: 2px solid #000;
+    transition: height 1s;
+    z-index: 99;
+}
+.draggable{
+    width:160px;
+    height:60px;
+    float:left;
+    margin:10px;
+    box-sizing: border-box;
+    background-size: cover;
+}
+.draggable.selected{
+    border: 2px solid #FF0000;
+}
+.draggable_element{
+    width:60px;
+    height:60px;
+    float:left;
+    margin:10px;
+    box-sizing: border-box;
+    background-size: cover;
+}
+.draggable_element.selected{
+    border: 2px solid #FF0000;
+}
+.onglets{
+    height:50px;
+    width:100%;
+    float:left;
+    position: absolute;
+    top:-40px;
+}
+.onglet{
+    float:left;
+    margin-right:1px;
+    color:#FFF;
+    background-color:#000;
+    font-family: sans-serif;
+    padding:10px;
+    cursor: pointer;
+}
+.onglet.right{
+    float:right;
+}
+.onglet.selected{
+    color:#FFF;
+    background-color:#FF0000;
+}
+.physics{
+    width:100%;
+    height:100%;
+    overflow: scroll;
+}
+.decors{
+    width:100%;
+    height:100%;
+    overflow: scroll;
+    display: none;
+}
+.elements{
+    width:100%;
+    height:100%;
+    overflow: scroll;
+}
+.level.elements{
+    display: none;
+}
+.level{
+    margin-bottom:200px;
+}
+
+.levels{
+    position: fixed;
+    top:0;
+    width:100%;
+    z-index: 99;
+    cursor: pointer;
+}
+.add_level{
+    float:left;
+    width:40px;
+    height:40px;
+    color:#FFF;
+    background: #000;
+    line-height: 13px;
+    font-size: 30px;
+    text-align: center;
+    padding:10px;
+    box-sizing: border-box;
+}
+.level_tab{
+    height:40px;
+    background:#000;
+    color:#FFF;
+    float:left;
+    display: inline-block;
+    padding:10px;
+    box-sizing: border-box;
+    margin-left:1px;
+    cursor: pointer;
+}
+.level_tab.selected{
+    background-color:#FF0000;   
+}
+.level_tab .label{
+    float:left;
+}
+.level_tab .destroy{
+    float:left;
+    padding-left:10px;
+}
+
+
+.full_content{
+    background-color:rgba(0,0,0,.3);
+    position: fixed;
+    z-index: 999999;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+}
+.progress_content{
+    width:500px;
+    height:300px;
+    background-color: #FFF;
+    border-radius: 5px;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+}
+.full_content .status{
+    font-size:40px;
+    height:150px;
+    line-height: 150px;
+    font-family: sans-serif;
+    text-align: center;
+    width:100%;
+}
+.full_content .progress{
+    height:150px;
+    width:100%;
+    background-color: #F0F0F0;
+    position:relative;
+}
+.full_content .bar{
+    width:0%;
+    height:150px;
+    background-color: #333;
+    -webkit-transition: all .5s linear;
+    -moz-transition: all .5s linear;
+    -ms-transition: all .5s linear;
+    -o-transition: all .5s linear;
+    transition: all .5s linear;
+}

@@ -1,7 +1,7 @@
 {
     "jscodehints.detectedExclusions": [
-        "TweenLite.js",
-        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/pages/running_motion/running.js",
-        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/jquery/src/ajax/load.js"
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/js/audio_manager.js",
+        "Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/bower_components/jquery/src/data/var/data_priv",
+        "/Users/sdelamarre/Sites/okaidi_borne/borne_okaidi/src/images/assets/exit_button/exit_button.js"
     ]
 }

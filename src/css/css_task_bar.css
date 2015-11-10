@@ -1,0 +1,49 @@
+.task_bar{
+    left:0;
+    right:0;
+    margin:auto;
+    height:100px;
+    width:320px;
+    position: absolute;
+}
+.task_bar .input{
+    width:80px;
+    height:100px;
+    float:left;
+    text-align: center;
+    font-family: 'Roboto';
+    font-size: 35px;
+    font-weight: 700;
+    color:#FFFFFF;
+}
+.task_bar .input img{
+    margin-top:10px;
+}
+.task_bar .total_score{
+    text-align: center;
+    font-family: 'Roboto';
+    font-size: 90px;
+    font-weight: 700;
+    color:#FFFFFF;
+    display: none;
+}
+.task_bar .score_button{
+    width:50%;
+    height:80px;
+    float: left;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(/src/images/assets/btn_stats.png);
+    display: none;
+}
+.task_bar .replay_button{
+    width:50%;
+    height:80px;
+    float: left;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(/src/images/assets/btn_replay.png);
+    display: none;
+}

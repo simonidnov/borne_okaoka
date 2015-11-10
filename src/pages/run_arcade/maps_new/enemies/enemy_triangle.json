@@ -1,0 +1,51 @@
+﻿{"frames": [
+
+{
+	"filename": "triangle0000",
+	"frame": {"x":0,"y":0,"w":160,"h":101},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":101},
+	"sourceSize": {"w":160,"h":101}
+}
+,{
+	"filename": "triangle0001",
+	"frame": {"x":160,"y":0,"w":160,"h":101},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":101},
+	"sourceSize": {"w":160,"h":101}
+}
+,{
+	"filename": "triangle0002",
+	"frame": {"x":320,"y":0,"w":160,"h":101},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":101},
+	"sourceSize": {"w":160,"h":101}
+}
+,{
+	"filename": "triangle0003",
+	"frame": {"x":480,"y":0,"w":160,"h":101},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":101},
+	"sourceSize": {"w":160,"h":101}
+}
+,{
+	"filename": "triangle0004",
+	"frame": {"x":640,"y":0,"w":160,"h":101},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":101},
+	"sourceSize": {"w":160,"h":101}
+}],
+"meta": {
+	"app": "Adobe Flash Professional",
+	"version": "14.2.0.20",
+	"image": "enemy_triangle.png",
+	"format": "RGBA8888",
+	"size": {"w":805,"h":103},
+	"scale": "1"
+}
+}

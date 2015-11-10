@@ -3,7 +3,7 @@
 /build/
 /dist/
 /cache/
-node_modules/
+/node_modules/
 CHANGELOG
 LICENSE
 /src/bower_components

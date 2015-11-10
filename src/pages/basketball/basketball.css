@@ -1,0 +1,10 @@
+.ball_zone{
+    width:100px;
+    height:100px;
+    border-radius: 100%;
+    position: absolute;
+    z-index: 9;
+    border:1px solid #FFF;
+    display:none;
+    box-sizing: border-box;
+}

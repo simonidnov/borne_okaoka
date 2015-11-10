@@ -2,8 +2,10 @@
 <html>
     <head>
         <title>Borne Okaidi</title>
+        <meta http-equiv="Access-Control-Allow-Origin" content="*">
         <link rel="stylesheet" type="text/css" href="css/app.css">
         <link rel="stylesheet" type="text/css" href="css/utilities.css">
+        <link rel="stylesheet" type="text/css" href="css/css_task_bar.css">
         <link rel="stylesheet" type="text/css" href="fonts/roboto/Roboto.css">
     </head>
     <body>
@@ -12,42 +14,41 @@
                 <canvas id="exit_button_canvas" width="100" height="100" style="background-color:rgba(0,0,0,0);"></canvas>
             </div>
         </div>
+        <div class="left_nav">
+            <div class="button" id="switchbutton"></div>
+        </div>
         <div class="app_content">
         </div>
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
-        <!--<script src="bower_components/html2canvas/build/html2canvas.min.js"></script>-->
-        <script src="bower_components/jquery-ui-draggable/jquery-ui-draggable.js"></script>
-        <!--<script src="bower_components/jquery-ui-touch-punch-master/jquery.ui.touch-punch.min.js"></script>-->
+        <!--<script src="bower_components/jquery-ui-draggable/jquery-ui-draggable.js"></script>-->
+        <!--<script src="bower_components/three.js/build/three.min.js"></script>-->
         <script src="bower_components/underscore/underscore-min.js"></script>
         <script src="bower_components/backbone/backbone-min.js"></script>
         <script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
+        <script src="bower_components/gsap/src/minified/plugins/BezierPlugin.min.js"></script>
         <script src="bower_components/gsap/src/minified/easing/EasePack.min.js"></script>
         <script src="bower_components/gsap/src/minified/plugins/ColorPropsPlugin.min.js"></script>
+        <!--<script src="bower_components/gsap/src/minified/utils/Draggable.min.js"></script>-->
         <script src="bower_components/PreloadJS/lib/preloadjs-0.6.1.combined.js"></script>
         <script src="bower_components/EaselJS/lib/easeljs-0.8.1.combined.js"></script>
+        <script src="bower_components/SoundJS/lib/soundjs-0.6.1.combined.js"></script>
         <script src="bower_components/EaselJS/lib/movieclip-0.8.1.combined.js"></script>
+        <script src="bower_components/iscroll/build/iscroll-infinite.js"></script>
+        <script src="js/audio_manager.js"></script>
+        <script src="js/css_task_bar.js"></script>
         <!--<script src="bower_components/EaselJS/lib/webgl-0.8.1.combined.js"></script>
         <script src="bower_components/SoundJS/lib/soundjs-0.6.1.combined.js"></script>-->
         <script src="bower_components/TweenJS/lib/tweenjs-0.6.1.combined.js"></script>
-        <!--<script src="js/app.js"></script>-->
+        <script src="js/app.js"></script>
         <script src="js/utilities.js"></script>
         <script src="js/navigation.js"></script>
-        
+        <script src="js/node_utilities.js"></script>
         <script src="images/assets/exit_button/exit_button.js"></script>
+        <script src="js/ajax_request.js"></script>
+        <script src="js/okaoka_api.js"></script>
         <script>
             $(document).ready(function(){
-                if(typeof gui !== "undefined"){
-                    gui.Window.get().showDevTools();
-                }
                 navigation.init();
-                var canvas, stage, exportRoot;
-                canvas = document.getElementById("exit_button_canvas");
-                exportRoot = new lib.exit_button();
-                stage = new createjs.Stage(canvas);
-                stage.addChild(exportRoot);
-                stage.update();
-                createjs.Ticker.setFPS(lib.properties.fps);
-                createjs.Ticker.addEventListener("tick", stage);
             });
         </script>
         
@@ -60,7 +61,40 @@
                     <% for(var i=0; i<buttons.length; i++){ %>
                         <div class="popup_btn" data-value="<%= i %>" id="btn_<%= buttons[i] %>" style="width:<%= 100 / buttons.length %>%;"></div>
                     <% } %>
-                    <div class="popup_btn" data-value="1" id="btn_yes"></div>
+                </div>
+            </div>
+        </script>
+        
+        <script type="text/template" id="score_popup_template">
+            <div class="content_popup" style="background-color:<%= utilities.colorLuminance(color, .05) %>;">
+                <div class="popup_header" style="border-bottom:1px solid <%= utilities.colorLuminance(color, -.1) %>;">
+                    <div class="left_icon"></div>
+                    <div class="right_icon"></div>
+                </div>
+                <div class="popup_list" id="score_wrapper">
+                    <% if(error !== ""){ %>
+                        <div class="connexion_error">
+                            <img src="./images/assets/no_connexion.png" width="100%;"/>
+                        </div>
+                    <% }else{ %>
+                        <div class="scroller" id="score_scroller">
+                            <% for(var i=0; i<list.length; i++){ %>
+                                <% if(parseInt(list[i].score) !== parseInt(score)){ %>
+                                    <div class="popup_line" style="background-color:<%= utilities.colorLuminance(color, .1) %>; border-bottom:1px solid <%= utilities.colorLuminance(color, -.1) %>;">
+                                        <div class="line_position"><%= (i+1) %></div>
+                                        <div class="line_score"><%= list[i].score %></div>
+                                    </div>
+                                <% }else{ %>
+                                    <% if($('#my_score').length === 0){ %>
+                                        <div class="popup_line my_score" id="my_score" style="background-color:<%= color %>; border-bottom:1px solid <%= utilities.colorLuminance(color, -.1) %>;" data-value="<%= i %>">
+                                            <div class="line_position"><%= (i+1) %></div>
+                                            <div class="line_score"><%= list[i].score %></div>
+                                        </div>
+                                    <% } %>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    <% } %>
                 </div>
             </div>
         </script>

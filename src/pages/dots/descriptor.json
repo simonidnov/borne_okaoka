@@ -2,9 +2,30 @@
     "label":"dots",
     "version":"0.0.0",
     "color":"yellow",
-    "dependencies":["dots.js", "motion/dots_motion.js"],
+    "dependencies":["dots.js", "../../motions/winning_dance_top_motion.js", "motion/dots_motion_2.js", "motion/dots_tuto_popup_motion.js", "../../motions/assets/count_3.js"],
     "styles":["dots.css"],
     "content":"dots.html",
     "script_name":"dots",
-    "motion":"dots_motion"
+    "motion":"dots_motion_2",
+    "sounds":[
+        {"label":"dots_select_0", "file":"./sounds/dots_select_0.ogg"},
+        {"label":"dots_select_1", "file":"./sounds/dots_select_1.ogg"},
+        {"label":"dots_select_2", "file":"./sounds/dots_select_2.ogg"},
+        {"label":"dots_select_3", "file":"./sounds/dots_select_3.ogg"},
+        {"label":"dots_select_4", "file":"./sounds/dots_select_4.ogg"},
+        {"label":"dots_select_5", "file":"./sounds/dots_select_5.ogg"},
+        {"label":"dots_select_6", "file":"./sounds/dots_select_6.ogg"},
+        {"label":"dots_select_7", "file":"./sounds/dots_select_7.ogg"},
+        {"label":"dots_select_8", "file":"./sounds/dots_select_8.ogg"},
+        {"label":"dots_select_9", "file":"./sounds/dots_select_9.ogg"},
+        {"label":"dots_select_10", "file":"./sounds/dots_select_10.ogg"},
+        {"label":"dots_select_shape", "file":"./sounds/dots_select_shape.ogg"},
+        {"label":"dots_ambiance", "file":"./sounds/dots_ambiance.ogg"},
+        {"label":"dots_break", "file":"./sounds/dots_break.ogg"},
+        {"label":"total_count", "file":"./sounds/total_count.ogg"},
+        {"label":"chronos_count", "file":"./sounds/chronos_count.ogg"},
+        {"label":"chronos_start", "file":"./sounds/chronos_start.ogg"},
+        {"label":"chronos_five_seconds", "file":"./sounds/chronos_five_seconds.ogg"},
+        {"label":"chronos_end", "file":"./sounds/chronos_end.ogg"}
+    ]
 }

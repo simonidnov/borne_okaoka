@@ -21,6 +21,70 @@
     -moz-border-radius: 10px;
     border-radius: 10px;
 }
+.popup_header{
+    height:100px;
+    width:100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+}
+.popup_header .left_icon{
+    width:100px;
+    height:100px;
+    left:0;
+    position: absolute;
+    background-image:url(../images/assets/okaoka_score.png);
+    background-size:auto 70%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.popup_header .right_icon{
+    width:100px;
+    height:100px;
+    right:0;
+    position: absolute;
+    background-image:url(../images/assets/btn_no.png);
+    background-size:auto 70%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.popup_line{
+    background-color: #008274;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+}
+.line_position{
+    float: left;
+    color: #FFFFFF;
+    font-size: 30px;
+    line-height: 50px;
+    padding-left: 20px;
+    font-family: roboto;
+}
+.line_score{
+    float: right;
+    padding-right: 20px;
+    font-size: 30px;
+    line-height: 50px;
+    color: #FFFFFF;
+    font-family: roboto;
+}
+.popup_list{
+    width:100%;
+    height:200px;
+    overflow: hidden;
+    position: relative;
+}
+.connexion_error{
+    width:120px;
+    height:120px;
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin:auto;
+}
 .popup_motion{
     margin:0;
     padding:0;
@@ -48,4 +112,14 @@
     right: 0;
     top: 0;
     bottom: 0;
+    -webkit-animation-name: btn_motion;
+    -webkit-animation-duration: 1000ms;
+    -webkit-transform-origin:50% 50%;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+@-webkit-keyframes btn_motion {
+    0% { -webkit-transform: scale(1); }
+    50% { -webkit-transform: scale(1.1); }
+    100% { -webkit-transform: rotate(1.1); }
 }

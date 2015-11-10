@@ -1,7 +1,7 @@
 {
   "name": "BorneOkaidi",
   "version": "0.1.0",
-  "description": "NW.js starter project powered by Gulp special Okaidi OKAOKA borne workshop.",
+  "description": "NW.js starter project powered by Simon special Okaidi OKAOKA borne workshop.",
   "scripts": {
     "postinstall": "(cd src && npm install)"
   },

@@ -6,7 +6,7 @@ var p; // shortcut to reference prototypes
 lib.properties = {
 	width: 900,
 	height: 400,
-	fps: 24,
+	fps: 40,
 	color: "#FFCC00",
 	manifest: []
 };
@@ -409,7 +409,7 @@ p.nominalBounds = new cjs.Rectangle(-2.5,4.7,27.5,53.8);
 	this.shape_89.setTransform(-0.8,-29.3);
 
 	this.shape_90 = new cjs.Shape();
-	this.shape_90.graphics.f().s("#FFFFFF").ss(5,1).p("ADvCjQgPAVgUAVQgcAbgeATQgPAJgRAHAA8EcQgdAGgfAAQh3AAhVhVQhVhVAAh4QAAh3BVhVQBVhVB3AAQB3AABWBVQBVBVAAB3QAABVgsBF");
+	this.shape_90.graphics.f().s("#FFFFFF").ss(5,1).p("AA8EcQgdAGgfAAQh3AAhVhVQhVhVAAh4QAAh3BVhVQBVhVB3AAQB3AABWBVQBVBVAAB3QAABVgsBFADvCjQgPAVgUAVQgcAbgeATQgPAJgRAH");
 	this.shape_90.setTransform(-0.8,-29.3);
 
 	this.shape_91 = new cjs.Shape();
