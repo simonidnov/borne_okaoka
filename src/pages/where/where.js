@@ -121,7 +121,9 @@ where.prototype.create_choices = function(){
             });
         }
         setTimeout(function(){
-            _okg.mix_positions(0);
+            if(_okg !== null){
+                _okg.mix_positions(0);
+            }
         },1200);
     },2000);
 }

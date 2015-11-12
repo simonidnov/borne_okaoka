@@ -45,7 +45,6 @@ maze.prototype.draw_level = function(){
                     this.maze_container.addChild(first_brick);
                 }
                 var last = {line:i,column:l};
-                console.log('this is the wall');
             }
         }
         if(i === this.maze_level.length-1){
@@ -132,15 +131,8 @@ maze.prototype.generateSquareMaze = function(dimension) {
 
     // Gnerate the maze recursively.
     field = iterate(field, 1, 1);
-    
     return field;
-
 }
-
-
-
-
-
 
 
 maze.prototype.update_chronos = function(){
@@ -250,7 +242,6 @@ maze.prototype.create_taskbar = function(){
 maze.prototype.destroy_circles = function(){
     for(var i=0; i<this.stage.getNumChildren(); i++){
         if(this.stage.getChildAt(i).name !== null){
-            console.log(this.stage.getChildAt(i).name.indexOf('circle'));
             if(this.stage.getChildAt(i).name.indexOf('circle') !== -1){
                 TweenMax.to(this.stage.getChildAt(i), .2, {scaleX:0, scaleY:0, onComplete:function(){
                     _okg.stage.removeChild($(this));

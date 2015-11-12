@@ -563,10 +563,22 @@ simplediscs.prototype.create_level = function(id){
         _okg.circles[i].y = -500;
         _okg.circles[i].x = 200;
         _okg.preview.addChild(_okg.circles[i]);
-        TweenMax.to(_okg.circles[i], .8, {
+        setTimeout(function(){
+            if(typeof _okg.disc_drop_sound === "undefined"){
+                audio_manager.play_sound('disc_drop', 0, function(e){
+                    _okg.disc_drop_sound = e;
+                });
+            }else{
+                _okg.disc_drop_sound.play();
+            }
+        },300);
+        TweenMax.to(_okg.circles[i], .7, {
             y:posy,
-            delay:.2*i,
-            ease:Power4.easeOut
+            delay:.3*i,
+            ease:Bounce.easeOut,
+            onComplete:function(){
+                
+            }
         });
     }
     _okg.response = Math.floor(Math.random()*4);

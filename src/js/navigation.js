@@ -90,7 +90,7 @@ var navigation = {
         }, 60000);
     },
     check_activity : function(){
-        if(navigation._current_page_name !== "screensaver" && navigation._current_page_name !== "video" && navigation._current_page_name !== "switcher" && navigation._current_page_name !== "settings" && navigation._current_page_name !== "endlessrunner"){
+        if(navigation._current_page_name !== "screensaver" && navigation._current_page_name !== "video" && navigation._current_page_name !== "switcher" && navigation._current_page_name !== "settings"  && navigation._current_page_name !== "maze" && navigation._current_page_name !== "endlessrunner"){
             if(new Date().getTime() - navigation._last_event > 60000){
                 navigation.router.navigate('page/screensaver', {trigger:true, replace:true});
                 //window.location.href = "index.html/#page/screensaver";
@@ -154,7 +154,6 @@ var navigation = {
                                 navigation.remove_dependencies();
                                 navigation.load_page(name);
                             }else{
-                                console.log('clear_page_memory');
                                 navigation.clear_page_memory(_okg, function(){
                                     _okg=null;
                                     navigation.remove_dependencies();
@@ -241,9 +240,7 @@ var navigation = {
         self._page_script = null;
         $.each(self.page_properties.dependencies, function(index, dependencie){
             delete dependencie.replace('.js', '');
-            //console.log("dependencie :: ",  dependencie);
             $('script[src="'+dependencie+'"]').remove();
-            //console.log($('script[src="'+dependencie+'"]').length);
         });
         $.each(self.page_properties.styles, function(index, style){
             $('link[href="pages/'+self._current_page_name+'/'+style+'"]').remove();
@@ -291,10 +288,16 @@ var navigation = {
         var self = this;
         if(typeof self.page_properties.sounds !== "undefined"){
             $.each(self.page_properties.sounds, function(i, audio){
-                audio_manager.load_sound(audio.file, audio.label);
+                audio_manager.load_sound(audio.file, audio.label, function(){
+                    if(i == self.page_properties.sounds.length-1){
+                        
+                    }
+                });
             });
         }
-        callBack();
+        setTimeout(function(){
+            callBack();
+        },1500);
     },
     load_styles : function(callBack){
         var self = this;
@@ -334,19 +337,24 @@ var navigation = {
 
             }, ease:Back.easeOut});
             //var canvas, stage, exportRoot;
-
-            canvas = document.getElementById("motion_canvas");
-            this.exportRoot = new lib[this.page_properties.motion]();
-            this.stage = new createjs.Stage(canvas);
-            this.exportRoot.regX = 450;
-            this.exportRoot.regY = 200;
-            this.exportRoot.x = window.innerWidth/2;
-            this.exportRoot.y = window.innerHeight/2;
-            this.stage.addChild(this.exportRoot);
-            this.stage.update();
-            //lib.properties.fps
-            createjs.Ticker.setFPS(40);
-            createjs.Ticker.addEventListener("tick", this.stage);
+            if(typeof self.page_properties.motion_sound !== "undefined"){
+                audio_manager.play_sound(self.page_properties.motion_sound, 0, function(e){
+                });
+            }
+            setTimeout(function(){
+                canvas = document.getElementById("motion_canvas");
+                self.exportRoot = new lib[self.page_properties.motion]();
+                self.stage = new createjs.Stage(canvas);
+                self.exportRoot.regX = 450;
+                self.exportRoot.regY = 200;
+                self.exportRoot.x = window.innerWidth/2;
+                self.exportRoot.y = window.innerHeight/2;
+                self.stage.addChild(self.exportRoot);
+                self.stage.update();
+                //lib.properties.fps
+                createjs.Ticker.setFPS(40);
+                createjs.Ticker.addEventListener("tick", self.stage);
+            }, 50);
         }else{
             setTimeout(function(){
                 audio_manager.play_ambiance(navigation.page_properties.label+'_ambiance', -1, function(e){

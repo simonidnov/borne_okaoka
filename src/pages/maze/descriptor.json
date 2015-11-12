@@ -2,13 +2,13 @@
     "label":"maze",
     "version":"0.0.0",
     "color":"purple",
-    "dependencies":["maze_phaser.js", "joystick.js", "../../motions/winning_dance_top_motion.js", "motion/maze_motion.js", "motion/maze_tuto_popup_motion.js", "../../motions/assets/count_3.js", "js/phaser-2.4.4.min.js"],
+    "dependencies":["maze_phaser.js", "joystick.js", "../../motions/winning_dance_top_motion.js", "motion/maze_motion.js", "../../motions/winning_dance_top_motion.js", "motion/maze_tuto_popup_motion.js", "../../motions/assets/count_3.js", "js/phaser-2.4.4.min.js"],
     "styles":["maze.css"],
     "content":"maze.html",
     "script_name":"maze",
     "motion":"maze_motion",
     "sounds":[
-        {"label":"drawing_hit", "file":"./sounds/draw_hit.ogg"},
-        {"label":"drawing_ambiance", "file":"./sounds/draw_ambiance.ogg"}
+        {"label":"maze_piece", "file":"./sounds/maze_piece.ogg"},
+        {"label":"maze_win", "file":"./sounds/maze_win.ogg"}
     ]
 }

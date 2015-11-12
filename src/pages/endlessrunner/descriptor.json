@@ -14,7 +14,9 @@
     "content":"run.html",
     "script_name":"run",
     "motion":"running_motion_3",
+    "motion_sound":"run_intro",
     "sounds":[
+        {"label":"run_intro", "file":"./sounds/run_intro.wav"},
         {"label":"run_jump", "file":"./sounds/run_jump.ogg"},
         {"label":"run_run", "file":"./sounds/run_running.ogg"},
         {"label":"run_died", "file":"./sounds/run_died.ogg"},

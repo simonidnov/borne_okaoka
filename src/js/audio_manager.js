@@ -13,9 +13,13 @@ var audio_manager = {
             audio_manager.load_sound(audio.file, audio.label);
         });
     },
-    load_sound : function(uri, id){
+    load_sound : function(uri, id, callBack){
+        var callBack = callBack;
         createjs.Sound.on("fileload", createjs.proxy(function(e){
             createjs.Sound.setDefaultPlayProps(id, {pan: 0.0001});
+            if(typeof callBack !== "undefined"){
+                callBack();
+            }
         }, (this)));
         createjs.Sound.registerSound(uri, id);
     },

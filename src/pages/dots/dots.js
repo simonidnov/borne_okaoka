@@ -236,6 +236,7 @@ dots.prototype.stage_up = function(e){
             });
         }else{
             _okg.check_selected_dots();
+            
         }
     }
 }
@@ -658,6 +659,13 @@ dots.prototype.check_selected_dots = function(){
                         }
                     }
                 }, onComplete:function(){
+                    if(typeof _okg._dots_break === "undefined"){
+                        audio_manager.play_sound('dots_break', 0, function(e){
+                            _okg._dots_break = e;
+                        });
+                    }else{
+                        _okg._dots_break.play();
+                    }
                     _okg._line.graphics.clear();
                     /* ---- Ensuite on replace les dots des lignes supérieures ---- */
                     for(var i=0; i<to_remove.length; i++){

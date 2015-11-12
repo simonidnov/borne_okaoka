@@ -7,7 +7,9 @@
     "content":"drawing.html",
     "script_name":"drawing",
     "motion":"drawing_motion",
+    "motion_sound":"drawing_intro",
     "sounds":[
+        {"label":"drawing_intro", "file":"./sounds/drawing_intro.wav"},
         {"label":"drawing_hit", "file":"./sounds/draw_hit.ogg"},
         {"label":"drawing_ambiance", "file":"./sounds/draw_ambiance.ogg"}
     ]

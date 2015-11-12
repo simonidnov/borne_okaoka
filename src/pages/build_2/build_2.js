@@ -481,7 +481,7 @@ build.prototype.end_game = function(){
             }, function(){
             });
             audio_manager.play_sound('total_count', 0, function(e){});
-            TweenMax.to(scored, .8, {
+            TweenMax.to(scored, 2.5, {
                 total : total,
                 delay:.6,
                 onUpdate : function(){
@@ -491,7 +491,7 @@ build.prototype.end_game = function(){
                     var score = "";
                     var num = Math.ceil(scored.total);
                     if(num.toString().length < 3){
-                        var dif = 3 - num.toString().length;
+                        var dif = 5 - num.toString().length;
                         for(var i=0; i<dif; i++){
                             score+="0";
                         }

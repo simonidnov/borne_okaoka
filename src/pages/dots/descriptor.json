@@ -7,7 +7,9 @@
     "content":"dots.html",
     "script_name":"dots",
     "motion":"dots_motion_2",
+    "motion_sound":"dots_intro",
     "sounds":[
+        {"label":"dots_intro", "file":"./sounds/dots_intro.wav"},
         {"label":"dots_select_0", "file":"./sounds/dots_select_0.ogg"},
         {"label":"dots_select_1", "file":"./sounds/dots_select_1.ogg"},
         {"label":"dots_select_2", "file":"./sounds/dots_select_2.ogg"},
@@ -21,7 +23,7 @@
         {"label":"dots_select_10", "file":"./sounds/dots_select_10.ogg"},
         {"label":"dots_select_shape", "file":"./sounds/dots_select_shape.ogg"},
         {"label":"dots_ambiance", "file":"./sounds/dots_ambiance.ogg"},
-        {"label":"dots_break", "file":"./sounds/dots_break.ogg"},
+        {"label":"dots_break", "file":"./sounds/dots_breaks.ogg"},
         {"label":"total_count", "file":"./sounds/total_count.ogg"},
         {"label":"chronos_count", "file":"./sounds/chronos_count.ogg"},
         {"label":"chronos_start", "file":"./sounds/chronos_start.ogg"},

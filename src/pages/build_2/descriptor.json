@@ -7,7 +7,9 @@
     "content":"build_2.html",
     "script_name":"build",
     "motion":"build_motion",
+    "motion_sound":"build_intro",
     "sounds":[
+        {"label":"build_intro", "file":"./sounds/build_intro.wav"},
         {"label":"build_2_ambiance", "file":"./sounds/build_2_ambiance.ogg"},
         {"label":"build_2_drop", "file":"./sounds/build_2_drop.ogg"},
         {"label":"build_2_explode", "file":"./sounds/build_2_explode.ogg"},

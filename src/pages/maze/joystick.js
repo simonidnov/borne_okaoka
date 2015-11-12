@@ -100,5 +100,5 @@ joystick.prototype.drag_stop = function(){
     }});
 }
 joystick.prototype.destroy = function(){
-    
+    this._joystick.destroy();
 }

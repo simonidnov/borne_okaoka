@@ -115,7 +115,7 @@ menu.prototype.display_apps = function(page){
             $('#'+page+'_'+app+' .screen_center svg #shadow').attr('fill', $('#'+page+'_'+app).attr('data-color'));
         });
     });
-    audio_manager.play_sound('menu_create', 0, function(){});
+    //audio_manager.play_sound('menu_create', 0, function(){});
     if(('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0)){
         $('.brick').off('touchend').on('touchend', function(evt){
             navigation.set_update_events();

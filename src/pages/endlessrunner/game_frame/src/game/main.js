@@ -93,6 +93,10 @@ game.createScene('Main', {
                 var triangle_coin = new game.Triangle_coin(game.system.width+(80*i), randY);
             }
         }
+        else if (rand < 0.4) {
+            var oneway = new game.Oneway(game.system.width, window.innerHeight - 350);
+            //window.innerHeight - 300 - (Math.random() * 150));
+        }
         else if (rand < 0.5) {
             var oneway = new game.Watter(game.system.width, window.innerHeight - 60);
             //window.innerHeight - 300 - (Math.random() * 150));

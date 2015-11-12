@@ -99,7 +99,7 @@ var utilities = {
         this.overstage = new createjs.Stage(canvas);
         this.overstage.addChild(this.current_over_motion);
         this.overstage.update();
-        createjs.Ticker.setFPS(40);
+        createjs.Ticker.setFPS(60);
         createjs.Ticker.addEventListener("tick", this.overstage);
     },
     destroy_over_motion : function(){
@@ -193,7 +193,9 @@ var utilities = {
         TweenMax.to($('.content_popup'), .5, {css:{scaleX:0, scaleY:0}, ease:Back.easeIn, onComplete:function(){
             TweenMax.to($('.app_popup'), .5, {opacity:0, onComplete:function(){
                 $('.app_popup').remove();
-                navigation._page_script.play();
+                if(typeof navigation._page_script !== "undefined" && navigation._page_script !== null){
+                    navigation._page_script.play();
+                }
             }});
         }});
         if(typeof utilities._close_popup_sound === "undefined"){

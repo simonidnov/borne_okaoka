@@ -1,10 +1,10 @@
 function css_task_bar(infos){
-    if($('#task_bar').length === 0){
-        $('body').append('<div id="task_bar" class="task_bar"></div>');
-    }
-    this._target = $('#'+infos.target);
     this._game_name = infos.game_name;
     this._inputs = infos.inputs;
+    if($('#task_bar').length === 0){
+        $('body').append('<div id="task_bar" class="task_bar" style="width:'+((_.keys(this._inputs).length)*80)+'px;"></div>');
+    }
+    this._target = $('#'+infos.target);
     this.create();
 }
 css_task_bar.prototype.create = function(){
@@ -40,8 +40,8 @@ css_task_bar.prototype.end_game = function(motion, total){
     }});
     TweenMax.to($(this._target), .5, {css:{"top":(window.innerHeight/2)-50}, onComplete:function(){
         utilities.create_over_motion({
-            size:{width:290, height:200},
-            position:{x:((window.innerWidth/2)-150), y:((window.innerHeight/2) - 300)},
+            size:{width:400, height:200},
+            position:{x:((window.innerWidth/2)-200), y:((window.innerHeight/2) - 300)},
             motion:motion
         }, function(){
         });

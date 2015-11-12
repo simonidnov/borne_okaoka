@@ -155,11 +155,8 @@ node_utilities.prototype.insert_datas = function(table, datas, callBack){
         keys+=", saved";
         vals+=', "false"';
     }*/
-    console.log("keys :: ", keys);
-    console.log("vals :: ", vals);
     this.db.transaction(function (tx) {
         tx.executeSql('CREATE TABLE IF NOT EXISTS '+table+' (id unique, '+keys+')');
-        console.log('INSERT INTO '+table+' ('+keys+') VALUES ('+vals+')');
         tx.executeSql('INSERT INTO '+table+' ('+keys+') VALUES ('+vals+')');
     });
     this.close_database();
@@ -201,7 +198,6 @@ node_utilities.prototype.get_datas = function(table, datas, callBack){
         limit = " LIMIT "+datas.limit;
         delete datas.limit;
     }
-    console.log("SELECT * FROM "+table+""+where+""+limit);
     this.db.transaction(function (tx) {
         tx.executeSql("SELECT * FROM "+table+""+where+""+limit, [], function (tx, results) {
             var len = results.rows.length, i;
