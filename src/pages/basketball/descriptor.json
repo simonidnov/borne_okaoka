@@ -16,7 +16,7 @@
     "motion":"basketball_game_motion",
     "motion_sound":"basket_intro",
     "sounds":[
-        {"label":"basket_intro", "file":"./sounds/basketball_intro.wav"},
+        {"label":"basket_intro", "file":"./sounds/basketball_intro.ogg"},
         {"label":"basket_launch", "file":"./sounds/basket_launch.ogg"},
         {"label":"basket_win", "file":"./sounds/basket_win.ogg"},
         {"label":"basket_rebond", "file":"./sounds/basket_rebond.ogg"},

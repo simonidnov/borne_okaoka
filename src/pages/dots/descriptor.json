@@ -9,7 +9,7 @@
     "motion":"dots_motion_2",
     "motion_sound":"dots_intro",
     "sounds":[
-        {"label":"dots_intro", "file":"./sounds/dots_intro.wav"},
+        {"label":"dots_intro", "file":"./sounds/dots_intro.ogg"},
         {"label":"dots_select_0", "file":"./sounds/dots_select_0.ogg"},
         {"label":"dots_select_1", "file":"./sounds/dots_select_1.ogg"},
         {"label":"dots_select_2", "file":"./sounds/dots_select_2.ogg"},

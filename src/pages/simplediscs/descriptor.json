@@ -10,7 +10,7 @@
     "motion_sound":"discs_intro",
     "sounds":[
         {"label":"disc_drop", "file":"./sounds/disc_drop.ogg"},
-        {"label":"discs_intro", "file":"./sounds/discs_intro.wav"},
+        {"label":"discs_intro", "file":"./sounds/discs_intro.ogg"},
         {"label":"disc_win", "file":"./sounds/disc_win.ogg"},
         {"label":"disc_fail", "file":"./sounds/disc_fail.ogg"},
         {"label":"simplediscs_ambiance", "file":"./sounds/disc_ambiance.ogg"},
