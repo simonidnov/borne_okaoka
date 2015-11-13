@@ -56,7 +56,7 @@ basketball.prototype.preload = function(){
 }
 basketball.prototype.create = function(){
     
-    _okg.game.time.events.loop(Phaser.Timer.SECOND/30, _okg.check_basket, this);
+    _okg.game.time.events.loop(Phaser.Timer.SECOND/20, _okg.check_basket, this);
     
     _okg.game.time.events.loop(Phaser.Timer.SECOND * 2, _okg.clean_game, this);
     
@@ -786,7 +786,7 @@ basketball.prototype.mousemove = function(evt){
                 }else{
                     _okg.trajectory.lineTo(trajectoryPoint.x, trajectoryPoint.y);    
                 }
-                _okg.bitmap.context.fillStyle = 'rgba(255,255,255,'+(((50*i)/1000))+')';
+                //_okg.bitmap.context.fillStyle = 'rgba(255,255,255,'+(((50*i)/1000))+')';
             }
             //_okg.bitmap.context.fillRect(trajectoryPoint.x-3, trajectoryPoint.y-3, 6, 6);     
         }  
@@ -856,15 +856,17 @@ basketball.prototype.touchmove = function(evt){
                     var ball = _okg.player2.balls[_okg.player2.balls.length-1];
                 }
                 for (var i = 0; i < 50; i++){
-                    var velocity = _okg.get_velocity({x:touch.pageX, y:touch.pageY}, ball);
-                    var trajectoryPoint = _okg.getTrajectoryPoint(ball.x+25, ball.y+25, velocity.x, velocity.y, i);
-                    if(i === 0){
-                        _okg.trajectory.moveTo(trajectoryPoint.x, trajectoryPoint.y);    
-                    }else{
-                        _okg.trajectory.lineTo(trajectoryPoint.x, trajectoryPoint.y);    
+                    if(i%2 === 0){
+                        var velocity = _okg.get_velocity({x:touch.pageX, y:touch.pageY}, ball);
+                        var trajectoryPoint = _okg.getTrajectoryPoint(ball.x+25, ball.y+25, velocity.x, velocity.y, i);
+                        if(i === 0){
+                            _okg.trajectory.moveTo(trajectoryPoint.x, trajectoryPoint.y);    
+                        }else{
+                            _okg.trajectory.lineTo(trajectoryPoint.x, trajectoryPoint.y);    
+                        }
+                        //_okg.bitmap.context.fillStyle = 'rgba(255,255,255,'+(((50*i)/1000))+')';
                     }
-                    _okg.bitmap.context.fillStyle = 'rgba(255,255,255,'+(((50*i)/1000))+')';
-                    _okg.bitmap.context.fillRect(trajectoryPoint.x-3, trajectoryPoint.y-3, 6, 6);        
+                    //_okg.bitmap.context.fillRect(trajectoryPoint.x-3, trajectoryPoint.y-3, 6, 6);        
                 } 
             }
         }
