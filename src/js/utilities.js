@@ -229,6 +229,7 @@ var utilities = {
         }
     },
     save_page_stat : function(page, date){
+        console.log(page," ::: ",date);
         if(typeof _node === "undefined"){
             _node = new node_utilities();
         }
@@ -243,10 +244,16 @@ var utilities = {
                 {
                     "type":"TEXT",
                     "value":date
+                },
+                "saved":
+                {
+                    "type":"TEXT",
+                    "value":"false"
                 } 
             },
             function(e){
                 //callBack(e);
+                console.log("back from sqlite :::: ", e);
             }
         );
     },
@@ -266,6 +273,11 @@ var utilities = {
                 "score":{
                     "type":"TEXT",
                     "value":score
+                },
+                "saved":
+                {
+                    "type":"TEXT",
+                    "value":"false"
                 }
             },
             function(e){

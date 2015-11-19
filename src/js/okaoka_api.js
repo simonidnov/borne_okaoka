@@ -16,6 +16,9 @@ var okaoka_api = {
             _node = new node_utilities();
             _node.init_device();
         }
+        if(typeof _node.os === "undefined"){
+            _node.init_device();
+        }
         this.set_user();
         this.get_location(function(){
             console.log('location ok');
@@ -202,11 +205,14 @@ var okaoka_api = {
                 }
             },
             function(e){
+                console.log('stats ', e);
                 /* SI LE CODE DE RETOUR N'EST PAS = 200 ON AJOUTE LA COLUMN SAVED A LA TABLE */
                 if(e.code !== 200){
+                    console.log('200 stats ', e);
                     //ALTER TABLE stats ADD COLUMN saved {type};
                     _node.execute("ALTER TABLE stats ADD COLUMN saved TEXT DEFAULT 'false'", function(){});
                 }else{
+                    console.log('true stats ', e.datas);
                     /* HAVE TO UPLOAD ALL STATS WHERE STATUS SAVED = FALSE */
                     ajax_request.post(
                         'stats', 
@@ -216,8 +222,7 @@ var okaoka_api = {
                         }, 
                         function(e){
                             /* SET ALL STATS ON POSTED STATUS SAVED TRUE */
-                            _node.update_saved_datas("stats", function(e){
-                            });
+                            _node.update_saved_datas("stats", function(e){});
                         }
                     );
                 }
@@ -270,6 +275,11 @@ var okaoka_api = {
                     var request = new XMLHttpRequest();
                     request.open("POST", ajax_request._base_url+"picture");
                     request.send(formData);
+                    setTimeout(function(){
+                        _node.delete_picture(picture.filename, function(){
+                            console.log("file deleted from local");
+                        });
+                    });
                 });
                 _node.update_saved_datas("pictures", function(e){});
             }

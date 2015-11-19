@@ -1,6 +1,6 @@
 var ajax_request = {
     _ajax : null,
-    _base_url : "http://ws.okaoka.local/api/okaoka/",
+    _base_url : "http://rx1930mut009.d01.local/api/okaoka/",
     _format : 'json',
     _callBack : null,
     init : function(){

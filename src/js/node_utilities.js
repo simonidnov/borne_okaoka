@@ -54,6 +54,18 @@ node_utilities.prototype.create_folder = function(directory, callBack){
         }
     });
 }
+node_utilities.prototype.delete_picture = function(filename, callback){
+    if(typeof this.fs === 'undefined'){
+        this.init_fileSystem();
+    }
+    //imageData.replace('data:image/png;base64,', '');
+    //var base64Data = imageData.replace(/^data:image\/png;base64,/, "");
+    if( !this.fs.existsSync( this.get_user_home()+'/okaoka/pictures/'+filename ) )  this.fs.openSync( this.get_user_home()+'/okaoka/pictures/'+filename, "wx" );
+    
+    this.fs.unlink(this.get_user_home()+'/okaoka/pictures/'+filename, function(){
+        callBack();
+    });
+}
 node_utilities.prototype.save_picture = function(bitmapData, base_filname, datas, callBack){
     if(typeof require === "undefined"){
         return {"error":"require is not defined"};
@@ -78,8 +90,12 @@ node_utilities.prototype.save_picture = function(bitmapData, base_filname, datas
             }, 
             "votes":{
                 "type":"TEXT",
-                "value":0
+                "value":"0"
             }, 
+            "saved":{
+                "type":"TEXT",
+                "value":"false"
+            } 
         },
         function(e){
             callBack(e);
@@ -98,7 +114,7 @@ node_utilities.prototype.write_file = function(folder, filename, imageData, type
     this.fs.writeFile(folder+'/'+filename, base64Data, 'base64', function(err){
         callBack(err);
         if (err) throw err
-    })
+    });
 }
 node_utilities.prototype.read_file = function(filename, callBack){
     if(typeof this.fs === 'undefined'){
